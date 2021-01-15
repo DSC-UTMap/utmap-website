@@ -1,8 +1,9 @@
 Mentor: Shahmeer Shahid
 
-Frontend:
+Frontend: 
 
 Full-stack:
 Kana Hashimoto
+Qianqian Feng
 
 Backend:
