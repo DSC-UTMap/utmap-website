@@ -3,5 +3,6 @@ Mentor: Shahmeer Shahid
 Frontend:
 
 Full-stack:
+Kana Hashimoto
 
 Backend:
