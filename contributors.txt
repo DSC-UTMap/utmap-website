@@ -1,6 +1,7 @@
 Mentor: Shahmeer Shahid
 
-Frontend:
+Frontend: 
+Qianqian Feng
 
 Full-stack:
 
