@@ -1,6 +1,8 @@
-Mentor: Shahmeer Shahid
+Mentor: 
+Shahmeer Shahid
 
 Frontend: 
+Jiwan Toor
 
 Full-stack:
 Kana Hashimoto
