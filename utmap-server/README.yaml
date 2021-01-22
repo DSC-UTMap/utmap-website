@@ -1,4 +1,4 @@
-swagger: '2.0'
+swagger: '2.0'  
 info:
   description: This is a simple API that shows how UTMap will perform its operations
   version: 1.0.0
