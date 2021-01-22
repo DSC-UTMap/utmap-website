@@ -10,24 +10,9 @@ class App extends Component{
   //example events REMOVE once the backend is connected
   state = {
     events: [
-      {
-        id: 0,
-        title: 'First Event',
-        start: new Date('2021-01-23 00:00'),
-        end: new Date('2021-01-23 01:00'),
-      },
-      {
-        id: 1,
-        title: 'Second Event',
-        start: new Date('2021-01-30 00:00'),
-        end: new Date('2021-01-31 01:00'),
-      },
-      {
-        id: 2,
-        title: 'Third Event',
-        start: new Date('2021-03-01 00:00'),
-        end: new Date('2021-03-01 15:00'),
-      }
+      { startDate: '2021-01-03T09:45', endDate: '2021-01-03T10:00', title: 'Cry and Code' },
+      { startDate: '2021-01-27T12:00', endDate: '2021-01-29T13:30', title: 'Attend Andis Awesome Lecture' },
+      { startDate: '2021-03-27T12:00', endDate: '2021-03-30T13:30', title: 'Get jacked' }
     ]
   }
 

@@ -1,33 +1,29 @@
-import React, { Component } from 'react'
-import { Calendar, momentLocalizer } from "react-big-calendar";
-import moment from 'moment';
-import "react-big-calendar/lib/css/react-big-calendar.css";
+import * as React from 'react';
+import Paper from '@material-ui/core/Paper';
+import { ViewState } from '@devexpress/dx-react-scheduler';
+import {
+  Scheduler,
+  MonthView,
+  Toolbar,
+  DateNavigator,
+  Appointments,
+  TodayButton,
+} from '@devexpress/dx-react-scheduler-material-ui';
 
-moment.locale("en-CA");
-const localizer = momentLocalizer(moment);
-
-class CalendarPage extends Component {
-    getStyle = () => {
-        return {
-            height: 700, //needs a strict height or flexbox to show month calendar
-            padding: '20px',
-        }
-    }
-    render() {
-        return (
-            <div style={this.getStyle()}>
-                <Calendar 
-                    localizer={localizer} 
-                    defaultView='month'
-                    step={60}
-                    events={this.props.events} 
-                    startAccessor="start" 
-                    endAccessor="end" 
-                    showMultiDayTimes  
-                />
-            </div>
-        );
-    }
+//Scheduler is the calendar, today, and taskbar components
+function CalendarPage(props) {
+    return (
+        <Paper>
+            <Scheduler data={props.events}>
+            <ViewState />
+            <MonthView />
+            <Toolbar />
+            <DateNavigator />
+            <TodayButton />
+            <Appointments />
+            </Scheduler>
+        </Paper>
+    );
 }
 
 export default CalendarPage;
