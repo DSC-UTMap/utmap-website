@@ -33,13 +33,16 @@ class App extends Component{
 
   render(){
     return(
+      //Landing, Calendar, and Map Page
       <Router>
         <div className="App">
-          <Route exact path="/" component={LandingPage}/>
+          <Route exact path="/" component={LandingPage}/>    
           <Route 
             path="/calendar" 
             render={props => (
-              <CalendarPage {...props} events={this.state.events} />
+              <React.Fragment>
+                <CalendarPage events={this.state.events} />
+              </React.Fragment>
             )} 
           />
           <Route path="/map" component={MapPage}/>
@@ -48,7 +51,6 @@ class App extends Component{
           <div><Link to="/map">Map</Link></div>
         </div>
      </Router>
-      //sends the events from state to our BigCalendar
     )
   }
 }
