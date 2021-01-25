@@ -65,10 +65,10 @@ function CreateEventPage() {
 		<Paper className={formStyle.paper} >
 			<form className='eventForm' action='' method='post' onSubmit={handleSubmit}>
 			<Grid container spacing={3}>
-	 			<Grid item className={formStyle.row}>
 
+	 			<Grid item className={formStyle.row}>
 					<CreateIcon/>
-		            <TextField
+	        <TextField
 						className={formStyle.longBox}
 						id='eventTitle'
 						variant='outlined'
@@ -76,7 +76,7 @@ function CreateEventPage() {
 						label='Title'
 						required
 						autofocus
-		            />
+	      	/>
 				</Grid>
 
 
@@ -163,7 +163,7 @@ function CreateEventPage() {
 			</Grid>
 			</form>
 		</Paper>
-    	</div>
+    </div>
 	);
 }
 
