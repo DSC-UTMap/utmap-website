@@ -16,7 +16,7 @@ import { DateTimePicker, MuiPickersUtilsProvider } from "@material-ui/pickers";
 import { makeStyles } from '@material-ui/core/styles';
 import { useHistory } from "react-router-dom";
 
-const useStyles = makeStyles(theme => ({
+const useStyles = makeStyles(theme => ({ //CSS styles on components
   box: {
     display: 'flex',
     alignItems: 'center',
@@ -52,17 +52,21 @@ function CreateEventPage() {
   const formStyle = useStyles(); 
   const [selectedDate, handleDateChange] = useState(new Date());
   const [location, setLocation] = useState('SC');
-  let history = useHistory();
+  let history = useHistory(); //For Router redirection
 
   const handleLocationChange = event => setLocation(event.target.value);
-  const handleSubmit = () => history.push('/');
-
+  //This is where the form will send to server
+  const handleSubmit = event => {
+    event.preventDefault(); //Stop the form from submitting
+    history.push('/'); //Redirect to this page
+  }
   return (
     <div className={formStyle.box}>
       <Paper className={formStyle.paper} >
-        <form className='eventForm' action='' method='post'>
+        <form className='eventForm' action='' method='post' onSubmit={handleSubmit}>
         <Grid container spacing={3}>
           <Grid item className={formStyle.row}>
+
             <CreateIcon/>
             <TextField
               className={formStyle.longBox}
@@ -74,6 +78,7 @@ function CreateEventPage() {
               autofocus
             />
           </Grid>
+
 
           <Grid item className={formStyle.row}>
             <CalendarTodayIcon/>
@@ -98,6 +103,7 @@ function CreateEventPage() {
               />
             </MuiPickersUtilsProvider>
           </Grid>
+
 
           <Grid item className={formStyle.row}>
             <AddLocationIcon/>
@@ -130,6 +136,7 @@ function CreateEventPage() {
             />
           </Grid>
 
+
           <Grid item className={formStyle.row}>
             <DescriptionIcon/>
             <TextField
@@ -143,12 +150,12 @@ function CreateEventPage() {
             />
           </Grid>
 
+
           <Grid item className={formStyle.row} justify='flex-end'>
             <Button 
               variant='contained' 
               color='primary'
               type='submit'
-              onClick={handleSubmit}
             >
               Submit
             </Button>
