@@ -63,105 +63,105 @@ function CreateEventPage() {
 	return (
 		<div className={formStyle.box}>
 		<Paper className={formStyle.paper} >
-		<form className='eventForm' action='' method='post' onSubmit={handleSubmit}>
-		<Grid container spacing={3}>
- 			<Grid item className={formStyle.row}>
+			<form className='eventForm' action='' method='post' onSubmit={handleSubmit}>
+			<Grid container spacing={3}>
+	 			<Grid item className={formStyle.row}>
 
-				<CreateIcon/>
-	            <TextField
-					className={formStyle.longBox}
-					id='eventTitle'
-					variant='outlined'
-					name='title'
-					label='Title'
-					required
-					autofocus
-	            />
-			</Grid>
-
-
-			<Grid item className={formStyle.row}>
-				<CalendarTodayIcon/>
-				<MuiPickersUtilsProvider utils={DateFnsUtils}>
- 					<DateTimePicker 
-						className={formStyle.shortBox}
-						name='startDate'
-						value={selectedDate}
-						onChange={handleDateChange} 
-						inputVariant='outlined'
-						label='Start Date'
-						disablePast
-					/>
-					<DateTimePicker 
-						className={formStyle.shortBox}
-						name='endDate'
-						value={selectedDate}
-						onChange={handleDateChange} 
-						inputVariant='outlined'
-						label='End Date'
-						disablePast
-					/>
-				</MuiPickersUtilsProvider>
-			</Grid>
+					<CreateIcon/>
+		            <TextField
+						className={formStyle.longBox}
+						id='eventTitle'
+						variant='outlined'
+						name='title'
+						label='Title'
+						required
+						autofocus
+		            />
+				</Grid>
 
 
-			<Grid item className={formStyle.row}>
-				<AddLocationIcon/>
-				<FormControl 
-					className={formStyle.shortBox} 
-					variant='outlined' 
-					required
-				>
-					<InputLabel>Location</InputLabel>
-					<Select
-						id='eventLocation'
-						name='location'
-						value={location}
-						onChange={handleLocationChange}
-						label='Location *'
+				<Grid item className={formStyle.row}>
+					<CalendarTodayIcon/>
+					<MuiPickersUtilsProvider utils={DateFnsUtils}>
+	 					<DateTimePicker 
+							className={formStyle.shortBox}
+							name='startDate'
+							value={selectedDate}
+							onChange={handleDateChange} 
+							inputVariant='outlined'
+							label='Start Date'
+							disablePast
+						/>
+						<DateTimePicker 
+							className={formStyle.shortBox}
+							name='endDate'
+							value={selectedDate}
+							onChange={handleDateChange} 
+							inputVariant='outlined'
+							label='End Date'
+							disablePast
+						/>
+					</MuiPickersUtilsProvider>
+				</Grid>
+
+
+				<Grid item className={formStyle.row}>
+					<AddLocationIcon/>
+					<FormControl 
+						className={formStyle.shortBox} 
+						variant='outlined' 
+						required
 					>
-						<MenuItem value='SC'>Student Center</MenuItem>
-						<MenuItem value='DV'>Davis (DV)</MenuItem>
-						<MenuItem value='IB'>Instructional Building (IB)</MenuItem>
-						<MenuItem value='DH'>Deerfield Hall (DH)</MenuItem>
-						<MenuItem value='MN'>Maanjiwe Nendamowinan (MN)</MenuItem>
-					</Select>
-				</FormControl>
-				<TextField
-					className={formStyle.shortBox}
-					id='eventSublocation'
-					name='sublocation'
-					variant='outlined'
-					label='Room'
-				/>
+						<InputLabel>Location</InputLabel>
+						<Select
+							id='eventLocation'
+							name='location'
+							value={location}
+							onChange={handleLocationChange}
+							label='Location *'
+						>
+							<MenuItem value='SC'>Student Center</MenuItem>
+							<MenuItem value='DV'>Davis (DV)</MenuItem>
+							<MenuItem value='IB'>Instructional Building (IB)</MenuItem>
+							<MenuItem value='DH'>Deerfield Hall (DH)</MenuItem>
+							<MenuItem value='MN'>Maanjiwe Nendamowinan (MN)</MenuItem>
+						</Select>
+					</FormControl>
+					<TextField
+						className={formStyle.shortBox}
+						id='eventSublocation'
+						name='sublocation'
+						variant='outlined'
+						label='Room'
+					/>
+				</Grid>
+
+
+				<Grid item className={formStyle.row}>
+					<DescriptionIcon/>
+					<TextField
+						className={formStyle.longBox}
+						id="eventDescription"
+						name='description'
+						label='Description'
+						multiline
+						rows={4}
+						variant='outlined'
+					/>
+				</Grid>
+
+
+				<Grid item className={formStyle.row} justify='flex-end'>
+					<Button 
+						variant='contained' 
+						color='primary'
+						type='submit'
+					>
+						Submit
+					</Button>
+				</Grid>
 			</Grid>
-
-
-			<Grid item className={formStyle.row}>
-				<DescriptionIcon/>
-				<TextField
-					className={formStyle.longBox}
-					id="eventDescription"
-					name='description'
-					label='Description'
-					multiline
-					rows={4}
-					variant='outlined'
-				/>
-			</Grid>
-
-
-			<Grid item className={formStyle.row} justify='flex-end'>
-				<Button 
-					variant='contained' 
-					color='primary'
-					type='submit'
-				>
-					Submit
-				</Button>
-			</Grid>
-		</Grid>
-		</form>
+			</form>
 		</Paper>
     	</div>
 	);
