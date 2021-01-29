@@ -65,9 +65,9 @@ def addLocation():
     coords = request.json['coords']
     subLocations = request.json['subLocations']
 
-    isInLocations = locations.find_one({'name' : str(name)})
+    loc = locations.find_one({'name' : str(name)})
 
-    if isInLocations:
+    if loc:
         output = 'location already exists.'
     else:
         location_id = locations.insert({
@@ -87,6 +87,55 @@ def addLocation():
             'coords' : newLoc['coords'],
             'subLocations' : newLoc['subLocations']
             }
+
+    return jsonify({'result' : output})
+
+@app.route('/location/<_id>', methods=['PUT'])
+def updateLocation(_id):
+    locations = mongo.get_collection('location')
+
+    loc = locations.find_one({'_id' : ObjectId(_id)})
+
+    name = request.json['name']
+    code = request.json['code']
+    coords = request.json['coords']
+    subLocations = request.json['subLocations']
+
+    fields = ['name', 'code', 'coords', 'subLocations']
+    fieldVals = [name, code, coords, subLocations]
+    fieldBools = [len(str(name)) > 0, len(str(code)) == 2, len(list(coords)) == 2, True]
+
+    if loc:
+        for i in range(len(fields)):
+            if fieldBools[i]:
+                locations.update_one(loc, {'$set': {fields[i] : fieldVals[i]}})
+                loc = locations.find_one({'_id' : ObjectId(_id)})    
+        subDict = loc['subLocations']
+        for sub in subDict:
+            subDict[sub]['_id'] = str(subDict[sub]['_id'])
+            evList = subDict[sub]['events']
+            for ev in evList:
+                ev['_id'] = str(ev['_id'])
+        output = {
+            '_id' : str(loc["_id"]),
+            'name' : loc['name'], 
+            'code' : loc['code'], 
+            'coords' : loc['coords'],
+            'subLocations' : loc['subLocations']
+            }
+    else:
+        output = 'location does not exist.'
+
+    return jsonify({'result' : output})
+
+@app.route('/location/<_id>', methods=['DELETE'])
+def deleteLocationByID(_id):
+    locations = mongo.get_collection('location')
+
+    if locations.find_one_and_delete({'_id' : ObjectId(_id)}):
+        output = 'location deleted successfully'
+    else:
+        output = 'location not found.'
 
     return jsonify({'result' : output})
 
