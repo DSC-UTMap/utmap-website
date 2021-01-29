@@ -50,16 +50,28 @@ const useStyles = makeStyles(theme => ({ //CSS styles on components
 
 function CreateEventPage() {
 	const formStyle = useStyles(); 
-	const [selectedDate, handleDateChange] = useState(new Date());
+	const [startDate, setStartDate] = useState(new Date());
+	const [endDate, setEndDate] = useState(new Date());
 	const [location, setLocation] = useState('SC');
+	const [title, setTitle] = useState('');
+	const [sublocation, setSublocation] = useState('');
+	const [description, setDescription] = useState('');
 	let history = useHistory(); //For Router redirection
 
-	const handleLocationChange = event => setLocation(event.target.value);
 	//This is where the form will send to server
 	const handleSubmit = event => {
 		event.preventDefault(); //Stop the form from submitting
-		history.push('/'); //Redirect to this page
+		//Send info???
+		const eventForm = {
+			title, 
+			startDate: startDate.toLocaleString('en-US', { timeZone: 'America/New_York' }), 
+			endDate: endDate.toLocaleString('en-US', { timeZone: 'America/New_York' }),
+			location, sublocation, description};
+		console.table(eventForm);
+		//history.push('/calendar'); //Redirect to this page
 	}
+
+
 	return (
 		<div className={formStyle.box}>
 		<Paper className={formStyle.paper} >
@@ -74,6 +86,8 @@ function CreateEventPage() {
 						variant='outlined'
 						name='title'
 						label='Title'
+						value={title}
+						onChange={event => setTitle(event.target.value)}
 						required
 						autofocus
 	      	/>
@@ -86,8 +100,8 @@ function CreateEventPage() {
 	 					<DateTimePicker 
 							className={formStyle.shortBox}
 							name='startDate'
-							value={selectedDate}
-							onChange={handleDateChange} 
+							value={startDate}
+							onChange={setStartDate} 
 							inputVariant='outlined'
 							label='Start Date'
 							disablePast
@@ -95,8 +109,8 @@ function CreateEventPage() {
 						<DateTimePicker 
 							className={formStyle.shortBox}
 							name='endDate'
-							value={selectedDate}
-							onChange={handleDateChange} 
+							value={endDate}
+							onChange={setEndDate} 
 							inputVariant='outlined'
 							label='End Date'
 							disablePast
@@ -117,7 +131,7 @@ function CreateEventPage() {
 							id='eventLocation'
 							name='location'
 							value={location}
-							onChange={handleLocationChange}
+							onChange={event => setLocation(event.target.value)}
 							label='Location *'
 						>
 							<MenuItem value='SC'>Student Center</MenuItem>
@@ -133,6 +147,8 @@ function CreateEventPage() {
 						name='sublocation'
 						variant='outlined'
 						label='Room'
+						value={sublocation}
+						onChange={event => setSublocation(event.target.value)}
 					/>
 				</Grid>
 
@@ -147,6 +163,8 @@ function CreateEventPage() {
 						multiline
 						rows={4}
 						variant='outlined'
+						value={description}
+						onChange={event => setDescription(event.target.value)}
 					/>
 				</Grid>
 
