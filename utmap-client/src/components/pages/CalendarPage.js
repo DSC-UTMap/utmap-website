@@ -1,12 +1,14 @@
 import React from "react";
 import Paper from '@material-ui/core/Paper';
-import { ViewState } from '@devexpress/dx-react-scheduler';
+import {  ViewState } from '@devexpress/dx-react-scheduler';
 import {
   Scheduler,
   MonthView,
   Toolbar,
   DateNavigator,
   Appointments,
+  AppointmentForm,
+  AppointmentTooltip,
   TodayButton,
 } from '@devexpress/dx-react-scheduler-material-ui';
 
@@ -28,6 +30,12 @@ const exampleEvents = [
             <DateNavigator />
             <TodayButton />
             <Appointments />
+            <AppointmentTooltip 
+                showCloseButton
+            />
+            <AppointmentForm 
+                readOnly 
+            />
             </Scheduler>
         </Paper>
     );    
