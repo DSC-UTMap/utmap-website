@@ -32,6 +32,7 @@ const exampleEvents = [
             <Appointments />
             <AppointmentTooltip 
                 showCloseButton
+                showOpenButton
             />
             <AppointmentForm 
                 readOnly 
