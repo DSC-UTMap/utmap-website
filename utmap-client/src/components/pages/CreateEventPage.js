@@ -66,7 +66,6 @@ function CreateEventPage({onClose, addEvent}) {
 			startDate: startDate.toLocaleString('en-US', { timeZone: 'America/New_York' }), 
 			endDate: endDate.toLocaleString('en-US', { timeZone: 'America/New_York' }),
 			location, sublocation, description};
-		console.table(eventForm);
 		addEvent(eventForm);
 		onClose();
 	}
