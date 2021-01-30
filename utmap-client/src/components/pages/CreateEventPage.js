@@ -48,9 +48,8 @@ const useStyles = makeStyles(theme => ({ //CSS styles on components
 }));
 
 
-function CreateEventPage({onClose}) {
+function CreateEventPage({onClose, addEvent}) {
 	const formStyle = useStyles(); 
-	//const [open, setOpen] = React.useState(false);
 	const [startDate, setStartDate] = useState(new Date());
 	const [endDate, setEndDate] = useState(new Date());
 	const [location, setLocation] = useState('SC');
@@ -68,6 +67,8 @@ function CreateEventPage({onClose}) {
 			endDate: endDate.toLocaleString('en-US', { timeZone: 'America/New_York' }),
 			location, sublocation, description};
 		console.table(eventForm);
+		addEvent(eventForm);
+		onClose();
 	}
 
 
@@ -92,6 +93,7 @@ function CreateEventPage({onClose}) {
 						label='Title'
 						value={title}
 						onChange={event => setTitle(event.target.value)}
+						autoComplete='off'
 						required
 						autofocus
 	      	/>

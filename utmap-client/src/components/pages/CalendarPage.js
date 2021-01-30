@@ -1,4 +1,4 @@
-import React from "react";
+import React, {useCallback, useState} from "react";
 import Paper from '@material-ui/core/Paper';
 import Button from '@material-ui/core/Button';
 import AddIcon from '@material-ui/icons/Add';
@@ -23,7 +23,8 @@ const exampleEvents = [
 
 //Scheduler is the calendar, today, and taskbar components
 function CalendarPage() {
-	const [openEventForm, setOpenEventForm] = React.useState(false);
+	const [openEventForm, setOpenEventForm] = useState(false);
+	const [eventList, setEventList] = useState(exampleEvents);
 	
 	const handleCloseEventForm = () => {
 		setOpenEventForm(false);
@@ -31,11 +32,15 @@ function CalendarPage() {
 	const handleOpenEventForm = () => {
 		setOpenEventForm(true);
 	}
+	const addEvent = useCallback((eventData) => {
+		setEventList([...eventList, eventData]);
+		console.table(eventList);
+	}, [eventList]);
 
 	return (
 		<>
 		  <Paper>
-		    <Scheduler data={exampleEvents}>
+		    <Scheduler data={eventList}>
 		    <ViewState />
 		    <MonthView />
 		    <Toolbar />
@@ -54,7 +59,7 @@ function CalendarPage() {
 				Create
 			</Button>
 			<Dialog open={openEventForm} onClose={handleCloseEventForm}>
-				<CreateEventPage onClose={handleCloseEventForm}/>
+				<CreateEventPage onClose={handleCloseEventForm} addEvent={addEvent}/>
 			</Dialog>
 		</>
   );    
