@@ -1,5 +1,8 @@
 import React from "react";
 import Paper from '@material-ui/core/Paper';
+import Button from '@material-ui/core/Button';
+import AddIcon from '@material-ui/icons/Add';
+import Dialog from '@material-ui/core/Dialog';
 import { ViewState } from '@devexpress/dx-react-scheduler';
 import {
   Scheduler,
@@ -9,6 +12,7 @@ import {
   Appointments,
   TodayButton,
 } from '@devexpress/dx-react-scheduler-material-ui';
+import CreateEventPage from './CreateEventPage';
 
 //example events REMOVE once the backend is connected
 const exampleEvents = [
@@ -18,19 +22,42 @@ const exampleEvents = [
 ]
 
 //Scheduler is the calendar, today, and taskbar components
- function CalendarPage() {    
-    return (
-        <Paper>
-            <Scheduler data={exampleEvents}>
-            <ViewState />
-            <MonthView />
-            <Toolbar />
-            <DateNavigator />
-            <TodayButton />
-            <Appointments />
-            </Scheduler>
-        </Paper>
-    );    
+function CalendarPage() {
+	const [openEventForm, setOpenEventForm] = React.useState(false);
+	
+	const handleCloseEventForm = () => {
+		setOpenEventForm(false);
+	}
+	const handleOpenEventForm = () => {
+		setOpenEventForm(true);
+	}
+
+	return (
+		<>
+		  <Paper>
+		    <Scheduler data={exampleEvents}>
+		    <ViewState />
+		    <MonthView />
+		    <Toolbar />
+		    <DateNavigator />
+		    <TodayButton />
+		    <Appointments />
+		    </Scheduler>
+		  </Paper>
+			{/* Add event button */}
+			<Button
+				variant='contained' 
+				color='primary'
+				startIcon={<AddIcon/>}
+				onClick={handleOpenEventForm}
+			>
+				Create
+			</Button>
+			<Dialog open={openEventForm} onClose={handleCloseEventForm}>
+				<CreateEventPage onClose={handleCloseEventForm}/>
+			</Dialog>
+		</>
+  );    
 }
 
 export default CalendarPage;

@@ -7,6 +7,8 @@ import FormControl from '@material-ui/core/FormControl';
 import InputLabel from '@material-ui/core/InputLabel';
 import Select from '@material-ui/core/Select';
 import MenuItem from '@material-ui/core/MenuItem';
+import IconButton from '@material-ui/core/IconButton';
+import CloseIcon from '@material-ui/icons/Close';
 import CreateIcon from '@material-ui/icons/Create';
 import CalendarTodayIcon from '@material-ui/icons/CalendarToday';
 import AddLocationIcon from '@material-ui/icons/AddLocation';
@@ -14,7 +16,6 @@ import DescriptionIcon from '@material-ui/icons/Description';
 import DateFnsUtils from '@date-io/date-fns';
 import { DateTimePicker, MuiPickersUtilsProvider } from "@material-ui/pickers";
 import { makeStyles } from '@material-ui/core/styles';
-import { useHistory } from "react-router-dom";
 
 const useStyles = makeStyles(theme => ({ //CSS styles on components
 	box: {
@@ -25,7 +26,6 @@ const useStyles = makeStyles(theme => ({ //CSS styles on components
 	},
 	paper: {
 		width: '40rem',
-		marginTop: theme.spacing(6),
 		paddingTop: theme.spacing(4),
 		paddingBottom: theme.spacing(6),
 		paddingLeft: theme.spacing(2),
@@ -48,15 +48,15 @@ const useStyles = makeStyles(theme => ({ //CSS styles on components
 }));
 
 
-function CreateEventPage() {
+function CreateEventPage({onClose}) {
 	const formStyle = useStyles(); 
+	//const [open, setOpen] = React.useState(false);
 	const [startDate, setStartDate] = useState(new Date());
 	const [endDate, setEndDate] = useState(new Date());
 	const [location, setLocation] = useState('SC');
 	const [title, setTitle] = useState('');
 	const [sublocation, setSublocation] = useState('');
 	const [description, setDescription] = useState('');
-	let history = useHistory(); //For Router redirection
 
 	//This is where the form will send to server
 	const handleSubmit = event => {
@@ -68,7 +68,6 @@ function CreateEventPage() {
 			endDate: endDate.toLocaleString('en-US', { timeZone: 'America/New_York' }),
 			location, sublocation, description};
 		console.table(eventForm);
-		//history.push('/calendar'); //Redirect to this page
 	}
 
 
@@ -77,6 +76,11 @@ function CreateEventPage() {
 		<Paper className={formStyle.paper} >
 			<form className='eventForm' action='' method='post' onSubmit={handleSubmit}>
 			<Grid container spacing={3}>
+				{onClose ? (
+	        <IconButton aria-label="close" onClick={onClose}>
+	          <CloseIcon />
+	        </IconButton>
+	      ) : null}
 
 	 			<Grid item className={formStyle.row}>
 					<CreateIcon/>
