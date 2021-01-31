@@ -8,8 +8,13 @@ client = MongoClient('localhost', 27017)
 
 mongo = client.get_database("UTMap")
 
+class LocationController:
+    def __init__(self, locations):
+        self.locations = locations
+
 @app.route('/location', methods=['GET'])
 def getAllLocations():
+    
     locations = mongo.get_collection('location')
 
     output = []
