@@ -15,7 +15,7 @@ const exampleEvents =
     you can do that and more. We rent our couches so you can cry on a comfortable surface. 
     It's okay if you just want to chill and cry with friends or use this time to improve
     your CS skills. As a pro-coder and crier, I use this event everyday. Sometimes we allow
-    students to book their own room in advanced so if you wanted to blast Comftoratably
+    students to book their own room in advanced so if you wanted to blast Comfortably
     Numb, we got you! Maybe your dog died or your partner broke up with you but you got an
     Assignment due in 12 hours. Don't worry we got professional yellers to motivate you!
     They will come into your private room and yell at you while you cry.`,
