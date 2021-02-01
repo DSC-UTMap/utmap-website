@@ -54,11 +54,6 @@ const useStyles = makeStyles(theme => ({ //CSS styles on components
 
 function SingleEventPage({startDate, endDate, title, description, location, sublocation, organizer}) {
 	const classes = useStyles();
-	
-	//strings for the dates and location
-	const startDateString = "Start Date: " + (new Date(startDate)).toLocaleString()
-	const endDateString = "End Date: " + (new Date(endDate)).toLocaleString()
-	const locationString = sublocation + " in " + location
 
 	//expand for description
 	const [expanded, setExpanded] = React.useState(false);
@@ -66,9 +61,9 @@ function SingleEventPage({startDate, endDate, title, description, location, subl
     	setExpanded(!expanded);
 	  };
 	  
-    return (
-        <div className={classes.box}>
-            <Paper className={classes.paper}>
+	return (
+		<div className={classes.box}>
+			<Paper className={classes.paper}>
 				<GridList cellHeight='auto' cols={1}>
 
 					{/* Close and Edit Icons */}
@@ -100,19 +95,19 @@ function SingleEventPage({startDate, endDate, title, description, location, subl
 
 					{/* Location */}
 					<Typography variant="subtitle1" align="center">
-						{locationString}
+						{sublocation + " in " + location}
 					</Typography>
 
 					{/* Dates and Times */}
 					<Grid item className={classes.row}>
 						<Grid item xs="6" align="center">
 							<Typography variant="subtitle2" align="center">
-								{startDateString}
+								{"Start Date: " + (new Date(startDate)).toLocaleString()}
 							</Typography>
 						</Grid>
 						<Grid item xs="6" align="center">
 							<Typography variant="subtitle2" align="center">
-								{endDateString}
+								{"End Date: " + (new Date(endDate)).toLocaleString()}
 							</Typography>
 						</Grid>
 					</Grid>
@@ -130,7 +125,7 @@ function SingleEventPage({startDate, endDate, title, description, location, subl
 					</Collapse>
 
 				</GridList>
-            </Paper>
+			</Paper>
         </div>
     );
 }
