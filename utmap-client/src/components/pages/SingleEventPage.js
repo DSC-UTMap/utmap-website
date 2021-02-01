@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import {
 	Avatar,
 	Collapse,
@@ -56,7 +56,7 @@ function SingleEventPage({startDate, endDate, title, description, location, subl
 	const classes = useStyles();
 
 	//expand for description
-	const [expanded, setExpanded] = React.useState(false);
+	const [expanded, setExpanded] = useState(false);
   	const handleExpandClick = () => {
     	setExpanded(!expanded);
 	  };
