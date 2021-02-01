@@ -75,7 +75,7 @@ def addLocation():
     if loc:
         output = 'location already exists.'
     else:
-        location_id = locations.insert({
+        location_id = locations.insert_one({
             'name' : name, 'code' : code, 'coords' : coords, 'subLocations' :subLocations
             })
         newLoc = locations.find_one({'_id' : location_id})
