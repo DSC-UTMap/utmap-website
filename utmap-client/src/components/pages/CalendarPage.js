@@ -7,8 +7,6 @@ import {
   Toolbar,
   DateNavigator,
   Appointments,
-  AppointmentForm,
-  AppointmentTooltip,
   TodayButton,
 } from '@devexpress/dx-react-scheduler-material-ui';
 
@@ -30,13 +28,6 @@ const exampleEvents = [
             <DateNavigator />
             <TodayButton />
             <Appointments />
-            <AppointmentTooltip 
-                showCloseButton
-                showOpenButton
-            />
-            <AppointmentForm 
-                readOnly 
-            />
             </Scheduler>
         </Paper>
     );    
