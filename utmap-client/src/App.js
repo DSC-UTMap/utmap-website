@@ -3,7 +3,6 @@ import {BrowserRouter as Router, Route, Link} from 'react-router-dom';
 import LandingPage from './components/pages/LandingPage';
 import CalendarPage from './components/pages/CalendarPage';
 import MapPage from './components/pages/MapPage';
-import CreateEventPage from './components/pages/CreateEventPage';
 import SingleEventPage from "./components/pages/SingleEventPage";
 
 //example event for single event page. REMOVE once single event connected to calendar
@@ -32,7 +31,6 @@ function App() {
         <Route exact path="/" component={LandingPage}/>    
         <Route path="/calendar" component={CalendarPage}/>
         <Route path="/map" component={MapPage}/>
-        <Route path="/createEvent" component={CreateEventPage}/>
         {/* single event. REMOVE route when conncted to calendar */}
         <Route 
           path="/singleEvent" 
@@ -52,7 +50,6 @@ function App() {
         <div><Link to="/">Landing</Link></div>
         <div><Link to="/calendar">Calendar</Link></div>
         <div><Link to="/map">Map</Link></div>
-        <div><Link to="/createEvent">Create an Event</Link></div>
         <div><Link to="/singleEvent">Single Event</Link></div>
       </div>
     </Router>

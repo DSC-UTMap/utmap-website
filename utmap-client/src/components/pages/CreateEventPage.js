@@ -7,6 +7,8 @@ import FormControl from '@material-ui/core/FormControl';
 import InputLabel from '@material-ui/core/InputLabel';
 import Select from '@material-ui/core/Select';
 import MenuItem from '@material-ui/core/MenuItem';
+import IconButton from '@material-ui/core/IconButton';
+import CloseIcon from '@material-ui/icons/Close';
 import CreateIcon from '@material-ui/icons/Create';
 import CalendarTodayIcon from '@material-ui/icons/CalendarToday';
 import AddLocationIcon from '@material-ui/icons/AddLocation';
@@ -14,7 +16,6 @@ import DescriptionIcon from '@material-ui/icons/Description';
 import DateFnsUtils from '@date-io/date-fns';
 import { DateTimePicker, MuiPickersUtilsProvider } from "@material-ui/pickers";
 import { makeStyles } from '@material-ui/core/styles';
-import { useHistory } from "react-router-dom";
 
 const useStyles = makeStyles(theme => ({ //CSS styles on components
 	box: {
@@ -25,7 +26,6 @@ const useStyles = makeStyles(theme => ({ //CSS styles on components
 	},
 	paper: {
 		width: '40rem',
-		marginTop: theme.spacing(6),
 		paddingTop: theme.spacing(4),
 		paddingBottom: theme.spacing(6),
 		paddingLeft: theme.spacing(2),
@@ -48,23 +48,39 @@ const useStyles = makeStyles(theme => ({ //CSS styles on components
 }));
 
 
-function CreateEventPage() {
+function CreateEventPage({onClose, addEvent}) {
 	const formStyle = useStyles(); 
-	const [selectedDate, handleDateChange] = useState(new Date());
+	const [startDate, setStartDate] = useState(new Date());
+	const [endDate, setEndDate] = useState(new Date());
 	const [location, setLocation] = useState('SC');
-	let history = useHistory(); //For Router redirection
+	const [title, setTitle] = useState('');
+	const [sublocation, setSublocation] = useState('');
+	const [description, setDescription] = useState('');
 
-	const handleLocationChange = event => setLocation(event.target.value);
 	//This is where the form will send to server
 	const handleSubmit = event => {
 		event.preventDefault(); //Stop the form from submitting
-		history.push('/'); //Redirect to this page
+		//Send info???
+		const eventForm = {
+			title, 
+			startDate: startDate.toLocaleString('en-US', { timeZone: 'America/New_York' }), 
+			endDate: endDate.toLocaleString('en-US', { timeZone: 'America/New_York' }),
+			location, sublocation, description};
+		addEvent(eventForm);
+		onClose();
 	}
+
+
 	return (
 		<div className={formStyle.box}>
 		<Paper className={formStyle.paper} >
 			<form className='eventForm' action='' method='post' onSubmit={handleSubmit}>
 			<Grid container spacing={3}>
+				{onClose ? (
+	        <IconButton aria-label="close" onClick={onClose}>
+	          <CloseIcon />
+	        </IconButton>
+	      ) : null}
 
 	 			<Grid item className={formStyle.row}>
 					<CreateIcon/>
@@ -74,6 +90,9 @@ function CreateEventPage() {
 						variant='outlined'
 						name='title'
 						label='Title'
+						value={title}
+						onChange={event => setTitle(event.target.value)}
+						autoComplete='off'
 						required
 						autofocus
 	      	/>
@@ -86,8 +105,8 @@ function CreateEventPage() {
 	 					<DateTimePicker 
 							className={formStyle.shortBox}
 							name='startDate'
-							value={selectedDate}
-							onChange={handleDateChange} 
+							value={startDate}
+							onChange={setStartDate} 
 							inputVariant='outlined'
 							label='Start Date'
 							disablePast
@@ -95,8 +114,8 @@ function CreateEventPage() {
 						<DateTimePicker 
 							className={formStyle.shortBox}
 							name='endDate'
-							value={selectedDate}
-							onChange={handleDateChange} 
+							value={endDate}
+							onChange={setEndDate} 
 							inputVariant='outlined'
 							label='End Date'
 							disablePast
@@ -117,7 +136,7 @@ function CreateEventPage() {
 							id='eventLocation'
 							name='location'
 							value={location}
-							onChange={handleLocationChange}
+							onChange={event => setLocation(event.target.value)}
 							label='Location *'
 						>
 							<MenuItem value='SC'>Student Center</MenuItem>
@@ -133,6 +152,8 @@ function CreateEventPage() {
 						name='sublocation'
 						variant='outlined'
 						label='Room'
+						value={sublocation}
+						onChange={event => setSublocation(event.target.value)}
 					/>
 				</Grid>
 
@@ -147,6 +168,8 @@ function CreateEventPage() {
 						multiline
 						rows={4}
 						variant='outlined'
+						value={description}
+						onChange={event => setDescription(event.target.value)}
 					/>
 				</Grid>
 

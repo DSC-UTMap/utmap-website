@@ -1,6 +1,9 @@
-import React from "react";
+import React, {useCallback, useState} from "react";
 import Paper from '@material-ui/core/Paper';
-import {  ViewState } from '@devexpress/dx-react-scheduler';
+import Button from '@material-ui/core/Button';
+import AddIcon from '@material-ui/icons/Add';
+import Dialog from '@material-ui/core/Dialog';
+import { ViewState } from '@devexpress/dx-react-scheduler';
 import {
   Scheduler,
   MonthView,
@@ -9,6 +12,7 @@ import {
   Appointments,
   TodayButton,
 } from '@devexpress/dx-react-scheduler-material-ui';
+import CreateEventPage from './CreateEventPage';
 
 //example events REMOVE once the backend is connected
 const exampleEvents = [
@@ -18,19 +22,46 @@ const exampleEvents = [
 ]
 
 //Scheduler is the calendar, today, and taskbar components
- function CalendarPage() {    
-    return (
-        <Paper>
-            <Scheduler data={exampleEvents}>
-            <ViewState />
-            <MonthView />
-            <Toolbar />
-            <DateNavigator />
-            <TodayButton />
-            <Appointments />
-            </Scheduler>
-        </Paper>
-    );    
+function CalendarPage() {
+	const [openEventForm, setOpenEventForm] = useState(false);
+	const [eventList, setEventList] = useState(exampleEvents);
+	
+	const handleCloseEventForm = () => {
+		setOpenEventForm(false);
+	}
+	const handleOpenEventForm = () => {
+		setOpenEventForm(true);
+	}
+	const addEvent = useCallback((eventData) => {
+		setEventList([...eventList, eventData]);
+	}, [eventList]);
+
+	return (
+		<>
+		  <Paper>
+		    <Scheduler data={eventList}>
+		    <ViewState />
+		    <MonthView />
+		    <Toolbar />
+		    <DateNavigator />
+		    <TodayButton />
+		    <Appointments />
+		    </Scheduler>
+		  </Paper>
+			{/* Add event button */}
+			<Button
+				variant='contained' 
+				color='primary'
+				startIcon={<AddIcon/>}
+				onClick={handleOpenEventForm}
+			>
+				Create
+			</Button>
+			<Dialog open={openEventForm} onClose={handleCloseEventForm}>
+				<CreateEventPage onClose={handleCloseEventForm} addEvent={addEvent}/>
+			</Dialog>
+		</>
+  );    
 }
 
 export default CalendarPage;
