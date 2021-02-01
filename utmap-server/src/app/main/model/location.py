@@ -1,9 +1,11 @@
 from .. import db
-from .modelHelpers import findById, findByName, formatId, assignId
+from .modelHelpers import (
+    findAll, findById, deleteById, findByName, formatId, assignId, formatDocuments
+    )
 from bson import ObjectId
 
 class Location:
-    def __init__(self, _id=None, name='Dummy', code='NA', x=0, y=0, subLocations={}):
+    def __init__(self, _id=None, name='Connector', code='NA', x=0, y=0, subLocations={}):
         self._id = _id
         self.name = name
         self.code = code
@@ -16,6 +18,10 @@ class Location:
 
     def findLocById(self, _id, locations):
         loc = findById(_id, locations)
+        return loc
+
+    def deleteLocById(self, _id, locations):
+        loc = deleteById(_id, locations)
         return loc
     
     def findLocByName(self, name, locations):
@@ -43,22 +49,37 @@ class Location:
         else:
             self.subLocations[subLocation.name] = subLocation
 
-    def formatSublocations(self, location):
-        #for sub in self.subLocations:
-        pass
+    def formatAllLocs(self, locations):
+        output = []
+        for loc in findAll(locations):
+            output.append(self.formatOneLoc(loc))
+        return output
 
-    def formatAsResponseBody(self):
+    def formatOneLoc(self, locObject):
+        tempLoc = self.createTempLoc(locObject)
+        output = (tempLoc.formatAsResponseBody(tempLoc))
+        return output
+    
+    def createTempLoc(self, locObject):
+        tempLoc = Location(
+                _id=locObject['_id'], name=locObject['name'], code=locObject['code'],
+                x=locObject['coords'][0], y=locObject['coords'][1], 
+                subLocations=locObject['subLocations'])
+        return tempLoc
+
+    def formatSubLocations(self, locObject):
+        self.subLocations = locObject['subLocations']
+        for sub in self.subLocations:
+            self.subLocations[sub]['_id'] = formatId(self.subLocations[sub]['id'])
+            self.subLocations[sub]['events'] = formatDocuments(self.subLocations[sub]['events'])
+        return self.subLocations
+
+    def formatAsResponseBody(self, locObject):
         output = {
             '_id' : formatId(self._id),
             'name' : self.name, 
             'code' : self.code, 
             'coords' : self.coords,
-            'subLocations' : self.subLocations
+            'subLocations' : self.formatSubLocations(locObject)
             }
         return output
-
-
-
-    
-
-    
