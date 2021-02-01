@@ -1,4 +1,5 @@
 from .. import db
+from .modelHelpers import findById, findByName
 from bson import ObjectId
 
 class Location:
@@ -8,18 +9,29 @@ class Location:
         self.name = name
         self.code = code
         self.coords = [x, y]
-        self.subLocation = subLocations
+        self.subLocations = subLocations
     
     def connectToLocations(self):
         locations = db.get_collection('location')
         return locations
 
     def findLocById(self, _id, locations):
-        loc = locations.find_one({'id' : ObjectId(_id)})
+        loc = findById(_id, locations)
+        return loc
+    
+    def findLocByName(self, name, locations):
+        loc = findByName(name, locations)
         return loc
 
     def updateName(self, newName):
         self.name = newName
+        return self.name
+
+    def addSubLocations(self, subLocation):
+        if subLocation.name in self.subLocations:
+            print(self.name + " already has this sublocation.")
+        else:
+            self.subLocations[subLocation.name] = subLocation
 
 
     
