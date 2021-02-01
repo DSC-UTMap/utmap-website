@@ -14,7 +14,7 @@ def getEventByID(_id):
     
     ev = events.find_one({'_id' : ObjectId(_id)})
 
-    if events:
+    if ev:
         output = {
             '_id' : str(ev["_id"]),
             'name' : ev['name'], 

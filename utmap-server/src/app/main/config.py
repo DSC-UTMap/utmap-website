@@ -36,9 +36,3 @@ configByName = dict(
 key = Config.SECRET_KEY
 
 dbName = 'UTMap'
-
-collectionByName = dict(
-    loc='location',
-    subLoc='subLocation',
-    ev='event'
-    )
