@@ -1,3 +1,5 @@
+#This file is obsolete and only used as a rough guide.  It will be deleted soon.
+
 from flask import Flask, jsonify, request
 from pymongo import MongoClient
 from bson import ObjectId
@@ -7,10 +9,6 @@ app = Flask(__name__)
 client = MongoClient('localhost', 27017)
 
 mongo = client.get_database("UTMap")
-
-class LocationController:
-    def __init__(self, locations):
-        self.locations = locations
 
 @app.route('/location', methods=['GET'])
 def getAllLocations():

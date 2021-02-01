@@ -1,8 +1,8 @@
 from flask import Flask
 from pymongo import MongoClient
-from .config import configByName, dbName, collectionByName
+from .config import configByName, dbName
 
-db = MongoClient(None).get_database(None)
+db = MongoClient('localhost', 27017).get_database(dbName)
 
 def createApp(configName):
     app = Flask(__name__)
