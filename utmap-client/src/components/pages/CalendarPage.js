@@ -22,8 +22,12 @@ const exampleEvents = [
 //Scheduler is the calendar, today, and taskbar components
 function CalendarPage() { 
 	const [openEventInfo, setOpenEventInfo] = useState(false);
+	const [eventInfo, setEventInfo] = useState(
+		{ startDate: '2021-01-03T09:45', endDate: '2021-01-03T10:00', title: 'Blank' });
 
-	const handleOpenEventInfo = () => {
+	const handleOpenEventInfo = (data) => {
+		//set data that will be passed into the event popup
+		setEventInfo(data);
 		setOpenEventInfo(true);
 	}
 	const handleCloseEventInfo = () => {
@@ -34,7 +38,7 @@ function CalendarPage() {
 		return (
 			<Appointments.Appointment
 				{...props}
-				onClick={handleOpenEventInfo}
+				onClick={() => handleOpenEventInfo(props.data)}
 			/>
 		);
 	}
@@ -57,7 +61,8 @@ function CalendarPage() {
 			<Dialog open={openEventInfo} onClose={handleCloseEventInfo}>
 				{/* Placeholder for event popup box*/}
 				<Paper>
-					<p>Event information here</p>
+					<h4>{eventInfo.title}</h4>
+					<p>From {eventInfo.startDate} to {eventInfo.endDate}.</p>
 				</Paper>
 			</Dialog>
 		</>
