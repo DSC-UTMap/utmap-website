@@ -1,6 +1,6 @@
 from flask import jsonify
-from app.main import db as utMap
 from app.main.model.location import Location
+from bson import ObjectId
 
 def addLocation(data):
     location = Location()
@@ -12,7 +12,7 @@ def addLocation(data):
             'status': 'fail',
             'message': 'Location already exists.'
         }
-        return jsonify(responseObject, 409)
+        return jsonify({'result' : responseObject, 'status' : 409})
     else:
         newLocation = Location(
             name=data['name'], code=data['code'],x=data['coords'][0], 
@@ -20,7 +20,6 @@ def addLocation(data):
         )
         newId = newLocation.assignLocationId(locations)
         newLoc = location.findLocById(newId, locations)
-        #newLocation.formatSublocations(newLoc)
         responseBody = newLocation.formatAsResponseBody(newLoc)
         
         responseObject = {
@@ -28,10 +27,17 @@ def addLocation(data):
             'message': 'Location successfully added',
             'body' : responseBody
         }
-        return jsonify(responseObject, 201)
+        return jsonify({'result' : responseObject, 'status' : 201})
 
-def updateLocation(data):
-    pass
+def updateLocation(_id, data):
+    #location = Location()
+    #locations = location.connectToLocations()
+    #loc = location.findLocById(_id, locations)
+    responseObject = {
+            'status': 'success',
+            'message': 'PUT successfuly tested'
+    }
+    return jsonify({'result' : responseObject, 'status' : 200})
 
 def getAllLocations():
     location = Location()
@@ -43,7 +49,7 @@ def getAllLocations():
         'message': 'Found all locations',
         'body' : responseBody
         }
-    return jsonify(responseObject, 200)
+    return jsonify({'result' : responseObject, 'status' : 200})
 
 def getOneLocation(_id):
     location = Location()
@@ -56,14 +62,13 @@ def getOneLocation(_id):
         'message': 'Found one location',
         'body' : responseBody
         }
-        return jsonify(responseObject, 200)
+        return jsonify({'result' : responseObject, 'status' : 200})
     else:
         responseObject = {
         'status': 'fail',
-        'message': 'Location not found',
-        'body' : responseBody
+        'message': 'Location not found'
         }
-        return jsonify(responseObject, 404)
+        return jsonify({'result' : responseObject, 'status' : 404})
 
 def deleteOneLocation(_id):
     location = Location()
@@ -73,11 +78,11 @@ def deleteOneLocation(_id):
             'status': 'success',
             'message': 'Location successfully deleted'
         }
-        return jsonify(responseObject, 200)
+        return jsonify({'result' : responseObject, 'status' : 200})
     else:
         responseObject = {
             'status': 'fail',
             'message': 'Location not found'
         }
-        return jsonify(responseObject, 404)
+        return jsonify({'result' : responseObject, 'status' : 404})
     
