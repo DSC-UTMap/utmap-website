@@ -12,6 +12,7 @@ def createApp(configName):
     return app
 
 def createClient(configName):
+    global db
     host = configByName[configName].MONGODB_HOST
     port = configByName[configName].MONGODB_PORT
     client = MongoClient(host, port)
