@@ -21,7 +21,7 @@ class Location:
         return loc
 
     def deleteLocById(self, _id, locations):
-        loc = deleteById(_id, locations)
+        loc = deleteById(formatId(_id), locations)
         return loc
     
     def findLocByName(self, name, locations):
@@ -29,15 +29,15 @@ class Location:
         return loc
 
     def assignLocationId(self, locations):
-        attributes = {
+        fields = {
             'name' : self.name,
             'code' : self.code,
             'coords' : self.coords,
             'subLocations' : self.subLocations
         }
-        self._id = assignId(attributes, locations)
-        locId = self._id
-        return locId
+        locId = assignId(fields, locations).inserted_id
+        self._id = formatId(locId)
+        return self._id
 
     def updateName(self, newName):
         self.name = newName
@@ -57,7 +57,7 @@ class Location:
 
     def formatOneLoc(self, locObject):
         tempLoc = self.createTempLoc(locObject)
-        output = (tempLoc.formatAsResponseBody(tempLoc))
+        output = (tempLoc.formatAsResponseBody(locObject))
         return output
     
     def createTempLoc(self, locObject):
@@ -70,7 +70,7 @@ class Location:
     def formatSubLocations(self, locObject):
         self.subLocations = locObject['subLocations']
         for sub in self.subLocations:
-            self.subLocations[sub]['_id'] = formatId(self.subLocations[sub]['id'])
+            self.subLocations[sub]['_id'] = formatId(self.subLocations[sub]['_id'])
             self.subLocations[sub]['events'] = formatDocuments(self.subLocations[sub]['events'])
         return self.subLocations
 
