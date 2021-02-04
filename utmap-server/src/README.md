@@ -13,15 +13,15 @@ pymongo-3.11.2
 
 ## Architecture
 
-Utmap Server is organized into a hybrid of the Clean and Functional Architecture.  The files are organized into folders based on their purpose in running the app.  This structure begins with the app folder.
+Utmap Server is organized into a hybrid of the Clean and Functional Architecture.  The files are organized into folders based on their purpose in running the app.  These files will be contained in the src folder in the early stages, but the actual structure begins with the app folder.
 
 ### app:
 
-The app folder contains two folders: main and test.  The app folder also contains the file manage.py, which creates Flask app, sets up a MongoClient, and sets up an API.  The manage.py file can run the app with the terminal command "python manage.py run" and test the app with the terminal command "python manage.py test".
+The app folder contains two folders: main and test.  The app folder also sits in the src folder alongside the file manage.py, which creates Flask app, sets up a MongoClient, and sets up an API.  The manage.py file can run the app with the terminal command "python manage.py run" and test the app with the terminal command "python manage.py test".
 
 #### main:
 
-The main folder contains all the files necessary to run the app which are organized further into folders named controller, model, service, and util.  The main folder also contains config.py, which contains three configuration settings, development, testing, and production, for a Flask app.  The main folder contains an initializer file which main into a usable module with functions that can create Flask apps and set up MongoClients.  The app folder's manage.py relies on this module.
+The main folder contains all the files necessary to run the app which are organized further into folders named controller, model, service, and util.  The main folder also contains config.py, which contains three configuration settings, development, testing, and production, for a Flask app.  The main folder contains an initializer file which turns main into a usable module with functions that can create Flask apps and set up MongoClients.  The app folder's manage.py relies on this module.
 
 ##### controller:
 
