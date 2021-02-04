@@ -184,7 +184,7 @@ font-style: italic;
     <div class="app-desc">More information: <a href="https://helloreverb.com">https://helloreverb.com</a></div>
     <div class="app-desc">Contact Info: <a href="you@your-company.com">you@your-company.com</a></div>
     <div class="app-desc">Version: 1.0.0</div>
-    <div class="app-desc">BasePath:/DSC-UTMap/UTMap-API/1.0.0</div>
+    <div class="app-desc">BasePath:/RobS9919/UTMap-API/1.0.0</div>
     <div class="license-info">Apache 2.0</div>
     <div class="license-url">http://www.apache.org/licenses/LICENSE-2.0.html</div>
   <h2>Access</h2>
@@ -197,24 +197,24 @@ font-style: italic;
   <h4><a href="#Events">Events</a></h4>
   <ul>
   <li><a href="#addEvent"><code><span class="http-method">post</span> /event</code></a></li>
-  <li><a href="#deleteEvent"><code><span class="http-method">delete</span> /event/{eventName}</code></a></li>
-  <li><a href="#getEventByName"><code><span class="http-method">get</span> /event/{eventName}</code></a></li>
+  <li><a href="#deleteEvent"><code><span class="http-method">delete</span> /event/{id}</code></a></li>
+  <li><a href="#getEventByName"><code><span class="http-method">get</span> /event/{id}</code></a></li>
   <li><a href="#searchEvents"><code><span class="http-method">get</span> /event</code></a></li>
   <li><a href="#updateEvent"><code><span class="http-method">put</span> /event</code></a></li>
   </ul>
   <h4><a href="#Locations">Locations</a></h4>
   <ul>
   <li><a href="#addLocation"><code><span class="http-method">post</span> /location</code></a></li>
-  <li><a href="#deleteLocation"><code><span class="http-method">delete</span> /location/{locationCode}</code></a></li>
-  <li><a href="#getLocationByCode"><code><span class="http-method">get</span> /location/{locationCode}</code></a></li>
+  <li><a href="#deleteLocation"><code><span class="http-method">delete</span> /location/{id}</code></a></li>
+  <li><a href="#getLocationByCode"><code><span class="http-method">get</span> /location/{id}</code></a></li>
   <li><a href="#searchLocations"><code><span class="http-method">get</span> /location</code></a></li>
   <li><a href="#updateLocation"><code><span class="http-method">put</span> /location</code></a></li>
   </ul>
   <h4><a href="#SubLocations">SubLocations</a></h4>
   <ul>
   <li><a href="#addSubLocation"><code><span class="http-method">post</span> /subLocation</code></a></li>
-  <li><a href="#deleteSubLocation"><code><span class="http-method">delete</span> /subLocation/{subLocationName}</code></a></li>
-  <li><a href="#getSubLocationByName"><code><span class="http-method">get</span> /subLocation/{subLocationName}</code></a></li>
+  <li><a href="#deleteSubLocation"><code><span class="http-method">delete</span> /subLocation/{id}</code></a></li>
+  <li><a href="#getSubLocationByName"><code><span class="http-method">get</span> /subLocation/{id}</code></a></li>
   <li><a href="#searchSubLocations"><code><span class="http-method">get</span> /subLocation</code></a></li>
   <li><a href="#updateSubLocation"><code><span class="http-method">put</span> /subLocation</code></a></li>
   </ul>
@@ -271,15 +271,15 @@ font-style: italic;
   <div class="method"><a name="deleteEvent"/>
     <div class="method-path">
     <a class="up" href="#__Methods">Up</a>
-    <pre class="delete"><code class="huge"><span class="http-method">delete</span> /event/{eventName}</code></pre></div>
+    <pre class="delete"><code class="huge"><span class="http-method">delete</span> /event/{id}</code></pre></div>
     <div class="method-summary">Deletes an event by its name (<span class="nickname">deleteEvent</span>)</div>
     <div class="method-notes">By passing in a valid event name, a user can search for a specific event in the system</div>
 
     <h3 class="field-label">Path parameters</h3>
     <div class="field-items">
-      <div class="param">eventName (required)</div>
+      <div class="param">id (required)</div>
 
-      <div class="param-desc"><span class="param-type">Path Parameter</span> &mdash; name for the subLocation that needs to be found </div>
+      <div class="param-desc"><span class="param-type">Path Parameter</span> &mdash; ID unique to the event that needs to be deleted. format: uuid</div>
     </div>  <!-- field-items -->
 
 
@@ -320,7 +320,7 @@ font-style: italic;
     event deleted
         <a href="#Event">Event</a>
     <h4 class="field-label">400</h4>
-    Invalid name supplied
+    Invalid id supplied
         <a href="#"></a>
     <h4 class="field-label">404</h4>
     event not found
@@ -330,15 +330,15 @@ font-style: italic;
   <div class="method"><a name="getEventByName"/>
     <div class="method-path">
     <a class="up" href="#__Methods">Up</a>
-    <pre class="get"><code class="huge"><span class="http-method">get</span> /event/{eventName}</code></pre></div>
+    <pre class="get"><code class="huge"><span class="http-method">get</span> /event/{id}</code></pre></div>
     <div class="method-summary">Finds an event by its name (<span class="nickname">getEventByName</span>)</div>
     <div class="method-notes">By passing in a valid event name, a user can search for a specific event in the system</div>
 
     <h3 class="field-label">Path parameters</h3>
     <div class="field-items">
-      <div class="param">eventName (required)</div>
+      <div class="param">id (required)</div>
 
-      <div class="param-desc"><span class="param-type">Path Parameter</span> &mdash; name of the event that needs to be found </div>
+      <div class="param-desc"><span class="param-type">Path Parameter</span> &mdash; ID unique to the event that needs to be deleted. format: uuid</div>
     </div>  <!-- field-items -->
 
 
@@ -379,7 +379,7 @@ font-style: italic;
     event found
         <a href="#Event">Event</a>
     <h4 class="field-label">400</h4>
-    Invalid name supplied
+    Invalid id supplied
         <a href="#"></a>
     <h4 class="field-label">404</h4>
     event not found
@@ -551,15 +551,15 @@ font-style: italic;
   <div class="method"><a name="deleteLocation"/>
     <div class="method-path">
     <a class="up" href="#__Methods">Up</a>
-    <pre class="delete"><code class="huge"><span class="http-method">delete</span> /location/{locationCode}</code></pre></div>
+    <pre class="delete"><code class="huge"><span class="http-method">delete</span> /location/{id}</code></pre></div>
     <div class="method-summary">Deletes a location by its 2-character building code (<span class="nickname">deleteLocation</span>)</div>
     <div class="method-notes">By passing in a valid 2-character building code, a user can delete a specific location in the system</div>
 
     <h3 class="field-label">Path parameters</h3>
     <div class="field-items">
-      <div class="param">locationCode (required)</div>
+      <div class="param">id (required)</div>
 
-      <div class="param-desc"><span class="param-type">Path Parameter</span> &mdash; 2-character building code for location that needs to be deleted format: buildingCode</div>
+      <div class="param-desc"><span class="param-type">Path Parameter</span> &mdash; ID unique to the location that needs to be deleted. format: uuid</div>
     </div>  <!-- field-items -->
 
 
@@ -591,7 +591,7 @@ font-style: italic;
     location deleted
         <a href="#Location">Location</a>
     <h4 class="field-label">400</h4>
-    Invalid building code supplied
+    Invalid id supplied
         <a href="#"></a>
     <h4 class="field-label">404</h4>
     location not found
@@ -601,15 +601,15 @@ font-style: italic;
   <div class="method"><a name="getLocationByCode"/>
     <div class="method-path">
     <a class="up" href="#__Methods">Up</a>
-    <pre class="get"><code class="huge"><span class="http-method">get</span> /location/{locationCode}</code></pre></div>
+    <pre class="get"><code class="huge"><span class="http-method">get</span> /location/{id}</code></pre></div>
     <div class="method-summary">Finds a location by its 2-character building code (<span class="nickname">getLocationByCode</span>)</div>
     <div class="method-notes">By passing in a valid 2-character building code, a user can search for a specific location in the system</div>
 
     <h3 class="field-label">Path parameters</h3>
     <div class="field-items">
-      <div class="param">locationCode (required)</div>
+      <div class="param">id (required)</div>
 
-      <div class="param-desc"><span class="param-type">Path Parameter</span> &mdash; 2-character building code for location that needs to be found format: buildingCode</div>
+      <div class="param-desc"><span class="param-type">Path Parameter</span> &mdash; ID unique to the location that needs to be deleted. format: uuid</div>
     </div>  <!-- field-items -->
 
 
@@ -641,7 +641,7 @@ font-style: italic;
     location found
         <a href="#Location">Location</a>
     <h4 class="field-label">400</h4>
-    Invalid building code supplied
+    Invalid id supplied
         <a href="#"></a>
     <h4 class="field-label">404</h4>
     location not found
@@ -795,15 +795,15 @@ font-style: italic;
   <div class="method"><a name="deleteSubLocation"/>
     <div class="method-path">
     <a class="up" href="#__Methods">Up</a>
-    <pre class="delete"><code class="huge"><span class="http-method">delete</span> /subLocation/{subLocationName}</code></pre></div>
+    <pre class="delete"><code class="huge"><span class="http-method">delete</span> /subLocation/{id}</code></pre></div>
     <div class="method-summary">Deletes a sublocation by its name (<span class="nickname">deleteSubLocation</span>)</div>
     <div class="method-notes">By passing in a valid sublocation name, a user can search for a specific sublocation in the system</div>
 
     <h3 class="field-label">Path parameters</h3>
     <div class="field-items">
-      <div class="param">subLocationName (required)</div>
+      <div class="param">id (required)</div>
 
-      <div class="param-desc"><span class="param-type">Path Parameter</span> &mdash; 5-6 character name for the subLocation that needs to be found format: roomCode</div>
+      <div class="param-desc"><span class="param-type">Path Parameter</span> &mdash; ID unique to the subLocation that needs to be deleted. format: uuid</div>
     </div>  <!-- field-items -->
 
 
@@ -835,7 +835,7 @@ font-style: italic;
     sublocation deleted
         <a href="#SubLocation">SubLocation</a>
     <h4 class="field-label">400</h4>
-    Invalid name supplied
+    Invalid id supplied
         <a href="#"></a>
     <h4 class="field-label">404</h4>
     sublocation not found
@@ -845,15 +845,15 @@ font-style: italic;
   <div class="method"><a name="getSubLocationByName"/>
     <div class="method-path">
     <a class="up" href="#__Methods">Up</a>
-    <pre class="get"><code class="huge"><span class="http-method">get</span> /subLocation/{subLocationName}</code></pre></div>
+    <pre class="get"><code class="huge"><span class="http-method">get</span> /subLocation/{id}</code></pre></div>
     <div class="method-summary">Finds a sublocation by its name (<span class="nickname">getSubLocationByName</span>)</div>
     <div class="method-notes">By passing in a valid sublocation name, a user can search for a specific sublocation in the system</div>
 
     <h3 class="field-label">Path parameters</h3>
     <div class="field-items">
-      <div class="param">subLocationName (required)</div>
+      <div class="param">id (required)</div>
 
-      <div class="param-desc"><span class="param-type">Path Parameter</span> &mdash; 5-6 character name for the subLocation that needs to be found format: roomCode</div>
+      <div class="param-desc"><span class="param-type">Path Parameter</span> &mdash; ID unique to the subLocation that needs to be found. format: uuid</div>
     </div>  <!-- field-items -->
 
 
@@ -885,7 +885,7 @@ font-style: italic;
     sublocation found
         <a href="#SubLocation">SubLocation</a>
     <h4 class="field-label">400</h4>
-    Invalid name supplied
+    Invalid id supplied
         <a href="#"></a>
     <h4 class="field-label">404</h4>
     sublocation not found
