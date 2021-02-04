@@ -36,6 +36,17 @@ const exampleEvents = [
 	{ startDate: '2021-03-27T12:00', endDate: '2021-03-30T13:30', title: 'Get jacked' }
 ]
 
+function provideCustomAppointment(openEventInfo) {
+	//Curried component which overrides default event info popup
+	return ((props) => {
+		return (
+			<Appointments.Appointment
+				{...props}
+				onClick={() => openEventInfo(props.data)}
+			/>
+		);
+	});
+}
 
 //Scheduler is the calendar, today, and taskbar components
 function CalendarPage() { 
@@ -47,31 +58,19 @@ function CalendarPage() {
 
 	const handleOpenEventInfo = (data) => {
 		//set data that will be passed into the event popup
-		setEventInfo({...data, organizer:''});
-		console.table(eventInfo);
+		setEventInfo({...data, organizer:(data.organizer ? data.organizer : 'Unknown')});
 		setOpenEventInfo(true);
 	}
 	const handleCloseEventInfo = () => {
 		setOpenEventInfo(false);
 	}
 	const handleOpenEventForm = () => {
-		setOpenEventForm(true);
+		setOpenEventForm(!openEventForm);
 	}
-	const handleCloseEventForm = () => {
-		setOpenEventForm(false);
-	}
+
 	const addEvent = useCallback((eventData) => {
 		setEventList([...eventList, eventData]);
 	}, [eventList]);
-
-	const CustomActionAppointment = (props) => {
-		return (
-			<Appointments.Appointment
-				{...props}
-				onClick={() => handleOpenEventInfo(props.data)}
-			/>
-		);
-	}
 
 	return (
 		<>
@@ -83,7 +82,7 @@ function CalendarPage() {
 			  <DateNavigator />
 			  <TodayButton />
 			  <Appointments
-					appointmentComponent={CustomActionAppointment}
+					appointmentComponent={provideCustomAppointment(handleOpenEventInfo)}
 				/>
 			  </Scheduler>
 			</Paper>
@@ -98,8 +97,8 @@ function CalendarPage() {
 			</Button>
 			
 			{/* Popup box for event form */}
-			<Dialog open={openEventForm} onClose={handleCloseEventForm}>
-				<CreateEventPage onClose={handleCloseEventForm} addEvent={addEvent}/>
+			<Dialog open={openEventForm} onClose={handleOpenEventForm}>
+				<CreateEventPage onClose={handleOpenEventForm} addEvent={addEvent}/>
 			</Dialog>
 
 			{/* Popup box for event info */}
@@ -112,6 +111,7 @@ function CalendarPage() {
 					location={eventInfo.location}
 					sublocation={eventInfo.sublocation}
 					organizer={eventInfo.organizer}
+					closePopup={handleCloseEventInfo}
 				/>
 			</Dialog>
 		</>
