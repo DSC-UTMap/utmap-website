@@ -197,25 +197,25 @@ font-style: italic;
   <h4><a href="#Events">Events</a></h4>
   <ul>
   <li><a href="#addEvent"><code><span class="http-method">post</span> /event</code></a></li>
-  <li><a href="#deleteEvent"><code><span class="http-method">delete</span> /event/{id}</code></a></li>
-  <li><a href="#getEventByName"><code><span class="http-method">get</span> /event/{id}</code></a></li>
-  <li><a href="#searchEvents"><code><span class="http-method">get</span> /event</code></a></li>
+  <li><a href="#deleteOneEvent"><code><span class="http-method">delete</span> /event/{id}</code></a></li>
+  <li><a href="#getOneEvent"><code><span class="http-method">get</span> /event/{id}</code></a></li>
+  <li><a href="#getAllEvents"><code><span class="http-method">get</span> /event</code></a></li>
   <li><a href="#updateEvent"><code><span class="http-method">put</span> /event</code></a></li>
   </ul>
   <h4><a href="#Locations">Locations</a></h4>
   <ul>
   <li><a href="#addLocation"><code><span class="http-method">post</span> /location</code></a></li>
-  <li><a href="#deleteLocation"><code><span class="http-method">delete</span> /location/{id}</code></a></li>
-  <li><a href="#getLocationByCode"><code><span class="http-method">get</span> /location/{id}</code></a></li>
-  <li><a href="#searchLocations"><code><span class="http-method">get</span> /location</code></a></li>
+  <li><a href="#deleteOneLocation"><code><span class="http-method">delete</span> /location/{id}</code></a></li>
+  <li><a href="#getOneLocation"><code><span class="http-method">get</span> /location/{id}</code></a></li>
+  <li><a href="#getAllLocations"><code><span class="http-method">get</span> /location</code></a></li>
   <li><a href="#updateLocation"><code><span class="http-method">put</span> /location</code></a></li>
   </ul>
   <h4><a href="#SubLocations">SubLocations</a></h4>
   <ul>
   <li><a href="#addSubLocation"><code><span class="http-method">post</span> /subLocation</code></a></li>
-  <li><a href="#deleteSubLocation"><code><span class="http-method">delete</span> /subLocation/{id}</code></a></li>
-  <li><a href="#getSubLocationByName"><code><span class="http-method">get</span> /subLocation/{id}</code></a></li>
-  <li><a href="#searchSubLocations"><code><span class="http-method">get</span> /subLocation</code></a></li>
+  <li><a href="#deleteOneSubLocation"><code><span class="http-method">delete</span> /subLocation/{id}</code></a></li>
+  <li><a href="#getOneSubLocation"><code><span class="http-method">get</span> /subLocation/{id}</code></a></li>
+  <li><a href="#getAllSubLocations"><code><span class="http-method">get</span> /subLocation</code></a></li>
   <li><a href="#updateSubLocation"><code><span class="http-method">put</span> /subLocation</code></a></li>
   </ul>
 
@@ -268,11 +268,11 @@ font-style: italic;
         <a href="#"></a>
   </div> <!-- method -->
   <hr/>
-  <div class="method"><a name="deleteEvent"/>
+  <div class="method"><a name="deleteOneEvent"/>
     <div class="method-path">
     <a class="up" href="#__Methods">Up</a>
     <pre class="delete"><code class="huge"><span class="http-method">delete</span> /event/{id}</code></pre></div>
-    <div class="method-summary">Deletes an event by its name (<span class="nickname">deleteEvent</span>)</div>
+    <div class="method-summary">Deletes an event by its name (<span class="nickname">deleteOneEvent</span>)</div>
     <div class="method-notes">By passing in a valid event name, a user can search for a specific event in the system</div>
 
     <h3 class="field-label">Path parameters</h3>
@@ -327,11 +327,11 @@ font-style: italic;
         <a href="#"></a>
   </div> <!-- method -->
   <hr/>
-  <div class="method"><a name="getEventByName"/>
+  <div class="method"><a name="getOneEvent"/>
     <div class="method-path">
     <a class="up" href="#__Methods">Up</a>
     <pre class="get"><code class="huge"><span class="http-method">get</span> /event/{id}</code></pre></div>
-    <div class="method-summary">Finds an event by its name (<span class="nickname">getEventByName</span>)</div>
+    <div class="method-summary">Finds an event by its name (<span class="nickname">getOneEvent</span>)</div>
     <div class="method-notes">By passing in a valid event name, a user can search for a specific event in the system</div>
 
     <h3 class="field-label">Path parameters</h3>
@@ -386,11 +386,11 @@ font-style: italic;
         <a href="#"></a>
   </div> <!-- method -->
   <hr/>
-  <div class="method"><a name="searchEvents"/>
+  <div class="method"><a name="getAllEvents"/>
     <div class="method-path">
     <a class="up" href="#__Methods">Up</a>
     <pre class="get"><code class="huge"><span class="http-method">get</span> /event</code></pre></div>
-    <div class="method-summary">Searches events on UTMap (<span class="nickname">searchEvents</span>)</div>
+    <div class="method-summary">Searches events on UTMap (<span class="nickname">getAllEvents</span>)</div>
     <div class="method-notes">By passing in the appropriate options, a user can search for existing events in the system</div>
 
 
@@ -548,11 +548,11 @@ font-style: italic;
         <a href="#"></a>
   </div> <!-- method -->
   <hr/>
-  <div class="method"><a name="deleteLocation"/>
+  <div class="method"><a name="deleteOneLocation"/>
     <div class="method-path">
     <a class="up" href="#__Methods">Up</a>
     <pre class="delete"><code class="huge"><span class="http-method">delete</span> /location/{id}</code></pre></div>
-    <div class="method-summary">Deletes a location by its 2-character building code (<span class="nickname">deleteLocation</span>)</div>
+    <div class="method-summary">Deletes a location by its 2-character building code (<span class="nickname">deleteOneLocation</span>)</div>
     <div class="method-notes">By passing in a valid 2-character building code, a user can delete a specific location in the system</div>
 
     <h3 class="field-label">Path parameters</h3>
@@ -598,11 +598,11 @@ font-style: italic;
         <a href="#"></a>
   </div> <!-- method -->
   <hr/>
-  <div class="method"><a name="getLocationByCode"/>
+  <div class="method"><a name="getOneLocation"/>
     <div class="method-path">
     <a class="up" href="#__Methods">Up</a>
     <pre class="get"><code class="huge"><span class="http-method">get</span> /location/{id}</code></pre></div>
-    <div class="method-summary">Finds a location by its 2-character building code (<span class="nickname">getLocationByCode</span>)</div>
+    <div class="method-summary">Finds a location by its 2-character building code (<span class="nickname">getOneLocation</span>)</div>
     <div class="method-notes">By passing in a valid 2-character building code, a user can search for a specific location in the system</div>
 
     <h3 class="field-label">Path parameters</h3>
@@ -648,11 +648,11 @@ font-style: italic;
         <a href="#"></a>
   </div> <!-- method -->
   <hr/>
-  <div class="method"><a name="searchLocations"/>
+  <div class="method"><a name="getAllLocations"/>
     <div class="method-path">
     <a class="up" href="#__Methods">Up</a>
     <pre class="get"><code class="huge"><span class="http-method">get</span> /location</code></pre></div>
-    <div class="method-summary">Searches locations on UTMap (<span class="nickname">searchLocations</span>)</div>
+    <div class="method-summary">Searches locations on UTMap (<span class="nickname">getAllLocations</span>)</div>
     <div class="method-notes">By passing in the appropriate options, a user can search for existing locations in the system</div>
 
 
@@ -792,11 +792,11 @@ font-style: italic;
         <a href="#"></a>
   </div> <!-- method -->
   <hr/>
-  <div class="method"><a name="deleteSubLocation"/>
+  <div class="method"><a name="deleteOneSubLocation"/>
     <div class="method-path">
     <a class="up" href="#__Methods">Up</a>
     <pre class="delete"><code class="huge"><span class="http-method">delete</span> /subLocation/{id}</code></pre></div>
-    <div class="method-summary">Deletes a sublocation by its name (<span class="nickname">deleteSubLocation</span>)</div>
+    <div class="method-summary">Deletes a sublocation by its name (<span class="nickname">deleteOneSubLocation</span>)</div>
     <div class="method-notes">By passing in a valid sublocation name, a user can search for a specific sublocation in the system</div>
 
     <h3 class="field-label">Path parameters</h3>
@@ -842,11 +842,11 @@ font-style: italic;
         <a href="#"></a>
   </div> <!-- method -->
   <hr/>
-  <div class="method"><a name="getSubLocationByName"/>
+  <div class="method"><a name="getOneSubLocation"/>
     <div class="method-path">
     <a class="up" href="#__Methods">Up</a>
     <pre class="get"><code class="huge"><span class="http-method">get</span> /subLocation/{id}</code></pre></div>
-    <div class="method-summary">Finds a sublocation by its name (<span class="nickname">getSubLocationByName</span>)</div>
+    <div class="method-summary">Finds a sublocation by its name (<span class="nickname">getOneSubLocation</span>)</div>
     <div class="method-notes">By passing in a valid sublocation name, a user can search for a specific sublocation in the system</div>
 
     <h3 class="field-label">Path parameters</h3>
@@ -892,11 +892,11 @@ font-style: italic;
         <a href="#"></a>
   </div> <!-- method -->
   <hr/>
-  <div class="method"><a name="searchSubLocations"/>
+  <div class="method"><a name="getAllSubLocations"/>
     <div class="method-path">
     <a class="up" href="#__Methods">Up</a>
     <pre class="get"><code class="huge"><span class="http-method">get</span> /subLocation</code></pre></div>
-    <div class="method-summary">Searches sublocations on UTMap (<span class="nickname">searchSubLocations</span>)</div>
+    <div class="method-summary">Searches sublocations on UTMap (<span class="nickname">getAllSubLocations</span>)</div>
     <div class="method-notes">By passing in the appropriate options, a user can search for existing locations in the system</div>
 
 

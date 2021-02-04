@@ -25,7 +25,15 @@ The main folder contains all the files necessary to run the app which are organi
 
 ##### controller:
 
-The controller folder contains the endpoints for the API in manage.py.  It contains files that route the appropriate http requests calls to their corresponding services.  The eventController.py file routes http requests related to events to the eventService.py file.  The locationController.py file routes http requests related to locations to the locationService.py file.
+The controller folder contains the endpoints for the API in manage.py.  It contains files that route the appropriate http requests calls to their corresponding services.  These files include the existing locationController.py and eventController.py.  A subLocationController.py is planned.
+
+###### locationController.py:
+
+This file routes http requests related to locations to the locationService.py file.  The LocationController class adds these routes to the API as resources, making them accessible when the app runs.
+
+###### eventController.py:
+
+This file routes http requests related to events to the eventService.py file.  The EventController class adds these routes to the API as resources, making them accessible when the app runs.
 
 ##### services:
 
