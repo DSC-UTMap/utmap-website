@@ -28,27 +28,3 @@ class LocationById(Resource):
     def put(self, _id):
         data = request.json
         return updateLocation(_id, data=data)
-    #def __init__(self, app):
-    #    self.app = app
-
-    #     @app.route('/location', methods=['GET'])
-    #     def GetAll(self):
-    #         return getAllLocations()
-
-    #     @app.route('/location/<_id>', methods=['GET'])
-    #     def getOne(_id):
-    #         return getOneLocation(_id)
-
-    #     @app.route('/location/<_id>', methods=['DELETE'])
-    #     def deleteOne(_id):
-    #         return deleteOneLocation(_id)
-
-    #     @app.route('/location', methods=['POST'])
-    #     def post():
-    #         data = request.json
-    #         return addLocation(data=data)
-
-    #     @app.route('/location/<_id>', methods=['PUT'])
-    #     def put(_id):
-    #         data = request.json
-    #         return updateLocation(data=data)

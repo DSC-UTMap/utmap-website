@@ -1,7 +1,7 @@
 from flask import Flask, request
 from flask_restx import Resource
-from ..service.locationService import (
-    getAllLocations, getOneLocation, addLocation, updateLocation, deleteOneLocation
+from ..service.eventService import (
+    getOneEvent, deleteOneEvent
     )
 
 class EventController(Resource):    
@@ -12,24 +12,22 @@ class EventController(Resource):
 
 class EventList(Resource):
     def get(self):
-        #return getAllLocations()
+        #return getAllEvents()
         pass
     
     def post(self):
         #data = request.json
-        #return addLocation(data=data)
+        #return addEvents(data=data)
         pass
 
 class EventById(Resource):
     def get(self, _id):
-        #TODO: return getOneLocation(_id)
-        pass
+        return getOneEvent(_id)
 
     def delete(self, _id):
-        #TODO: return deleteOneEvent(_id)
-        pass
+        return deleteOneEvent(_id)
 
     def put(self, _id):
         #data = request.json
-        #return updateLocation(data=data)
+        #return updateEvents(data=data)
         pass

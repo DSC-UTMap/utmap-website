@@ -7,7 +7,6 @@ db = MongoClient('localhost', 27017).get_database(dbName)
 def createApp(configName):
     app = Flask(__name__)
     app.config.from_object(configByName[configName])
-    #print(app.config['MONGODB_HOST'], app.config['MONGODB_PORT'])
 
     return app
 

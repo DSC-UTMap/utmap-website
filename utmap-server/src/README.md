@@ -25,8 +25,40 @@ The main folder contains all the files necessary to run the app which are organi
 
 ##### controller:
 
-The controller folder routes the appropriate REST calls to their corresponding services.  
+The controller folder contains the endpoints for the API in manage.py.  It contains files that route the appropriate http requests calls to their corresponding services.  The eventController.py file routes http requests related to events to the eventService.py file.  The locationController.py file routes http requests related to locations to the locationService.py file.
+
+##### services:
+
+The services folder contains the services responsible for querying the database.  The eventService.py file queries the database's event collection using the event.py model's helper functions.  The locationService.py file queries the database's location collection using the location.py model's helper functions.
 
 #### test:
 
 The test folder contains all files necessary to unit-test the app.  Currently, this includes the file testConfig.py which performs unittests on the app's configurations: development, testing, and production. These tests make sure the app runs with the appropriate settings in each context.
+
+## API
+
+### Locations
+
+#### GET /location
+
+#### POST /location
+
+#### GET /location/{_id}
+
+#### PUT /location/{_id}
+
+#### DELETE /location/{_id}
+
+### SubLocations
+
+### Events
+
+#### GET /event
+
+#### POST /event
+
+#### GET /event/{_id}
+
+#### PUT /event/{_id}
+
+#### DELETE /event/{_id}

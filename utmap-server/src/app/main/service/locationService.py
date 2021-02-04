@@ -1,6 +1,5 @@
 from flask import jsonify
 from app.main.model.location import Location
-from bson import ObjectId
 
 def addLocation(data):
     location = Location()
@@ -35,7 +34,7 @@ def updateLocation(_id, data):
     #loc = location.findLocById(_id, locations)
     responseObject = {
             'status': 'success',
-            'message': 'PUT successfuly tested'
+            'message': 'PUT successfully tested'
     }
     return jsonify({'result' : responseObject, 'status' : 200})
 
