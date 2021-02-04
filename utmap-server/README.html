@@ -197,24 +197,24 @@ font-style: italic;
   <h4><a href="#Events">Events</a></h4>
   <ul>
   <li><a href="#addEvent"><code><span class="http-method">post</span> /event</code></a></li>
-  <li><a href="#deleteOneEvent"><code><span class="http-method">delete</span> /event/{id}</code></a></li>
-  <li><a href="#getOneEvent"><code><span class="http-method">get</span> /event/{id}</code></a></li>
+  <li><a href="#deleteOneEvent"><code><span class="http-method">delete</span> /event/{_id}</code></a></li>
+  <li><a href="#getOneEvent"><code><span class="http-method">get</span> /event/{_id}</code></a></li>
   <li><a href="#getAllEvents"><code><span class="http-method">get</span> /event</code></a></li>
   <li><a href="#updateEvent"><code><span class="http-method">put</span> /event</code></a></li>
   </ul>
   <h4><a href="#Locations">Locations</a></h4>
   <ul>
   <li><a href="#addLocation"><code><span class="http-method">post</span> /location</code></a></li>
-  <li><a href="#deleteOneLocation"><code><span class="http-method">delete</span> /location/{id}</code></a></li>
-  <li><a href="#getOneLocation"><code><span class="http-method">get</span> /location/{id}</code></a></li>
+  <li><a href="#deleteOneLocation"><code><span class="http-method">delete</span> /location/{_id}</code></a></li>
+  <li><a href="#getOneLocation"><code><span class="http-method">get</span> /location/{_id}</code></a></li>
   <li><a href="#getAllLocations"><code><span class="http-method">get</span> /location</code></a></li>
   <li><a href="#updateLocation"><code><span class="http-method">put</span> /location</code></a></li>
   </ul>
   <h4><a href="#SubLocations">SubLocations</a></h4>
   <ul>
   <li><a href="#addSubLocation"><code><span class="http-method">post</span> /subLocation</code></a></li>
-  <li><a href="#deleteOneSubLocation"><code><span class="http-method">delete</span> /subLocation/{id}</code></a></li>
-  <li><a href="#getOneSubLocation"><code><span class="http-method">get</span> /subLocation/{id}</code></a></li>
+  <li><a href="#deleteOneSubLocation"><code><span class="http-method">delete</span> /subLocation/{_id}</code></a></li>
+  <li><a href="#getOneSubLocation"><code><span class="http-method">get</span> /subLocation/{_id}</code></a></li>
   <li><a href="#getAllSubLocations"><code><span class="http-method">get</span> /subLocation</code></a></li>
   <li><a href="#updateSubLocation"><code><span class="http-method">put</span> /subLocation</code></a></li>
   </ul>
@@ -271,13 +271,13 @@ font-style: italic;
   <div class="method"><a name="deleteOneEvent"/>
     <div class="method-path">
     <a class="up" href="#__Methods">Up</a>
-    <pre class="delete"><code class="huge"><span class="http-method">delete</span> /event/{id}</code></pre></div>
+    <pre class="delete"><code class="huge"><span class="http-method">delete</span> /event/{_id}</code></pre></div>
     <div class="method-summary">Deletes an event by its name (<span class="nickname">deleteOneEvent</span>)</div>
     <div class="method-notes">By passing in a valid event name, a user can search for a specific event in the system</div>
 
     <h3 class="field-label">Path parameters</h3>
     <div class="field-items">
-      <div class="param">id (required)</div>
+      <div class="param">_id (required)</div>
 
       <div class="param-desc"><span class="param-type">Path Parameter</span> &mdash; ID unique to the event that needs to be deleted. format: uuid</div>
     </div>  <!-- field-items -->
@@ -302,7 +302,7 @@ font-style: italic;
   "name" : "Game Night",
   "description" : "Come join us for Cards Against Humanity and Super Smash Bros.",
   "startTime" : "2021-09-20T17:00:00Z",
-  "id" : "d290f1ee-6c54-4b01-90e6-d701748f0851",
+  "_id" : "d290f1ee-6c54-4b01-90e6-d701748f0851",
   "endTime" : "2021-09-20T21:00:00Z",
   "place" : "",
   "tags" : [ "Board Games", "Computer Science", "Video Games" ]
@@ -320,7 +320,7 @@ font-style: italic;
     event deleted
         <a href="#Event">Event</a>
     <h4 class="field-label">400</h4>
-    Invalid id supplied
+    Invalid _id supplied
         <a href="#"></a>
     <h4 class="field-label">404</h4>
     event not found
@@ -330,13 +330,13 @@ font-style: italic;
   <div class="method"><a name="getOneEvent"/>
     <div class="method-path">
     <a class="up" href="#__Methods">Up</a>
-    <pre class="get"><code class="huge"><span class="http-method">get</span> /event/{id}</code></pre></div>
+    <pre class="get"><code class="huge"><span class="http-method">get</span> /event/{_id}</code></pre></div>
     <div class="method-summary">Finds an event by its name (<span class="nickname">getOneEvent</span>)</div>
     <div class="method-notes">By passing in a valid event name, a user can search for a specific event in the system</div>
 
     <h3 class="field-label">Path parameters</h3>
     <div class="field-items">
-      <div class="param">id (required)</div>
+      <div class="param">_id (required)</div>
 
       <div class="param-desc"><span class="param-type">Path Parameter</span> &mdash; ID unique to the event that needs to be deleted. format: uuid</div>
     </div>  <!-- field-items -->
@@ -361,7 +361,7 @@ font-style: italic;
   "name" : "Game Night",
   "description" : "Come join us for Cards Against Humanity and Super Smash Bros.",
   "startTime" : "2021-09-20T17:00:00Z",
-  "id" : "d290f1ee-6c54-4b01-90e6-d701748f0851",
+  "_id" : "d290f1ee-6c54-4b01-90e6-d701748f0851",
   "endTime" : "2021-09-20T21:00:00Z",
   "place" : "",
   "tags" : [ "Board Games", "Computer Science", "Video Games" ]
@@ -379,7 +379,7 @@ font-style: italic;
     event found
         <a href="#Event">Event</a>
     <h4 class="field-label">400</h4>
-    Invalid id supplied
+    Invalid _id supplied
         <a href="#"></a>
     <h4 class="field-label">404</h4>
     event not found
@@ -420,7 +420,7 @@ font-style: italic;
   "name" : "Game Night",
   "description" : "Come join us for Cards Against Humanity and Super Smash Bros.",
   "startTime" : "2021-09-20T17:00:00Z",
-  "id" : "d290f1ee-6c54-4b01-90e6-d701748f0851",
+  "_id" : "d290f1ee-6c54-4b01-90e6-d701748f0851",
   "endTime" : "2021-09-20T21:00:00Z",
   "place" : "",
   "tags" : [ "Board Games", "Computer Science", "Video Games" ]
@@ -429,7 +429,7 @@ font-style: italic;
   "name" : "Game Night",
   "description" : "Come join us for Cards Against Humanity and Super Smash Bros.",
   "startTime" : "2021-09-20T17:00:00Z",
-  "id" : "d290f1ee-6c54-4b01-90e6-d701748f0851",
+  "_id" : "d290f1ee-6c54-4b01-90e6-d701748f0851",
   "endTime" : "2021-09-20T21:00:00Z",
   "place" : "",
   "tags" : [ "Board Games", "Computer Science", "Video Games" ]
@@ -551,13 +551,13 @@ font-style: italic;
   <div class="method"><a name="deleteOneLocation"/>
     <div class="method-path">
     <a class="up" href="#__Methods">Up</a>
-    <pre class="delete"><code class="huge"><span class="http-method">delete</span> /location/{id}</code></pre></div>
+    <pre class="delete"><code class="huge"><span class="http-method">delete</span> /location/{_id}</code></pre></div>
     <div class="method-summary">Deletes a location by its 2-character building code (<span class="nickname">deleteOneLocation</span>)</div>
     <div class="method-notes">By passing in a valid 2-character building code, a user can delete a specific location in the system</div>
 
     <h3 class="field-label">Path parameters</h3>
     <div class="field-items">
-      <div class="param">id (required)</div>
+      <div class="param">_id (required)</div>
 
       <div class="param-desc"><span class="param-type">Path Parameter</span> &mdash; ID unique to the location that needs to be deleted. format: uuid</div>
     </div>  <!-- field-items -->
@@ -591,7 +591,7 @@ font-style: italic;
     location deleted
         <a href="#Location">Location</a>
     <h4 class="field-label">400</h4>
-    Invalid id supplied
+    Invalid _id supplied
         <a href="#"></a>
     <h4 class="field-label">404</h4>
     location not found
@@ -601,13 +601,13 @@ font-style: italic;
   <div class="method"><a name="getOneLocation"/>
     <div class="method-path">
     <a class="up" href="#__Methods">Up</a>
-    <pre class="get"><code class="huge"><span class="http-method">get</span> /location/{id}</code></pre></div>
+    <pre class="get"><code class="huge"><span class="http-method">get</span> /location/{_id}</code></pre></div>
     <div class="method-summary">Finds a location by its 2-character building code (<span class="nickname">getOneLocation</span>)</div>
     <div class="method-notes">By passing in a valid 2-character building code, a user can search for a specific location in the system</div>
 
     <h3 class="field-label">Path parameters</h3>
     <div class="field-items">
-      <div class="param">id (required)</div>
+      <div class="param">_id (required)</div>
 
       <div class="param-desc"><span class="param-type">Path Parameter</span> &mdash; ID unique to the location that needs to be deleted. format: uuid</div>
     </div>  <!-- field-items -->
@@ -641,7 +641,7 @@ font-style: italic;
     location found
         <a href="#Location">Location</a>
     <h4 class="field-label">400</h4>
-    Invalid id supplied
+    Invalid _id supplied
         <a href="#"></a>
     <h4 class="field-label">404</h4>
     location not found
@@ -795,13 +795,13 @@ font-style: italic;
   <div class="method"><a name="deleteOneSubLocation"/>
     <div class="method-path">
     <a class="up" href="#__Methods">Up</a>
-    <pre class="delete"><code class="huge"><span class="http-method">delete</span> /subLocation/{id}</code></pre></div>
+    <pre class="delete"><code class="huge"><span class="http-method">delete</span> /subLocation/{_id}</code></pre></div>
     <div class="method-summary">Deletes a sublocation by its name (<span class="nickname">deleteOneSubLocation</span>)</div>
     <div class="method-notes">By passing in a valid sublocation name, a user can search for a specific sublocation in the system</div>
 
     <h3 class="field-label">Path parameters</h3>
     <div class="field-items">
-      <div class="param">id (required)</div>
+      <div class="param">_id (required)</div>
 
       <div class="param-desc"><span class="param-type">Path Parameter</span> &mdash; ID unique to the subLocation that needs to be deleted. format: uuid</div>
     </div>  <!-- field-items -->
@@ -835,7 +835,7 @@ font-style: italic;
     sublocation deleted
         <a href="#SubLocation">SubLocation</a>
     <h4 class="field-label">400</h4>
-    Invalid id supplied
+    Invalid _id supplied
         <a href="#"></a>
     <h4 class="field-label">404</h4>
     sublocation not found
@@ -845,13 +845,13 @@ font-style: italic;
   <div class="method"><a name="getOneSubLocation"/>
     <div class="method-path">
     <a class="up" href="#__Methods">Up</a>
-    <pre class="get"><code class="huge"><span class="http-method">get</span> /subLocation/{id}</code></pre></div>
+    <pre class="get"><code class="huge"><span class="http-method">get</span> /subLocation/{_id}</code></pre></div>
     <div class="method-summary">Finds a sublocation by its name (<span class="nickname">getOneSubLocation</span>)</div>
     <div class="method-notes">By passing in a valid sublocation name, a user can search for a specific sublocation in the system</div>
 
     <h3 class="field-label">Path parameters</h3>
     <div class="field-items">
-      <div class="param">id (required)</div>
+      <div class="param">_id (required)</div>
 
       <div class="param-desc"><span class="param-type">Path Parameter</span> &mdash; ID unique to the subLocation that needs to be found. format: uuid</div>
     </div>  <!-- field-items -->
@@ -885,7 +885,7 @@ font-style: italic;
     sublocation found
         <a href="#SubLocation">SubLocation</a>
     <h4 class="field-label">400</h4>
-    Invalid id supplied
+    Invalid _id supplied
         <a href="#"></a>
     <h4 class="field-label">404</h4>
     sublocation not found
@@ -1005,7 +1005,7 @@ font-style: italic;
     <h3><a name="Event"><code>Event</code> - </a> <a class="up" href="#__Models">Up</a></h3>
     <div class='model-description'></div>
     <div class="field-items">
-      <div class="param">id </div><div class="param-desc"><span class="param-type"><a href="#UUID">UUID</a></span>  format: uuid</div>
+      <div class="param">_id </div><div class="param-desc"><span class="param-type"><a href="#UUID">UUID</a></span>  format: uuid</div>
           <div class="param-desc"><span class="param-type">example: d290f1ee-6c54-4b01-90e6-d701748f0851</span></div>
 <div class="param">name </div><div class="param-desc"><span class="param-type"><a href="#string">String</a></span>  </div>
           <div class="param-desc"><span class="param-type">example: Game Night</span></div>
@@ -1026,7 +1026,7 @@ font-style: italic;
     <h3><a name="Location"><code>Location</code> - </a> <a class="up" href="#__Models">Up</a></h3>
     <div class='model-description'></div>
     <div class="field-items">
-      <div class="param">id </div><div class="param-desc"><span class="param-type"><a href="#UUID">UUID</a></span>  format: uuid</div>
+      <div class="param">_id </div><div class="param-desc"><span class="param-type"><a href="#UUID">UUID</a></span>  format: uuid</div>
           <div class="param-desc"><span class="param-type">example: d290f1ee-6c54-4b01-90e6-d701748f0851</span></div>
 <div class="param">name </div><div class="param-desc"><span class="param-type"><a href="#string">String</a></span>  </div>
           <div class="param-desc"><span class="param-type">example: Deerfield Hall</span></div>
@@ -1050,7 +1050,7 @@ font-style: italic;
     <h3><a name="Space"><code>Space</code> - </a> <a class="up" href="#__Models">Up</a></h3>
     <div class='model-description'></div>
     <div class="field-items">
-      <div class="param">id </div><div class="param-desc"><span class="param-type"><a href="#UUID">UUID</a></span>  format: uuid</div>
+      <div class="param">_id </div><div class="param-desc"><span class="param-type"><a href="#UUID">UUID</a></span>  format: uuid</div>
           <div class="param-desc"><span class="param-type">example: d290f1ee-6c54-4b01-90e6-d701748f0851</span></div>
 <div class="param">name </div><div class="param-desc"><span class="param-type"><a href="#string">String</a></span>  </div>
           <div class="param-desc"><span class="param-type">example: Deerfield Hall</span></div>
@@ -1062,7 +1062,7 @@ font-style: italic;
     <h3><a name="SubLocation"><code>SubLocation</code> - </a> <a class="up" href="#__Models">Up</a></h3>
     <div class='model-description'></div>
     <div class="field-items">
-      <div class="param">id </div><div class="param-desc"><span class="param-type"><a href="#UUID">UUID</a></span>  format: uuid</div>
+      <div class="param">_id </div><div class="param-desc"><span class="param-type"><a href="#UUID">UUID</a></span>  format: uuid</div>
           <div class="param-desc"><span class="param-type">example: d290f1ee-6c54-4b01-90e6-d701748f0851</span></div>
 <div class="param">name </div><div class="param-desc"><span class="param-type"><a href="#string">String</a></span>  format: roomCode</div>
           <div class="param-desc"><span class="param-type">example: DH2000</span></div>
@@ -1078,7 +1078,7 @@ font-style: italic;
     <h3><a name="Tag"><code>Tag</code> - </a> <a class="up" href="#__Models">Up</a></h3>
     <div class='model-description'></div>
     <div class="field-items">
-      <div class="param">id </div><div class="param-desc"><span class="param-type"><a href="#UUID">UUID</a></span>  format: uuid</div>
+      <div class="param">_id </div><div class="param-desc"><span class="param-type"><a href="#UUID">UUID</a></span>  format: uuid</div>
           <div class="param-desc"><span class="param-type">example: d290f1ee-6c54-4b01-90e6-d701748f0851</span></div>
 <div class="param">name </div><div class="param-desc"><span class="param-type"><a href="#string">String</a></span>  </div>
           <div class="param-desc"><span class="param-type">example: Board Games</span></div>
