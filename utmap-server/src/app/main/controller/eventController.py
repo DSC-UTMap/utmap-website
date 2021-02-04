@@ -12,12 +12,9 @@ class EventController(Resource):
 
 class EventList(Resource):
     def get(self):
-        #return getAllEvents()
         pass
     
     def post(self):
-        #data = request.json
-        #return addEvents(data=data)
         pass
 
 class EventById(Resource):
@@ -28,6 +25,4 @@ class EventById(Resource):
         return deleteOneEvent(_id)
 
     def put(self, _id):
-        #data = request.json
-        #return updateEvents(data=data)
         pass

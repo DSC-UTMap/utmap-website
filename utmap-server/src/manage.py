@@ -4,7 +4,7 @@ import unittest
 from flask_script import Manager
 from flask_restx import Api
 from app.main import createApp, createClient
-from app.main.controller import locationController as locCon, eventController as evCon #, subLocationController as subLocCon
+from app.main.controller import locationController as locCon, eventController as evCon
 
 app = createApp(os.getenv('UTMAP_ENV') or 'dev')
 app.app_context().push()
@@ -13,7 +13,6 @@ db = createClient(os.getenv('UTMAP_ENV') or 'dev')
 
 api = Api(app)
 api = locCon.LocationController().addLocResources(api)
-#api = subLocCon.SubLocationController().addSubLocResources(api)
 api = evCon.EventController().addEvResources(api)
 
 manager = Manager(app)

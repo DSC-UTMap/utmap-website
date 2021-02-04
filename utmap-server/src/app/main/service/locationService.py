@@ -29,9 +29,6 @@ def addLocation(data):
         return jsonify({'result' : responseObject, 'status' : 201})
 
 def updateLocation(_id, data):
-    #location = Location()
-    #locations = location.connectToLocations()
-    #loc = location.findLocById(_id, locations)
     responseObject = {
             'status': 'success',
             'message': 'PUT successfully tested'
