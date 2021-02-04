@@ -70,7 +70,6 @@ function CalendarPage() {
 
 	const addEvent = useCallback((eventData) => {
 		setEventList([...eventList, eventData]);
-		console.table(eventList);
 	}, [eventList]);
 
 	return (
