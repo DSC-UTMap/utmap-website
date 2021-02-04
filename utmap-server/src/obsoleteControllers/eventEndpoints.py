@@ -1,3 +1,5 @@
+#This file is obsolete and only used as a rough guide.  It will be deleted soon.
+
 from flask import Flask, jsonify, request
 from pymongo import MongoClient
 from bson import ObjectId
