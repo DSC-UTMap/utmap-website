@@ -1,4 +1,4 @@
-swagger: '2.0'  
+swagger: '2.0'
 info:
   description: This is a simple API that shows how UTMap will perform its operations
   version: 1.0.0
@@ -93,7 +93,7 @@ paths:
           description: invalid input, object invalid
         404:
           description: object not found
-  /location/{locationCode}:
+  /location/{id}:
     get:
       tags:
       - locations
@@ -104,20 +104,18 @@ paths:
       - application/json
       parameters:
       - in: path
-        name: locationCode
-        description: 2-character building code for location that needs to be found
+        name: id
+        description: ID unique to the location that needs to be deleted.
         required: true
         type: string
-        format: buildingCode
-        minLength: 2
-        maxLength: 2
+        format: uuid
       responses:
         200:
           description: location found
           schema:
             $ref: '#/definitions/Location'
         400:
-          description: Invalid building code supplied
+          description: Invalid id supplied
         404:
           description: location not found
     delete:
@@ -130,20 +128,18 @@ paths:
       - application/json
       parameters:
       - in: path
-        name: locationCode
-        description: 2-character building code for location that needs to be deleted
+        name: id
+        description: ID unique to the location that needs to be deleted.
         required: true
         type: string
-        format: buildingCode
-        minLength: 2
-        maxLength: 2
+        format: uuid
       responses:
         200:
           description: location deleted
           schema:
             $ref: '#/definitions/Location'
         400:
-          description: Invalid building code supplied
+          description: Invalid id supplied
         404:
           description: location not found
   
@@ -217,7 +213,7 @@ paths:
           description: invalid input, object invalid
         404:
           description: object not found
-  /subLocation/{subLocationName}:
+  /subLocation/{id}:
     get:
       tags:
       - subLocations
@@ -228,18 +224,18 @@ paths:
       - application/json
       parameters:
       - in: path
-        name: subLocationName
-        description: 5-6 character name for the subLocation that needs to be found
+        name: id
+        description: ID unique to the subLocation that needs to be found.
         required: true
         type: string
-        format: roomCode
+        format: uuid
       responses:
         200:
           description: sublocation found
           schema:
             $ref: '#/definitions/SubLocation'
         400:
-          description: Invalid name supplied
+          description: Invalid id supplied
         404:
           description: sublocation not found
     delete:
@@ -252,18 +248,18 @@ paths:
       - application/json
       parameters:
       - in: path
-        name: subLocationName
-        description: 5-6 character name for the subLocation that needs to be found
+        name: id
+        description: ID unique to the subLocation that needs to be deleted.
         required: true
         type: string
-        format: roomCode
+        format: uuid
       responses:
         200:
           description: sublocation deleted
           schema:
             $ref: '#/definitions/SubLocation'
         400:
-          description: Invalid name supplied
+          description: Invalid id supplied
         404:
           description: sublocation not found
   /event:
@@ -336,7 +332,7 @@ paths:
           description: invalid input, object invalid
         404:
           description: object not found
-  /event/{eventName}:
+  /event/{id}:
     get:
       tags:
       - events
@@ -347,17 +343,18 @@ paths:
       - application/json
       parameters:
       - in: path
-        name: eventName
-        description: name of the event that needs to be found
+        name: id
+        description: ID unique to the event that needs to be deleted.
         required: true
         type: string
+        format: uuid
       responses:
         200:
           description: event found
           schema:
             $ref: '#/definitions/Event'
         400:
-          description: Invalid name supplied
+          description: Invalid id supplied
         404:
           description: event not found
     delete:
@@ -370,17 +367,18 @@ paths:
       - application/json
       parameters:
       - in: path
-        name: eventName
-        description: name for the subLocation that needs to be found
+        name: id
+        description: ID unique to the event that needs to be deleted.
         required: true
         type: string
+        format: uuid
       responses:
         200:
           description: event deleted
           schema:
             $ref: '#/definitions/Event'
         400:
-          description: Invalid name supplied
+          description: Invalid id supplied
         404:
           description: event not found
 definitions:
@@ -445,12 +443,6 @@ definitions:
               text:
                 type: string
           example: {'Deerfield Hall' : 'DH2000'}
-        #releaseDate:
-          #type: string
-          #format: date-time
-          #example: 2016-08-29T09:12:33.001Z
-        #manufacturer:
-          #$ref: '#/definitions/Manufacturer'
   SubLocation:
     allOf:
     - $ref: '#/definitions/Space'
@@ -541,7 +533,7 @@ definitions:
         example: This event has board games.
 # Added by API Auto Mocking Plugin
 host: virtserver.swaggerhub.com
-basePath: /DSC-UTMap/UTMap-API/1.0.0
+basePath: /RobS9919/UTMap-API/1.0.0
 schemes:
  - https
  - http
