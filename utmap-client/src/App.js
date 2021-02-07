@@ -4,6 +4,12 @@ import LandingPage from './components/pages/LandingPage';
 import CalendarPage from './components/pages/CalendarPage';
 import MapPage from './components/pages/MapPage';
 import SingleEventPage from "./components/pages/SingleEventPage";
+import { makeStyles } from '@material-ui/core/styles';
+import IconButton from '@material-ui/core/IconButton';
+import MenuIcon from '@material-ui/icons/Menu';
+import SideBar from "./components/pages/SideBar";
+import clsx from 'clsx';
+
 
 //example event for single event page. REMOVE once single event connected to calendar
 const exampleEvents =
@@ -23,36 +29,72 @@ const exampleEvents =
     organizer: 'Qianqian Feng'
   }
 
+  const useStyles = makeStyles((theme) => ({
+    hide: {
+      display: 'none',
+    },
+  }));
+  
+
+
 function App() {
+  const classes = useStyles();
+  const [open, setOpen] = React.useState(false);
+
+  const handleDrawerOpen = () => {
+    setOpen(true);
+  };
+
+  const handleDrawerClose = () => {
+    setOpen(false);
+  };
+
   return(
-    //Landing, Calendar, and Map Page
-    <Router>
-      <div className="App">
-        <Route exact path="/" component={LandingPage}/>    
-        <Route path="/calendar" component={CalendarPage}/>
-        <Route path="/map" component={MapPage}/>
-        {/* single event. REMOVE route when conncted to calendar */}
-        <Route 
-          path="/singleEvent" 
-          render={props => (
-            <React.Fragment>
-              <SingleEventPage 
-              startDate={exampleEvents.startDate} 
-              endDate={exampleEvents.endDate} 
-              title ={exampleEvents.title} 
-              description={exampleEvents.description}
-              location={exampleEvents.location}
-              sublocation={exampleEvents.sublocation}
-              organizer={exampleEvents.organizer}
-              />
-            </React.Fragment>
-          )}/> 
-        <div><Link to="/">Landing</Link></div>
-        <div><Link to="/calendar">Calendar</Link></div>
-        <div><Link to="/map">Map</Link></div>
-        <div><Link to="/singleEvent">Single Event</Link></div>
+    <div>
+      {/* Side bar */}
+      <div align="right">
+        <IconButton
+            color="inherit"
+            aria-label="open drawer"
+            edge="end"
+            onClick={handleDrawerOpen}
+            className={clsx(open && classes.hide)}
+            alignment="right"
+            >
+            <MenuIcon />
+        </IconButton>
+        <SideBar open={open} onClose={handleDrawerClose}></SideBar>
       </div>
-    </Router>
+
+      {/* Landing, Calendar, Map Pages*/}
+      <Router>
+        <div className="App">
+          <Route exact path="/" component={LandingPage}/>    
+          <Route path="/calendar" component={CalendarPage}/>
+          <Route path="/map" component={MapPage}/>
+          {/* single event. REMOVE route when conncted to calendar */}
+          <Route 
+            path="/singleEvent" 
+            render={props => (
+              <React.Fragment>
+                <SingleEventPage 
+                startDate={exampleEvents.startDate} 
+                endDate={exampleEvents.endDate} 
+                title ={exampleEvents.title} 
+                description={exampleEvents.description}
+                location={exampleEvents.location}
+                sublocation={exampleEvents.sublocation}
+                organizer={exampleEvents.organizer}
+                />
+              </React.Fragment>
+            )}/> 
+          <div><Link to="/">Landing</Link></div>
+          <div><Link to="/calendar">Calendar</Link></div>
+          <div><Link to="/map">Map</Link></div>
+          <div><Link to="/singleEvent">Single Event</Link></div>
+        </div>
+      </Router>
+    </div>          
   );
 }
 
