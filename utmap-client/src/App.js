@@ -6,7 +6,6 @@ import MapPage from './components/pages/MapPage';
 
 function App() {
   return(
-    //Landing, Calendar, and Map Page
     <Router>
       <div className="App">
         <Route exact path="/" component={LandingPage}/>    
@@ -16,7 +15,7 @@ function App() {
         <div><Link to="/calendar">Calendar</Link></div>
         <div><Link to="/map">Map</Link></div>
       </div>
-    </Router>
+    </Router>         
   );
 }
 
