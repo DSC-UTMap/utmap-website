@@ -53,7 +53,7 @@ function CalendarPage() {
 	const [openEventForm, setOpenEventForm] = useState(false);
 	const [openEventInfo, setOpenEventInfo] = useState(false);
 	const [eventInfo, setEventInfo] = useState(
-		{ startDate: '2021-01-03T09:45', endDate: '2021-01-03T10:00', title: 'Blank' });
+		{});
 	const [eventList, setEventList] = useState(exampleEvents);
 
 	const handleOpenEventInfo = (data) => {
