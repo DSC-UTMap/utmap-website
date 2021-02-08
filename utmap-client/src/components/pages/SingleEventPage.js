@@ -25,7 +25,6 @@ const useStyles = makeStyles(theme => ({ //CSS styles on components
 	},
 	paper: {
 		width: '35rem',
-		marginTop: theme.spacing(6),
 		paddingTop: theme.spacing(4),
 		paddingBottom: theme.spacing(4),
 		paddingLeft: theme.spacing(4),
@@ -52,7 +51,9 @@ const useStyles = makeStyles(theme => ({ //CSS styles on components
 
 }));
 
-function SingleEventPage({startDate, endDate, title, description, location, sublocation, organizer}) {
+function SingleEventPage(
+	{startDate, endDate, title, description, 
+		location, sublocation, organizer, closePopup}) {
 	const classes = useStyles();
 
 	//expand for description
@@ -69,7 +70,9 @@ function SingleEventPage({startDate, endDate, title, description, location, subl
 					{/* Close and Edit Icons */}
 					<Grid item className={classes.row}>
 						<Grid item xs="6" align="left">
-							<IconButton aria-label="close"><CloseIcon /></IconButton>
+							<IconButton aria-label="close" onClick={closePopup}>
+								<CloseIcon />
+							</IconButton>
 						</Grid>
 						<Grid item xs="6" align="right">
 							<IconButton aria-label="edit"><EditIcon /></IconButton>
@@ -126,8 +129,8 @@ function SingleEventPage({startDate, endDate, title, description, location, subl
 
 				</GridList>
 			</Paper>
-        </div>
-    );
+		</div>
+	);
 }
 
 SingleEventPage.propTypes = {
