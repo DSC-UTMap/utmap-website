@@ -1,13 +1,15 @@
 import React, { useState } from 'react';
-import Paper from '@material-ui/core/Paper';
-import Grid from '@material-ui/core/Grid';
-import Button from '@material-ui/core/Button';
-import TextField from '@material-ui/core/TextField';
-import FormControl from '@material-ui/core/FormControl';
-import InputLabel from '@material-ui/core/InputLabel';
-import Select from '@material-ui/core/Select';
-import MenuItem from '@material-ui/core/MenuItem';
-import IconButton from '@material-ui/core/IconButton';
+import {
+	Paper,
+	Grid,
+	Button,
+	TextField,
+	FormControl,
+	InputLabel,
+	Select,
+	MenuItem,
+	IconButton
+} from '@material-ui/core';
 import CloseIcon from '@material-ui/icons/Close';
 import CreateIcon from '@material-ui/icons/Create';
 import CalendarTodayIcon from '@material-ui/icons/CalendarToday';
@@ -16,6 +18,7 @@ import DescriptionIcon from '@material-ui/icons/Description';
 import DateFnsUtils from '@date-io/date-fns';
 import { DateTimePicker, MuiPickersUtilsProvider } from "@material-ui/pickers";
 import { makeStyles } from '@material-ui/core/styles';
+import locationData from '../LocationData';
 
 const useStyles = makeStyles(theme => ({ //CSS styles on components
 	box: {
@@ -52,7 +55,7 @@ function CreateEventPage({onClose, addEvent}) {
 	const formStyle = useStyles(); 
 	const [startDate, setStartDate] = useState(new Date());
 	const [endDate, setEndDate] = useState(new Date());
-	const [location, setLocation] = useState('SC');
+	const [location, setLocation] = useState(locationData[0]);
 	const [title, setTitle] = useState('');
 	const [sublocation, setSublocation] = useState('');
 	const [description, setDescription] = useState('');
@@ -61,6 +64,8 @@ function CreateEventPage({onClose, addEvent}) {
 	const handleSubmit = event => {
 		event.preventDefault(); //Stop the form from submitting
 		//Send info???
+		startDate.setSeconds(0,0);
+		endDate.setSeconds(0,0);
 		const eventForm = {
 			title, 
 			startDate: startDate.toLocaleString('en-US', { timeZone: 'America/New_York' }), 
@@ -139,11 +144,9 @@ function CreateEventPage({onClose, addEvent}) {
 							onChange={event => setLocation(event.target.value)}
 							label='Location *'
 						>
-							<MenuItem value='SC'>Student Center</MenuItem>
-							<MenuItem value='DV'>Davis (DV)</MenuItem>
-							<MenuItem value='IB'>Instructional Building (IB)</MenuItem>
-							<MenuItem value='DH'>Deerfield Hall (DH)</MenuItem>
-							<MenuItem value='MN'>Maanjiwe Nendamowinan (MN)</MenuItem>
+							{locationData.map((location) => {
+								return <MenuItem value={location}>{location}</MenuItem>;
+							})}
 						</Select>
 					</FormControl>
 					<TextField
