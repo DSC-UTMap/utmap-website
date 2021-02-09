@@ -267,7 +267,6 @@ definitions:
     - _id
     - name
     - code
-    - coords
     properties:
       _id:
         type: string
@@ -282,13 +281,6 @@ definitions:
         minLength: 2
         maxLength: 2
         example: DH
-      coords:
-        type: array
-        items:
-          type: integer
-          minItems: 2
-          maxItems: 2
-        example: 200, 400
   Event:
     type: object
     required:

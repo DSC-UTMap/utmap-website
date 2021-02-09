@@ -54,10 +54,9 @@ The following models represent the two types of objects stored in the UTMap data
 Locations are JSON objects that represent a building or plot of land at which events are held.  A location object has the following format:  
   
 'location' : {
-    '_id' : UUID
-    'name' : String
-    'code' : String (2 letters long)
-    'coords' : List[int, int]
+    '_id' : UUID (Unique ID)
+    'name' : String (The location's name)
+    'code' : String (2-letter building code)
 }
 
 #### Events
@@ -65,14 +64,14 @@ Locations are JSON objects that represent a building or plot of land at which ev
 Events are JSON objects that represent an event scheduled to happen at a location.  An event object has the following format:  
   
 'event' : {
-    '_id' : UUID
-    'name' : String
-    'organizer' : String
-    'startTime' : DateTime
-    'endTime' : DateTime
+    '_id' : UUID (Unique ID)
+    'name' : String (The event's name)
+    'organizer' : String (The event organizer's name)
+    'startTime' : DateTime (The date and time the event begins)
+    'endTime' : DateTime (The date and time the event ends)
     'location' : location (see above)
-    'room' : String
-    'description' : String
+    'room' : String (The room the event is held in)
+    'description' : String (A short description of the event)
 }
 
 ### HTTP Requests
