@@ -4,12 +4,12 @@
 
 The following packages must be installed for UTMap Server to function properly.
 
-Flask-1.1.2
-Flask-Script-2.0.6
-flask-restx-0.2.0
-flask-testing-0.8.1
-pylint-2.6.0
-pymongo-3.11.2
+Flask-1.1.2,  
+Flask-Script-2.0.6,  
+flask-restx-0.2.0,  
+flask-testing-0.8.1,  
+pylint-2.6.0,  
+pymongo-3.11.2,  
 
 ## Architecture
 
@@ -25,7 +25,7 @@ The main folder contains all the files necessary to run the app which are organi
 
 ##### controller:
 
-The controller folder contains the endpoints for the API in manage.py.  It contains files that route the appropriate http requests calls to their corresponding services.  These files include the existing locationController.py and eventController.py.  A subLocationController.py is planned.
+The controller folder contains the endpoints for the API in manage.py.  It contains files that route the appropriate http requests calls to their corresponding services.  These files include the existing locationController.py and eventController.py.
 
 ###### locationController.py:
 
@@ -45,28 +45,114 @@ The test folder contains all files necessary to unit-test the app.  Currently, t
 
 ## API
 
-### Locations
+### Models
+
+The following models represent the two types of objects stored in the UTMap database: locations and events.  Locations are stored in UTMap's "location" collection, while events are stored in UTMap's "event" collection.
+
+#### Locations
+
+Locations are JSON objects that represent a building or plot of land at which events are held.  A location object has the following format:  
+  
+'location' : {
+    '_id' : UUID
+    'name' : String
+    'code' : String (2 letters long)
+    'coords' : List[int, int]
+}
+
+#### Events
+
+Events are JSON objects that represent an event scheduled to happen at a location.  An event object has the following format:  
+  
+'event' : {
+    '_id' : UUID
+    'name' : String
+    'organizer' : String
+    'startTime' : DateTime
+    'endTime' : DateTime
+    'location' : location (see above)
+    'room' : String
+    'description' : String
+}
+
+### HTTP Requests
 
 #### GET /location
 
+- Purpose: Retrieves a list of every location in the UTMap database. 
+- Method: Routes to the method getAllLocations().
+- Return Type: Returns a list of locations.
+- Responses: Status 200 if a list is found, 404 if no list is found.
+
 #### POST /location
+
+- Purpose: Adds a new location to the UTMap database.
+- Method: Routes to the method addLocation().
+- Request Body: Requires a location object as the request body (_id not necessary).
+- Produces: Produces a location as a JSON object in the response body.
+- Responses: Status 201 if a location is posted successfully, 400 if the input data is invalid, 409 if the location already exists.
 
 #### GET /location/{_id}
 
+- Purpose: Retrieves a location with the specified _id from the UTMap database. 
+- Path Parameters: Requires the specified _id in the HTTP request.
+- Method: Routes to the method getOneLocation().
+- Return Type: Returns a single location.
+- Responses: Status 200 if a location is found, 400 if the specified _id is invalid, 404 if no location is found.
+
 #### PUT /location/{_id}
+
+- Purpose: Updates an existing location in the UTMap database.
+- Path Parameters: Requires the specified _id in the HTTP request.
+- Method: Routes to the method updateLocation().
+- Request Body: Requires a location object as the request body (_id necessary).
+- Produces: Produces the updated location as a JSON object in the response body.
+- Responses: Status 201 if a location is updated successfully, 400 if the input data is invalid, 404 if no location is found.
 
 #### DELETE /location/{_id}
 
-### SubLocations
-
-### Events
+- Purpose: Deletes a location with the specified _id from the UTMap database. 
+- Path Parameters: Requires the specified _id in the HTTP request.
+- Method: Routes to the method deleteOneLocation().
+- Return Type: Returns a single location.
+- Responses: Status 200 if a location is deleted successfully, 400 if the specified _id is invalid, 404 if no location is found.
 
 #### GET /event
 
+- Purpose: Retrieves a list of every event in the UTMap database. 
+- Method: Routes to the method getAllEvents().
+- Return Type: Returns a list of events.
+- Responses: Status 200 if a list is found, 404 if no list is found.
+
 #### POST /event
+
+- Purpose: Adds a new event to the UTMap database.
+- Method: Routes to the method addEvent().
+- Request Body: Requires an event object as the request body (_id not necessary).
+- Produces: Produces an event as a JSON object in the response body.
+- Responses: Status 201 if an event is posted successfully, 400 if the input data is invalid, 409 if the event already exists.
 
 #### GET /event/{_id}
 
+- Purpose: Retrieves an event with the specified _id from the UTMap database. 
+- Path Parameters: Requires the specified _id in the HTTP request.
+- Method: Routes to the method getOneEvent().
+- Return Type: Returns a single event.
+- Responses: Status 200 if a event is found, 400 if the specified _id is invalid, 404 if no event is found.
+
 #### PUT /event/{_id}
 
+- Purpose: Updates an existing event in the UTMap database.
+- Path Parameters: Requires the specified _id in the HTTP request.
+- Method: Routes to the method updateEvent().
+- Request Body: Requires an event object as the request body (_id necessary).
+- Produces: Produces the updated event as a JSON object in the response body.
+- Responses: Status 201 if an event is updated successfully, 400 if the input data is invalid, 404 if no event is found.
+
 #### DELETE /event/{_id}
+
+- Purpose: Deletes an event with the specified _id from the UTMap database. 
+- Path Parameters: Requires the specified _id in the HTTP request.
+- Method: Routes to the method deleteOneEvent().
+- Return Type: Returns a single event.
+- Responses: Status 200 if an event is deleted successfully, 400 if the specified _id is invalid, 404 if no event is found.
