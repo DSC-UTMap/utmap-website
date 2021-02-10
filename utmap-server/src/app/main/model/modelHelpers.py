@@ -29,3 +29,7 @@ def assignId(document, collection):
     
 def insertDocument(document, collection):
     return collection.insert_one(document)
+
+def updateDocument(document, collection, fields, newData):
+    for i in range(len(fields)):
+        collection.update_one(document, {'$set': {fields[i] : newData[i]}})

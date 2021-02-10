@@ -2,6 +2,13 @@ from flask import jsonify
 from app.main.model.building import Building
 
 def addBuilding(data):
+    if len(str(data['code'])) != 2:
+        responseObject = {
+            'status': 'failure',
+            'message': 'Invalid input for code field'
+        }
+        return jsonify({'result' : responseObject, 'status' : 400})
+
     building = Building()
     buildings = building.connectToBuildings()
     build = building.findBuildByName(data['name'], buildings)
@@ -14,9 +21,8 @@ def addBuilding(data):
         return jsonify({'result' : responseObject, 'status' : 409})
     else:
         newBuilding = Building(name=data['name'], code=data['code'])
-        newId = newBuilding.assignBuildingId(buildings)
-        newBuild = building.findBuildById(newId, buildings)
-        responseBody = newBuilding.formatAsResponseBody(newBuild)
+        newBuilding.assignBuildingId(buildings)
+        responseBody = newBuilding.formatAsResponseBody()
         
         responseObject = {
             'status': 'success',
@@ -26,11 +32,34 @@ def addBuilding(data):
         return jsonify({'result' : responseObject, 'status' : 201})
 
 def updateBuilding(_id, data):
-    responseObject = {
+    if len(str(data['code'])) != 2:
+        responseObject = {
+            'status': 'failure',
+            'message': 'Invalid input for code field'
+        }
+        return jsonify({'result' : responseObject, 'status' : 400})
+
+    building = Building()
+    buildings = building.connectToBuildings()
+    build = building.findBuildById(_id, buildings)
+    
+    if build:
+        buildingToUpdate = Building(_id=_id, name=data['name'], code=data['code'])
+        buildingToUpdate.updateBuild(buildings, build)
+        responseBody = buildingToUpdate.formatAsResponseBody()
+        
+        responseObject = {
             'status': 'success',
-            'message': 'PUT successfully tested'
-    }
-    return jsonify({'result' : responseObject, 'status' : 200})
+            'message': 'Building successfully updated',
+            'body' : responseBody
+        }
+        return jsonify({'result' : responseObject, 'status' : 201})
+    else:
+        responseObject = {
+            'status': 'fail',
+            'message': 'Building not found'
+        }
+        return jsonify({'result' : responseObject, 'status' : 404})
 
 def getAllBuildings():
     building = Building()

@@ -1,6 +1,6 @@
 from .. import db
 from .modelHelpers import (
-    findAll, findById, deleteById, findByName, formatId, assignId, formatDocuments
+    findAll, findById, deleteById, findByName, formatId, assignId, updateDocument, formatDocuments,
     )
 from bson import ObjectId
 
@@ -27,21 +27,15 @@ class Building:
         return build
 
     def assignBuildingId(self, buildings):
-        fields = {
-            'name' : self.name,
-            'code' : self.code
-        }
+        fields = {'name' : self.name, 'code' : self.code}
         buildId = assignId(fields, buildings).inserted_id
         self._id = formatId(buildId)
         return self._id
 
-    def updateName(self, newName):
-        self.name = newName
-        return self.name
-
-    def updateCode(self, newCode):
-        self.code = newCode
-        return self.code
+    def updateBuild(self, buildings, buildToUpdate):
+        fieldList = ['name', 'code']
+        fieldVals = [self.name, self.code]
+        updateDocument(buildToUpdate, buildings, fieldList, fieldVals)
 
     def formatAllBuilds(self, buildings):
         output = []
@@ -51,7 +45,7 @@ class Building:
 
     def formatOneBuild(self, buildObject):
         tempBuild = self.createTempBuild(buildObject)
-        output = (tempBuild.formatAsResponseBody(buildObject))
+        output = (tempBuild.formatAsResponseBody())
         return output
     
     def createTempBuild(self, buildObject):
@@ -59,14 +53,7 @@ class Building:
                 _id=buildObject['_id'], name=buildObject['name'], code=buildObject['code'])
         return tempBuild
 
-    #def formatSubLocations(self, locObject):
-    #    self.subLocations = locObject['subLocations']
-    #    for sub in self.subLocations:
-    #        self.subLocations[sub]['_id'] = formatId(self.subLocations[sub]['_id'])
-    #        self.subLocations[sub]['events'] = formatDocuments(self.subLocations[sub]['events'])
-    #    return self.subLocations
-
-    def formatAsResponseBody(self, buildObject):
+    def formatAsResponseBody(self):
         output = {
             '_id' : formatId(self._id),
             'name' : self.name, 
