@@ -13,42 +13,36 @@ info:
 
 # tags are used for organizing operations
 tags:
-- name: locations
+- name: buildings
   description: Operations related to the buildings displayed by UTMap
 - name: events
   description: Operations related to events at UTMap
 
 paths:
-  /location:
+  /building:
     get:
       tags:
-      - locations
-      summary: Searches locations on UTMap
-      operationId: searchLocations
-      description: By passing in the appropriate options, a user can search for existing locations in the system
+      - buildings
+      summary: Retrieves all buildings on UTMap
+      operationId: getAllBuildings
+      description: A user can retrieve a full list of existing buildings in the system
       produces:
       - application/json
-      parameters:
-      - in: query
-        name: searchString
-        description: passes an optional search string to look up locations
-        required: false
-        type: string
       responses:
         200:
-          description: search results matching criteria
+          description: results found
           schema:
             type: array
             items:
-              $ref: '#/definitions/Location'
+              $ref: '#/definitions/Building'
         400:
           description: bad input parameter
     post:
       tags:
-      - locations
-      summary: Adds a location to UTMap
-      operationId: addLocation
-      description: A user can submit a json representation of a location to add to the list of existing locations in the system
+      - buildings
+      summary: Adds a building to UTMap
+      operationId: addBuilding
+      description: A user can submit a json representation of a building to add to the list of existing buildings in the system
       consumes:
       - application/json
       produces:
@@ -56,10 +50,10 @@ paths:
       parameters:
       - in: body
         name: body
-        description: Location object to add to the map
+        description: Building object to add to the map
         required: true
         schema:
-          $ref: '#/definitions/Location'
+          $ref: '#/definitions/Building'
       responses:
         201:
           description: item created
@@ -67,23 +61,30 @@ paths:
           description: invalid input, object invalid
         409:
           description: an existing item already exists
+  /building/{_id}:
     put:
       tags:
-      - locations
-      summary: updates an existing location on UTMap
-      operationId: updateLocation
-      description: A user can submit a json representation of a location to replace an existing location in the system
+      - buildings
+      summary: updates an existing building on UTMap
+      operationId: updateBuilding
+      description: By passing in a valid ID, a user can submit a json representation of a building to replace an existing building in the system
       consumes:
       - application/json
       produces:
       - application/json
       parameters:
+      - in: path
+        name: _id
+        description: ID unique to the building that needs to be updated.
+        required: true
+        type: string
+        format: uuid
       - in: body
         name: body
-        description: Location object to update
+        description: Building object to update
         required: true
         schema:
-          $ref: '#/definitions/Location'
+          $ref: '#/definitions/Building'
       responses:
         201:
           description: item updated
@@ -91,51 +92,50 @@ paths:
           description: invalid input, object invalid
         404:
           description: object not found
-  /location/{_id}:
     get:
       tags:
-      - locations
-      summary:  Finds a location by its 2-character building code
-      operationId: getLocationByCode
-      description: By passing in a valid 2-character building code, a user can search for a specific location in the system
+      - buildings
+      summary:  Finds one building from UTMap
+      operationId: getOneBuilding
+      description: By passing in a valid ID building code, a user can search for a specific building in the system
       produces:
       - application/json
       parameters:
       - in: path
         name: _id
-        description: ID unique to the location that needs to be deleted.
+        description: ID unique to the building that needs to be deleted.
         required: true
         type: string
         format: uuid
       responses:
         200:
-          description: location found
+          description: building found
           schema:
-            $ref: '#/definitions/Location'
+            $ref: '#/definitions/Building'
         400:
           description: Invalid id supplied
         404:
-          description: location not found
+          description: building not found
     delete:
       tags:
-      - locations
-      summary:  Deletes a location by its 2-character building code
-      operationId: deleteLocation
-      description: By passing in a valid 2-character building code, a user can delete a specific location in the system
+      - buildings
+      summary:  Deletes a building with the specified unique ID
+      operationId: deleteOneBuilding
+      description: By passing in a valid ID, a user can delete a specific building in the system
       produces:
       - application/json
       parameters:
       - in: path
         name: _id
-        description: ID unique to the location that needs to be deleted.
+        description: ID unique to the building that needs to be deleted.
         required: true
         type: string
         format: uuid
       responses:
         200:
-          description: location deleted
+          description: building deleted
           schema:
-            $ref: '#/definitions/Location'
+            $ref: '#/definitions/Building'
         400:
           description: Invalid id supplied
         404:
@@ -144,27 +144,20 @@ paths:
     get:
       tags:
       - events
-      summary: Searches events on UTMap
-      operationId: searchEvents
-      description: By passing in the appropriate options, a user can search for existing events in the system
+      summary: Retrieves all events on UTMap
+      operationId: getAllEvents
+      description: A user can retrieve a full list of existing events in the system
       produces:
       - application/json
-      parameters:
-      - in: query
-        name: searchString
-        description: passes an optional search string to look up events
-        required: false
-        type: string
       responses:
         200:
-          description: search results matching criteria
+          description: results found
           schema:
             type: array
             items:
               $ref: '#/definitions/Event'
         400:
           description: bad input parameter
-          
     post:
       tags:
       - events
@@ -188,16 +181,24 @@ paths:
           description: invalid input, object invalid
         409:
           description: an existing item already exists
+  /event/{_id}:
     put:
       tags:
       - events
       summary: updates an existing event on UTMap
+      description: By passing in a valid ID, a user can submit a json representation of an event to replace an existing event in the system
       operationId: updateEvent
       consumes:
       - application/json
       produces:
       - application/json
       parameters:
+      - in: path
+        name: _id
+        description: ID unique to the event that needs to be updated.
+        required: true
+        type: string
+        format: uuid
       - in: body
         name: body
         description: Event object to update
@@ -211,13 +212,12 @@ paths:
           description: invalid input, object invalid
         404:
           description: object not found
-  /event/{_id}:
     get:
       tags:
       - events
-      summary:  Finds an event by its name
+      summary:  Finds an event by its unique ID
       operationId: getEventByName
-      description: By passing in a valid event name, a user can search for a specific event in the system
+      description: By passing in a valid ID, a user can search for a specific event in the system
       produces:
       - application/json
       parameters:
@@ -239,9 +239,9 @@ paths:
     delete:
       tags:
       - events
-      summary:  Deletes an event by its name
+      summary:  Deletes an event with the specified unique ID
       operationId: deleteEvent
-      description: By passing in a valid event name, a user can search for a specific event in the system
+      description: By passing in a valid ID, a user can delete a specific event in the system
       produces:
       - application/json
       parameters:
@@ -261,7 +261,7 @@ paths:
         404:
           description: event not found
 definitions:
-  Location:
+  Building:
     type: object
     required:
     - _id
@@ -311,8 +311,8 @@ definitions:
         type: string
         format: date-time
         example: '2021-09-20T21:00:00Z'
-      location:
-        $ref: '#/definitions/Location'
+      building:
+        $ref: '#/definitions/Building'
       room:
         type: string
         format: roomCode
