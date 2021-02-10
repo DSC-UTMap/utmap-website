@@ -23,15 +23,15 @@ class Event:
         events = db.get_collection('event')
         return events
 
-    def findEventById(self, _id, events):
+    def findEvById(self, _id, events):
         ev = findById(_id, events)
         return ev
 
-    def deleteEventById(self, _id, events):
+    def deleteEvById(self, _id, events):
         ev = deleteById(formatId(_id), events)
         return ev
     
-    def findEventByName(self, name, events):
+    def findEvtByName(self, name, events):
         ev = findByName(name, events)
         return ev
 
