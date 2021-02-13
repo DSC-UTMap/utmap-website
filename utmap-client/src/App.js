@@ -4,6 +4,7 @@ import LandingPage from './components/pages/LandingPage';
 import CalendarPage from './components/pages/CalendarPage';
 import MapPage from './components/pages/MapPage';
 import SingleEventPage from "./components/pages/SingleEventPage";
+import EventListPage from './components/pages/EventListPage'
 
 //example event for single event page. REMOVE once single event connected to calendar
 const exampleEvents =
@@ -47,10 +48,13 @@ function App() {
               />
             </React.Fragment>
           )}/> 
+        {/* event list example page. Remove route when added to sidebar */}
+        <Route path="/eventlist" component={EventListPage}/>
         <div><Link to="/">Landing</Link></div>
         <div><Link to="/calendar">Calendar</Link></div>
         <div><Link to="/map">Map</Link></div>
         <div><Link to="/singleEvent">Single Event</Link></div>
+        <div><Link to="/eventlist">Event List</Link></div>
       </div>
     </Router>
   );
