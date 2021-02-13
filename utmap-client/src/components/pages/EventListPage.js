@@ -13,12 +13,12 @@ const exampleEvents = [
     the middleman and go straight to crying! The event organizer, Leila, will have you crying in no time with her
     collection of your exam grades.`,
     startDate: '2021-01-03T09:45', 
-    endDate: '2021-01-03T10:00'
+    location: 'Davis',
   }, {
     title: 'owo?',
     description: 'uwu!',
     startDate: '2021-01-05T09:45', 
-    endDate: '2021-01-05T10:00'
+    location: 'Deerfield Hall',
   }
 ]
 

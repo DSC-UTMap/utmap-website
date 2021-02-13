@@ -5,6 +5,7 @@ import AccordionDetails from '@material-ui/core/AccordionDetails';
 import Typography from '@material-ui/core/Typography';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import { withStyles } from '@material-ui/core/styles';
+import Divider from '@material-ui/core/Divider';
 import PropTypes from 'prop-types';
 
 
@@ -40,10 +41,14 @@ export class EventListItem extends Component {
                                 {this.props.event.description.substring(0,50)}
                             </Typography>
                         </div>
-                        {/* Event Date */}
+                        {/* Event Date and Location*/}
                         <div className={classes.column}>
                             <Typography variant="caption" noWrap='true' >
                                 {date.toDateString()}
+                            </Typography>
+                            <Divider />
+                            <Typography variant="caption" noWrap='true' >
+                                {this.props.event.location}
                             </Typography>
                         </div>
                     </AccordionSummary>
