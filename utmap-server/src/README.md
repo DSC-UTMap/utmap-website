@@ -25,11 +25,11 @@ The main folder contains all the files necessary to run the app which are organi
 
 ##### controller:
 
-The controller folder contains the endpoints for the API in manage.py.  It contains files that route the appropriate http requests calls to their corresponding services.  These files include the existing locationController.py and eventController.py.
+The controller folder contains the endpoints for the API in manage.py.  It contains files that route the appropriate http requests calls to their corresponding services.  These files include the existing buildingController.py and eventController.py.
 
-###### locationController.py:
+###### buildingController.py:
 
-This file routes http requests related to locations to the locationService.py file.  The LocationController class adds these routes to the API as resources, making them accessible when the app runs.
+This file routes http requests related to buildings to the buildingService.py file.  The BuildingController class adds these routes to the API as resources, making them accessible when the app runs.
 
 ###### eventController.py:
 
@@ -37,7 +37,7 @@ This file routes http requests related to events to the eventService.py file.  T
 
 ##### services:
 
-The services folder contains the services responsible for querying the database.  The eventService.py file queries the database's event collection using the event.py model's helper functions.  The locationService.py file queries the database's location collection using the location.py model's helper functions.
+The services folder contains the services responsible for querying the database.  The eventService.py file queries the database's event collection using the event.py model's helper functions.  The buildingService.py file queries the database's building collection using the building.py model's helper functions.
 
 #### test:
 
@@ -47,21 +47,21 @@ The test folder contains all files necessary to unit-test the app.  Currently, t
 
 ### Models
 
-The following models represent the two types of objects stored in the UTMap database: locations and events.  Locations are stored in UTMap's "location" collection, while events are stored in UTMap's "event" collection.
+The following models represent the two types of objects stored in the UTMap database: buildings and events.  Buildings are stored in UTMap's "building" collection, while events are stored in UTMap's "event" collection.
 
-#### Locations
+#### Buildings
 
-Locations are JSON objects that represent a building or plot of land at which events are held.  A location object has the following format:  
+Buildings are JSON objects that represent a building or plot of land at which events are held.  A building object has the following format:  
   
-'location' : {
+'building' : {
     '_id' : UUID (Unique ID)
-    'name' : String (The location's name)
+    'name' : String (The building's name)
     'code' : String (2-letter building code)
 }
 
 #### Events
 
-Events are JSON objects that represent an event scheduled to happen at a location.  An event object has the following format:  
+Events are JSON objects that represent an event scheduled to happen at a building.  An event object has the following format:  
   
 'event' : {
     '_id' : UUID (Unique ID)
@@ -69,52 +69,52 @@ Events are JSON objects that represent an event scheduled to happen at a locatio
     'organizer' : String (The event organizer's name)
     'startTime' : DateTime (The date and time the event begins)
     'endTime' : DateTime (The date and time the event ends)
-    'location' : location (see above)
+    'building' : building (see above)
     'room' : String (The room the event is held in)
     'description' : String (A short description of the event)
 }
 
 ### HTTP Requests
 
-#### GET /location
+#### GET /building
 
-- Purpose: Retrieves a list of every location in the UTMap database. 
-- Method: Routes to the method getAllLocations().
-- Return Type: Returns a list of locations.
+- Purpose: Retrieves a list of every building in the UTMap database. 
+- Method: Routes to the method getAllBuildings().
+- Return Type: Returns a list of buildings.
 - Responses: Status 200 if a list is found, 404 if no list is found.
 
-#### POST /location
+#### POST /building
 
-- Purpose: Adds a new location to the UTMap database.
-- Method: Routes to the method addLocation().
-- Request Body: Requires a location object as the request body (_id not necessary).
-- Produces: Produces a location as a JSON object in the response body.
-- Responses: Status 201 if a location is posted successfully, 400 if the input data is invalid, 409 if the location already exists.
+- Purpose: Adds a new building to the UTMap database.
+- Method: Routes to the method addBuilding().
+- Request Body: Requires a building object as the request body (_id not necessary).
+- Produces: Produces a building as a JSON object in the response body.
+- Responses: Status 201 if a building is posted successfully, 400 if the input data is invalid, 409 if the building already exists.
 
-#### GET /location/{_id}
+#### GET /building/{_id}
 
-- Purpose: Retrieves a location with the specified _id from the UTMap database. 
+- Purpose: Retrieves a building with the specified _id from the UTMap database. 
 - Path Parameters: Requires the specified _id in the HTTP request.
-- Method: Routes to the method getOneLocation().
-- Return Type: Returns a single location.
-- Responses: Status 200 if a location is found, 400 if the specified _id is invalid, 404 if no location is found.
+- Method: Routes to the method getOneBuilding().
+- Return Type: Returns a single building.
+- Responses: Status 200 if a building is found, 400 if the specified _id is invalid, 404 if no building is found.
 
-#### PUT /location/{_id}
+#### PUT /building/{_id}
 
-- Purpose: Updates an existing location in the UTMap database.
+- Purpose: Updates an existing building in the UTMap database.
 - Path Parameters: Requires the specified _id in the HTTP request.
-- Method: Routes to the method updateLocation().
-- Request Body: Requires a location object as the request body (_id necessary).
-- Produces: Produces the updated location as a JSON object in the response body.
-- Responses: Status 201 if a location is updated successfully, 400 if the input data is invalid, 404 if no location is found.
+- Method: Routes to the method updateBuilding().
+- Request Body: Requires a building object as the request body (_id necessary).
+- Produces: Produces the updated building as a JSON object in the response body.
+- Responses: Status 201 if a building is updated successfully, 400 if the input data is invalid, 404 if no building is found.
 
-#### DELETE /location/{_id}
+#### DELETE /building/{_id}
 
-- Purpose: Deletes a location with the specified _id from the UTMap database. 
+- Purpose: Deletes a building with the specified _id from the UTMap database. 
 - Path Parameters: Requires the specified _id in the HTTP request.
-- Method: Routes to the method deleteOneLocation().
-- Return Type: Returns a single location.
-- Responses: Status 200 if a location is deleted successfully, 400 if the specified _id is invalid, 404 if no location is found.
+- Method: Routes to the method deleteOneBuilding().
+- Return Type: Returns a single building.
+- Responses: Status 200 if a building is deleted successfully, 400 if the specified _id is invalid, 404 if no building is found.
 
 #### GET /event
 
