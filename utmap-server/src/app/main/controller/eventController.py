@@ -1,7 +1,7 @@
 from flask import Flask, request
 from flask_restx import Resource
 from ..service.eventService import (
-    getOneEvent, deleteOneEvent
+    getAllEvents, addEvent, getOneEvent, deleteOneEvent, updateEvent
     )
 
 class EventController(Resource):    
@@ -12,10 +12,11 @@ class EventController(Resource):
 
 class EventList(Resource):
     def get(self):
-        pass
+        return getAllEvents()
     
     def post(self):
-        pass
+        data = request.json
+        return addEvent(data=data)
 
 class EventById(Resource):
     def get(self, _id):
@@ -25,4 +26,5 @@ class EventById(Resource):
         return deleteOneEvent(_id)
 
     def put(self, _id):
-        pass
+        data = request.json
+        return updateEvent(_id, data=data)
