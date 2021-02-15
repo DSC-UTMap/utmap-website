@@ -23,7 +23,7 @@ def addEvent(data):
             description = data['description']
         )
         newEvent.assignEventId(events)
-        responseBody = newEvent.formatAsResponseBody(data['building'])
+        responseBody = newEvent.formatAsResponseBody(data)
 
         responseObject = {
             'status': 'success',
@@ -48,7 +48,7 @@ def updateEvent(_id, data):
             room = data['room'],
             description = data['description'])
         eventToUpdate.updateEvent(events, ev)
-        responseBody = eventToUpdate.formatAsResponseBody(data['building'])
+        responseBody = eventToUpdate.formatAsResponseBody(data)
 
         responseObject = {
             'status': 'success',
