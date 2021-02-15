@@ -5,6 +5,9 @@ import AddIcon from '@material-ui/icons/Add';
 import Dialog from '@material-ui/core/Dialog';
 import { ViewState } from '@devexpress/dx-react-scheduler';
 import {
+	DayView,
+	WeekView,
+	ViewSwitcher,
 	Scheduler,
 	MonthView,
 	Toolbar,
@@ -19,6 +22,12 @@ import MenuIcon from '@material-ui/icons/Menu';
 import SideBar from "./SideBar";
 import clsx from 'clsx';
 import SingleEventPage from './SingleEventPage';
+
+import EventView from '../EventView';
+
+import Radio from '@material-ui/core/Radio';
+import RadioGroup from '@material-ui/core/RadioGroup';
+import FormControlLabel from '@material-ui/core/FormControlLabel';
 
 //example events REMOVE once the backend is connected
 const exampleEvents = [
@@ -59,6 +68,23 @@ function provideCustomAppointment(openEventInfo) {
 	});
 }
 
+const ExternalViewSwitcher = ({
+	currentViewName,
+	onChange,
+  }) => (
+	<RadioGroup
+	  aria-label="Views"
+	  style={{ flexDirection: 'row' }}
+	  name="views"
+	  value={currentViewName}
+	  onChange={onChange}
+	>
+	  <FormControlLabel value="Week" control={<Radio />} label="Week" />
+	  <FormControlLabel value="Month" control={<Radio />} label="Month" />
+	  <FormControlLabel value="Events" control={<Radio />} label="Events" /> 
+	</RadioGroup>
+  );
+
 //Scheduler is the calendar, today, and taskbar components
 function CalendarPage() { 
 	const [openEventForm, setOpenEventForm] = useState(false);
@@ -94,7 +120,13 @@ function CalendarPage() {
 		setOpenDrawer(false);
 	};
 
+	const [currentViewName, setCurrentViewName] = useState('Month');
+	const currentViewNameChange = (e) => {
+		setCurrentViewName(e.target.value);
+	}
+	console.log(currentViewName);
 	return (
+		
 		<>
 			{/* Sidebar */}
 			<div align="right">
@@ -110,13 +142,30 @@ function CalendarPage() {
 				</IconButton>
 				<SideBar open={openDrawer} onClose={handleDrawerClose}></SideBar>
 			</div>
-
+			<ExternalViewSwitcher
+				currentViewName={currentViewName}
+				onChange={currentViewNameChange}
+       		 />
 			{/* Calendar */}
 			<Paper>
 				<Scheduler data={eventList}>
-				<ViewState />
-				<MonthView />
+				<ViewState currentViewName={currentViewName}/>
 				<Toolbar />
+				<MonthView />
+				<WeekView 
+					startDayHour={7}
+					endDayHour={21}
+					cellDuration={60}
+				/>
+				<EventView 
+					name="Events"
+				/>
+				<DayView 
+					startDayHour={7}
+					endDayHour={21}
+					cellDuration={60}
+				/>
+
 				<DateNavigator />
 				<TodayButton />
 				<Appointments
