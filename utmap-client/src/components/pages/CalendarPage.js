@@ -1,8 +1,8 @@
 import React, {useCallback, useState} from "react";
-import Paper from '@material-ui/core/Paper';
-import Button from '@material-ui/core/Button';
+//import Paper from '@material-ui/core/Paper';
+//import Button from '@material-ui/core/Button';
 import AddIcon from '@material-ui/icons/Add';
-import Dialog from '@material-ui/core/Dialog';
+//import Dialog from '@material-ui/core/Dialog';
 import { ViewState } from '@devexpress/dx-react-scheduler';
 import {
 	Scheduler,
@@ -12,6 +12,13 @@ import {
 	Appointments,
 	TodayButton,
 } from '@devexpress/dx-react-scheduler-material-ui';
+import {
+	Paper,
+	Button,
+	Dialog,
+
+} from '@material-ui/core';
+
 import CreateEventPage from './CreateEventPage';
 import { makeStyles } from '@material-ui/core/styles';
 import IconButton from '@material-ui/core/IconButton';
@@ -42,8 +49,23 @@ const exampleEvents = [
 ]
 
 const useStyles = makeStyles(theme => ({
+	topSpace: {
+		marginTop: theme.spacing(1),
+		marginRight: theme.spacing(5),
+		marginLeft: theme.spacing(5),
+		marginBottom: theme.spacing(1),
+	},
 	hide: {
-    	display: 'none',
+		visibility: 'hidden'
+	},
+	buttonShape: {
+		margin: theme.spacing(5),
+		borderRadius: '5em',
+	},
+	paper: {
+		marginLeft: theme.spacing(5),
+		marginRight: theme.spacing(5),
+		display: 'flex',
 	},
 }));
 
@@ -97,7 +119,7 @@ function CalendarPage() {
 	return (
 		<>
 			{/* Sidebar */}
-			<div align="right">
+			<div align="right" className={classes.topSpace}>
 				<IconButton
 					color="inherit"
 					aria-label="open drawer"
@@ -112,7 +134,7 @@ function CalendarPage() {
 			</div>
 
 			{/* Calendar */}
-			<Paper>
+			<Paper className={classes.paper}>
 				<Scheduler data={eventList}>
 				<ViewState />
 				<MonthView />
@@ -127,6 +149,7 @@ function CalendarPage() {
 
 			{/* Add event button */}
 			<Button
+				className={classes.buttonShape}
 				variant='contained' 
 				color='primary'
 				startIcon={<AddIcon/>}
