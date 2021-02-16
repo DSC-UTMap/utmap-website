@@ -1,9 +1,10 @@
 import React, {useState, useCallback} from "react";
 import List from '@material-ui/core/List';
 import ListItem from '@material-ui/core/ListItem';
+import Divider from '@material-ui/core/Divider';
 import SearchBar from './SearchBar';
 import EventList from './EventList';
-
+import NavigationBar from './NavigationBar';
 
 function SideBarContent({events}) {
 	//const [searchTerm, setSearchTerm] = useState('');
@@ -36,6 +37,10 @@ function SideBarContent({events}) {
 				<h3>Upcoming Events</h3>
 			</ListItem>
 			<EventList events={eventList}/>
+			<Divider/>
+			<ListItem>
+				<NavigationBar/>
+			</ListItem>
 		</List>
 	);
 }
