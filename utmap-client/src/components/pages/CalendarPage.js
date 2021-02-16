@@ -108,7 +108,7 @@ function CalendarPage() {
 					>
 					<MenuIcon />
 				</IconButton>
-				<SideBar open={openDrawer} onClose={handleDrawerClose}></SideBar>
+				<SideBar open={openDrawer} onClose={handleDrawerClose} events={eventList}/>
 			</div>
 
 			{/* Calendar */}
