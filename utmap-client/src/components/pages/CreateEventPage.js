@@ -66,13 +66,18 @@ function CreateEventPage({onClose, addEvent}) {
 		//Send info???
 		startDate.setSeconds(0,0);
 		endDate.setSeconds(0,0);
-		const eventForm = {
-			title, 
-			startDate: startDate.toLocaleString('en-US', { timeZone: 'America/New_York' }), 
-			endDate: endDate.toLocaleString('en-US', { timeZone: 'America/New_York' }),
-			location, sublocation, description};
-		addEvent(eventForm);
-		onClose();
+		
+		if (startDate > endDate){
+			alert("End date must be after start date")
+		} else {
+			const eventForm = {
+				title, 
+				startDate: startDate.toLocaleString('en-US', { timeZone: 'America/New_York' }), 
+				endDate: endDate.toLocaleString('en-US', { timeZone: 'America/New_York' }),
+				location, sublocation, description};
+			addEvent(eventForm);
+			onClose();
+		}
 	}
 
 
