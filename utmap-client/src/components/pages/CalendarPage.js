@@ -136,7 +136,11 @@ function CalendarPage() {
 			</Button>
 			
 			{/* Popup box for event form */}
-			<Dialog open={openEventForm} onClose={handleOpenEventForm}>
+			<Dialog 
+				open={openEventForm} 
+				onClose={handleOpenEventForm}
+				disableBackdropClick
+      	disableEscapeKeyDown>
 				<CreateEventPage onClose={handleOpenEventForm} addEvent={addEvent}/>
 			</Dialog>
 
