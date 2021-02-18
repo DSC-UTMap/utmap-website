@@ -2,116 +2,182 @@ from flask import jsonify
 from app.main.model.building import Building
 
 def addBuilding(data):
-    if len(str(data['code'])) != 2:
+    try:
+        keys = countKeys(data)
+        if not isValidInput(keys):
+            responseObject = {
+                'status': 'failure',
+                'message': 'Invalid input'
+            }
+            return responseObject, 400
+        elif (len(str(data['code'])) != 2):
+            responseObject = {
+                'status': 'failure',
+                'message': 'Invalid input for code field'
+            }
+            return responseObject, 400
+
+        building = Building()
+        buildings = building.connectToBuildings()
+        build = building.findBuildByName(data['name'], buildings)
+        
+        if build:
+            responseObject = {
+                'status': 'failure',
+                'message': 'Building already exists.'
+            }
+            status = 409
+        else:
+            newBuilding = Building(name=data['name'], code=data['code'])
+            newBuilding.assignBuildingId(buildings)
+            responseBody = newBuilding.formatAsResponseBody()
+            
+            responseObject = {
+                'status': 'success',
+                'message': 'Building successfully added',
+                'body' : responseBody
+            }
+            status = 201
+    except(Exception):
         responseObject = {
             'status': 'failure',
-            'message': 'Invalid input for code field'
-        }
-        return jsonify({'result' : responseObject, 'status' : 400})
-
-    building = Building()
-    buildings = building.connectToBuildings()
-    build = building.findBuildByName(data['name'], buildings)
-    
-    if build:
-        responseObject = {
-            'status': 'fail',
-            'message': 'Building already exists.'
-        }
-        return jsonify({'result' : responseObject, 'status' : 409})
-    else:
-        newBuilding = Building(name=data['name'], code=data['code'])
-        newBuilding.assignBuildingId(buildings)
-        responseBody = newBuilding.formatAsResponseBody()
-        
-        responseObject = {
-            'status': 'success',
-            'message': 'Building successfully added',
-            'body' : responseBody
-        }
-        return jsonify({'result' : responseObject, 'status' : 201})
+            'message': 'Internal server error'
+            }
+        status = 500
+    return responseObject, status
 
 def updateBuilding(_id, data):
-    if len(str(data['code'])) != 2:
+    try:
+        keys = countKeys(data)
+        if not isValidInput(keys):
+            responseObject = {
+                'status': 'failure',
+                'message': 'Invalid input'
+            }
+            return responseObject, 400
+        elif (len(str(data['code'])) != 2):
+            responseObject = {
+                'status': 'failure',
+                'message': 'Invalid input for code field'
+                }
+            return responseObject, 400
+
+        building = Building()
+        buildings = building.connectToBuildings()
+        build = building.findBuildById(_id, buildings)
+    
+        if build:
+            buildingToUpdate = Building(_id=_id, name=data['name'], code=data['code'])
+            buildingToUpdate.updateBuild(buildings, build)
+            responseBody = buildingToUpdate.formatAsResponseBody()
+        
+            responseObject = {
+                'status': 'success',
+                'message': 'Building successfully updated',
+                'body' : responseBody
+                }
+            status = 201
+        else:
+            responseObject = {
+                'status': 'failure',
+                'message': 'Building not found'
+                }
+            status = 404
+    except(Exception):
         responseObject = {
             'status': 'failure',
-            'message': 'Invalid input for code field'
-        }
-        return jsonify({'result' : responseObject, 'status' : 400})
-
-    building = Building()
-    buildings = building.connectToBuildings()
-    build = building.findBuildById(_id, buildings)
-    
-    if build:
-        buildingToUpdate = Building(_id=_id, name=data['name'], code=data['code'])
-        buildingToUpdate.updateBuild(buildings, build)
-        responseBody = buildingToUpdate.formatAsResponseBody()
-        
-        responseObject = {
-            'status': 'success',
-            'message': 'Building successfully updated',
-            'body' : responseBody
-        }
-        return jsonify({'result' : responseObject, 'status' : 201})
-    else:
-        responseObject = {
-            'status': 'fail',
-            'message': 'Building not found'
-        }
-        return jsonify({'result' : responseObject, 'status' : 404})
+            'message': 'Internal server error'
+            }
+        status = 500
+    return responseObject, status
 
 def getAllBuildings():
-    building = Building()
-    buildings = building.connectToBuildings()
-    responseBody = building.formatAllBuilds(buildings)
+    try:
+        building = Building()
+        buildings = building.connectToBuildings()
+        responseBody = building.formatAllBuilds(buildings)
 
-    if responseBody == {}:
+        if responseBody == {}:
+            responseObject = {
+                'status': 'failure',
+                'message': 'No buildings found',
+                }
+            status = 404
+        else:
+            responseObject = {
+                'status': 'success',
+                'message': 'Found all buildings',
+                'body' : responseBody
+                }
+            status = 200
+    except(Exception):
         responseObject = {
-        'status': 'failure',
-        'message': 'No buildings found',
-        }
-        return jsonify({'result' : responseObject, 'status' : 404})
-    else:
-        responseObject = {
-            'status': 'success',
-            'message': 'Found all buildings',
-            'body' : responseBody
+            'status': 'failure',
+            'message': 'Internal server error'
             }
-        return jsonify({'result' : responseObject, 'status' : 200})
+        status = 500
+    return responseObject, status
 
 def getOneBuilding(_id):
-    building = Building()
-    buildings = building.connectToBuildings()
-    build = building.findBuildById(_id, buildings)
-    if build:
-        responseBody = building.formatOneBuild(build)
+    try:
+        building = Building()
+        buildings = building.connectToBuildings()
+        build = building.findBuildById(_id, buildings)
+
+        if build:
+            responseBody = building.formatOneBuild(build)
+            responseObject = {
+                'status': 'success',
+                'message': 'Found one building',
+                'body' : responseBody
+                }
+            status = 200
+        else:
+            responseObject = {
+                'status': 'failure',
+                'message': 'Building not found'
+                }
+            status = 404
+    except(Exception):
         responseObject = {
-        'status': 'success',
-        'message': 'Found one building',
-        'body' : responseBody
-        }
-        return jsonify({'result' : responseObject, 'status' : 200})
-    else:
-        responseObject = {
-        'status': 'fail',
-        'message': 'Building not found'
-        }
-        return jsonify({'result' : responseObject, 'status' : 404})
+            'status': 'failure',
+            'message': 'Internal server error'
+            }
+        status = 500
+    return responseObject, status
 
 def deleteOneBuilding(_id):
-    building = Building()
-    buildings = building.connectToBuildings()
-    if building.deleteBuildById(_id, buildings):
+    try:
+        building = Building()
+        buildings = building.connectToBuildings()
+
+        if building.deleteBuildById(_id, buildings):
+            responseObject = {
+                'status': 'success',
+                'message': 'Building successfully deleted'
+                }
+            status = 200
+        else:
+            responseObject = {
+                'status': 'failure',
+                'message': 'Building not found'
+                }
+            status = 404
+    except(Exception):
         responseObject = {
-            'status': 'success',
-            'message': 'Building successfully deleted'
-        }
-        return jsonify({'result' : responseObject, 'status' : 200})
-    else:
-        responseObject = {
-            'status': 'fail',
-            'message': 'Building not found'
-        }
-        return jsonify({'result' : responseObject, 'status' : 404})
+            'status': 'failure',
+            'message': 'Internal server error'
+            }
+        status = 500
+    return responseObject, status
     
+def countKeys(data):
+    keys = []
+    for key in data:
+        keys.append(key)
+    return keys
+
+def isValidInput(keyList):
+    validity1 = len(keyList) == 2
+    validity2 = ('name' and 'code') in keyList
+    return validity1 and validity2
