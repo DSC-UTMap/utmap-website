@@ -7,6 +7,7 @@ import SearchBar from './SearchBar';
 import EventList from './EventList';
 import NavigationBar from './NavigationBar';
 
+
 function SideBarContent({events}) {
 	const sortedEvents = events.sort((a, b) => {
 		//sort by startDate, earliest to latest
@@ -32,6 +33,9 @@ function SideBarContent({events}) {
 				<SearchBar filterEvents={filterEvents}/>
 			</ListItem>
 			{/* Event list section */}
+			<ListItem>
+				<Typography variant="h5">Upcoming Events</Typography>
+			</ListItem>
 			<EventList eventList={eventList}/>
 			<Divider/>
 			<ListItem>
