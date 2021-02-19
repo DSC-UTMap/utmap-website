@@ -5,7 +5,7 @@ import IconButton from '@material-ui/core/IconButton';
 import MenuIcon from '@material-ui/icons/Menu';
 import SideBarContent from '../SideBarContent';
 
-const drawerWidth = '30rem';
+const drawerWidth = '32rem';
 
 const useStyles = makeStyles((theme) => ({
   drawer: {
