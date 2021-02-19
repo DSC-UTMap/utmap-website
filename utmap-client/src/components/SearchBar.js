@@ -7,7 +7,7 @@ function SearchBar({filterEvents}) {
 
 	const handleSearch = event => {
 		setSearchTerm(event.target.value);
-		filterEvents(searchTerm);
+		filterEvents(event.target.value);
 	};
 
 	return (

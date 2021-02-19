@@ -1,4 +1,4 @@
-import React, {useState, useCallback} from "react";
+import React, {useState, useCallback, useEffect} from "react";
 import List from '@material-ui/core/List';
 import ListItem from '@material-ui/core/ListItem';
 import Divider from '@material-ui/core/Divider';
@@ -17,11 +17,15 @@ function SideBarContent({events}) {
 	const [eventList, setEventList] = useState(sortedEvents);
 
 	const filterEvents = useCallback((searchTerm) => {
-		const filteredEvents = sortedEvents.filter(event => 
+		const filteredEvents = sortedEvents.filter(event =>
 			event.title.toLowerCase().includes(searchTerm)
 		);
 		setEventList(filteredEvents);
 	},[sortedEvents]);
+
+	useEffect(() => {
+		setEventList(sortedEvents);
+	}, [sortedEvents]);
 
 	return (
 		<List>
