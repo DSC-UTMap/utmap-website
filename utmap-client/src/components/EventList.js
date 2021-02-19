@@ -1,25 +1,21 @@
-import React from "react";
-import ListItem from '@material-ui/core/ListItem';
+import React from 'react';
+import Typography from '@material-ui/core/Typography';
+import PropTypes from 'prop-types';
+import EventListItem from './EventListItem';
 
-function EventList({events}) {
-	return (
-		<>
-			{events.map((event) => {
-				return <SingleEvent event={event}/>
-			})}
-		</>
-	);
+function EventList (props) {
+  return (
+      <div>
+          <Typography variant="h5" gutterBottom>Upcoming Events</Typography>
+          {/* Display an Accordion for each item in eventList */}
+          {props.eventList.map((event) => (<EventListItem event={event}/>))}
+      </div>
+  )
 }
 
-//temp component
-function SingleEvent({event}) {
-	return (
-		<ListItem variant='outlined'>
-			<h5>{event.title}</h5>
-			<br/>
-			<p>{event.startDate} to {event.endDate}</p>
-		</ListItem>
-	);
+// PropTypes
+EventList.propTypes = {
+  eventList: PropTypes.array.isRequired
 }
 
-export default EventList;
+export default EventList
