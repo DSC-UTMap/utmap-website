@@ -3,8 +3,8 @@ from app.main.model.event import Event
 
 def addEvent(data):
     try:
-        keys = countKeys(data)
-        if not isValidInput(keys):
+        keys = countEventKeys(data)
+        if not isValidEventInput(keys):
             responseObject = {
                 'status': 'failure',
                 'message': 'Invalid input'
@@ -20,7 +20,7 @@ def addEvent(data):
                 'status': 'failure',
                 'message': 'Item already exists'
                 }
-            status = 409
+            statusCode = 409
         else:
             newEvent =  Event(
                 name = data['name'],
@@ -39,19 +39,19 @@ def addEvent(data):
                 'message': 'Event successfully added',
                 'body': responseBody
                 }
-            status = 201
+            statusCode = 201
     except(Exception):
         responseObject = {
             'status': 'failure',
             'message': 'Internal server error'
             }
-        status = 500
-    return responseObject, status
+        statusCode = 500
+    return responseObject, statusCode
 
 def updateEvent(_id, data):
     try:
-        keys = countKeys(data)
-        if not isValidInput(keys):
+        keys = countEventKeys(data)
+        if not isValidEventInput(keys):
             responseObject = {
                 'status': 'failure',
                 'message': 'Invalid input'
@@ -80,20 +80,20 @@ def updateEvent(_id, data):
                 'message': 'Event successfully updated',
                 'body' : responseBody
             }
-            status = 201
+            statusCode = 201
         else:
             responseObject = {
                 'status': 'failure',
                 'message': 'Event not found'
             }
-            status = 404
+            statusCode = 404
     except(Exception):
         responseObject = {
             'status': 'failure',
             'message': 'Internal server error'
             }
-        status = 500
-    return responseObject, status
+        statusCode = 500
+    return responseObject, statusCode
 
 def getAllEvents():
     try:
@@ -106,21 +106,21 @@ def getAllEvents():
                 'status': 'failure',
                 'message': 'No buildings found',
                 }
-            status = 404
+            statusCode = 404
         else:
             responseObject = {
                 'status': 'success',
                 'message': 'Found all events',
                 'body' : responseBody
                 }
-            status = 200
+            statusCode = 200
     except(Exception):
         responseObject = {
             'status': 'failure',
             'message': 'Internal server error'
             }
-        status = 500
-    return responseObject, status
+        statusCode = 500
+    return responseObject, statusCode
 
 def getOneEvent(_id):
     try:
@@ -134,20 +134,20 @@ def getOneEvent(_id):
                 'message': 'Found one event',
                 'body' : responseBody
                 }
-            status = 200
+            statusCode = 200
         else:
             responseObject = {
                 'status': 'failure',
                 'message': 'Event not found'
                 }
-            status = 404
+            statusCode = 404
     except(Exception):
         responseObject = {
             'status': 'failure',
             'message': 'Internal server error'
             }
-        status = 500
-    return responseObject, status
+        statusCode = 500
+    return responseObject, statusCode
 
 def deleteOneEvent(_id):
     try:
@@ -158,28 +158,28 @@ def deleteOneEvent(_id):
                 'status': 'success',
                 'message': 'Event successfully deleted'
             }
-            status = 200
+            statusCode = 200
         else:
             responseObject = {
                 'status': 'failure',
                 'message': 'Event not found'
             }
-            status = 404
+            statusCode = 404
     except(Exception):
         responseObject = {
             'status': 'failure',
             'message': 'Internal server error'
             }
-        status = 500
-    return responseObject, status
+        statusCode = 500
+    return responseObject, statusCode
 
-def countKeys(data):
+def countEventKeys(data):
     keys = []
     for key in data:
         keys.append(key)
     return keys
 
-def isValidInput(keyList):
+def isValidEventInput(keyList):
     validity1 = len(keyList) == 7
     validity2 = ('name' and 'organizer' and 'startTime' and 'endTime' 
     and 'building' and 'room' and 'description') in keyList
