@@ -3,8 +3,8 @@ from app.main.model.building import Building
 
 def addBuilding(data):
     try:
-        keys = countKeys(data)
-        if not isValidInput(keys):
+        keys = countBuildingKeys(data)
+        if not isValidBuildingInput(keys):
             responseObject = {
                 'status': 'failure',
                 'message': 'Invalid input'
@@ -26,7 +26,7 @@ def addBuilding(data):
                 'status': 'failure',
                 'message': 'Building already exists.'
             }
-            status = 409
+            statusCode = 409
         else:
             newBuilding = Building(name=data['name'], code=data['code'])
             newBuilding.assignBuildingId(buildings)
@@ -37,19 +37,19 @@ def addBuilding(data):
                 'message': 'Building successfully added',
                 'body' : responseBody
             }
-            status = 201
+            statusCode = 201
     except(Exception):
         responseObject = {
             'status': 'failure',
             'message': 'Internal server error'
             }
-        status = 500
-    return responseObject, status
+        statusCode = 500
+    return responseObject, statusCode
 
 def updateBuilding(_id, data):
     try:
-        keys = countKeys(data)
-        if not isValidInput(keys):
+        keys = countBuildingKeys(data)
+        if not isValidBuildingInput(keys):
             responseObject = {
                 'status': 'failure',
                 'message': 'Invalid input'
@@ -76,20 +76,20 @@ def updateBuilding(_id, data):
                 'message': 'Building successfully updated',
                 'body' : responseBody
                 }
-            status = 201
+            statusCode = 201
         else:
             responseObject = {
                 'status': 'failure',
                 'message': 'Building not found'
                 }
-            status = 404
+            statusCode = 404
     except(Exception):
         responseObject = {
             'status': 'failure',
             'message': 'Internal server error'
             }
-        status = 500
-    return responseObject, status
+        statusCode = 500
+    return responseObject, statusCode
 
 def getAllBuildings():
     try:
@@ -102,21 +102,21 @@ def getAllBuildings():
                 'status': 'failure',
                 'message': 'No buildings found',
                 }
-            status = 404
+            statusCode = 404
         else:
             responseObject = {
                 'status': 'success',
                 'message': 'Found all buildings',
                 'body' : responseBody
                 }
-            status = 200
+            statusCode = 200
     except(Exception):
         responseObject = {
             'status': 'failure',
             'message': 'Internal server error'
             }
-        status = 500
-    return responseObject, status
+        statusCode = 500
+    return responseObject, statusCode
 
 def getOneBuilding(_id):
     try:
@@ -131,20 +131,20 @@ def getOneBuilding(_id):
                 'message': 'Found one building',
                 'body' : responseBody
                 }
-            status = 200
+            statusCode = 200
         else:
             responseObject = {
                 'status': 'failure',
                 'message': 'Building not found'
                 }
-            status = 404
+            statusCode = 404
     except(Exception):
         responseObject = {
             'status': 'failure',
             'message': 'Internal server error'
             }
-        status = 500
-    return responseObject, status
+        statusCode = 500
+    return responseObject, statusCode
 
 def deleteOneBuilding(_id):
     try:
@@ -156,28 +156,28 @@ def deleteOneBuilding(_id):
                 'status': 'success',
                 'message': 'Building successfully deleted'
                 }
-            status = 200
+            statusCode = 200
         else:
             responseObject = {
                 'status': 'failure',
                 'message': 'Building not found'
                 }
-            status = 404
+            statusCode = 404
     except(Exception):
         responseObject = {
             'status': 'failure',
             'message': 'Internal server error'
             }
-        status = 500
-    return responseObject, status
+        statusCode = 500
+    return responseObject, statusCode
     
-def countKeys(data):
+def countBuildingKeys(data):
     keys = []
     for key in data:
         keys.append(key)
     return keys
 
-def isValidInput(keyList):
+def isValidBuildingInput(keyList):
     validity1 = len(keyList) == 2
     validity2 = ('name' and 'code') in keyList
     return validity1 and validity2
