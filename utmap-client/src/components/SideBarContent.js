@@ -2,12 +2,12 @@ import React, {useState, useCallback} from "react";
 import List from '@material-ui/core/List';
 import ListItem from '@material-ui/core/ListItem';
 import Divider from '@material-ui/core/Divider';
+import Typography from '@material-ui/core/Typography';
 import SearchBar from './SearchBar';
 import EventList from './EventList';
 import NavigationBar from './NavigationBar';
 
 function SideBarContent({events}) {
-	//const [searchTerm, setSearchTerm] = useState('');
 	const sortedEvents = events.sort((a, b) => {
 		//sort by startDate, earliest to latest
 		return (Date.parse(a.startDate) < Date.parse(b.startDate)) ? -1 : 1; 
@@ -20,23 +20,19 @@ function SideBarContent({events}) {
 			event.title.toLowerCase().includes(searchTerm)
 		);
 		setEventList(filteredEvents);
-		console.table(filteredEvents);
 	},[sortedEvents]);
 
 	return (
 		<List>
 			{/* Filter search bar section */}
 			<ListItem>
-				<h3>Search</h3>
+				<Typography variant='h5'>Search</Typography>
 			</ListItem>
 			<ListItem>
 				<SearchBar filterEvents={filterEvents}/>
 			</ListItem>
 			{/* Event list section */}
-			<ListItem>
-				<h3>Upcoming Events</h3>
-			</ListItem>
-			<EventList events={eventList}/>
+			<EventList eventList={eventList}/>
 			<Divider/>
 			<ListItem>
 				<NavigationBar/>
