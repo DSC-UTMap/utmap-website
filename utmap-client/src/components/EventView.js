@@ -3,7 +3,7 @@ import React from 'react';
 function EventView() {
 
     return (
-        <p>this is an event page</p>
+        <p>I AM HERE</p>
     );
 }
 

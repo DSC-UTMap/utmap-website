@@ -82,6 +82,7 @@ const ExternalViewSwitcher = ({
 	  <FormControlLabel value="Week" control={<Radio />} label="Week" />
 	  <FormControlLabel value="Month" control={<Radio />} label="Month" />
 	  <FormControlLabel value="Events" control={<Radio />} label="Events" /> 
+	  <FormControlLabel value="Day" control={<Radio />} label="Day" />
 	</RadioGroup>
   );
 
