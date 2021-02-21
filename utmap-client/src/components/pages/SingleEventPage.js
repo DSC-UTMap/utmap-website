@@ -36,7 +36,7 @@ const useStyles = makeStyles(theme => ({ //CSS styles on components
 		height: theme.spacing(6),
 	},
 	largeAvatar: {
-		background: '#002884',
+		backgroundColor: theme.palette.primary.main,
 		width: theme.spacing(10),
 		height: theme.spacing(10),
 	},
