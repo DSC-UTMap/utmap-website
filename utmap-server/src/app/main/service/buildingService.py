@@ -1,44 +1,42 @@
 from flask import jsonify
-from app.main.model.event import Event
+from app.main.model.building import Building
 
-def addEvent(data):
+def addBuilding(data):
     try:
-        keys = countEventKeys(data)
-        if not isValidEventInput(keys):
+        keys = countBuildingKeys(data)
+        if not isValidBuildingInput(keys):
             responseObject = {
                 'status': 'failure',
                 'message': 'Invalid input'
             }
             return responseObject, 400
-
-        event = Event()
-        events = event.connectToEvents()
-        ev = events.findEvById(data['_id'], event)
-
-        if ev:
+        elif (len(str(data['code'])) != 2):
             responseObject = {
                 'status': 'failure',
-                'message': 'Item already exists'
-                }
+                'message': 'Invalid input for code field'
+            }
+            return responseObject, 400
+
+        building = Building()
+        buildings = building.connectToBuildings()
+        build = building.findBuildByName(data['name'], buildings)
+        
+        if build:
+            responseObject = {
+                'status': 'failure',
+                'message': 'Building already exists.'
+            }
             statusCode = 409
         else:
-            newEvent =  Event(
-                name = data['name'],
-                organizer = data['organizer'],
-                startTime = data['startTime'],
-                endTime = data['endTime'],
-                building  = data['building'],
-                room = data['room'],
-                description = data['description']
-            )
-            newEvent.assignEventId(events)
-            responseBody = newEvent.formatAsResponseBody()
-
+            newBuilding = Building(name=data['name'], code=data['code'])
+            newBuilding.assignBuildingId(buildings)
+            responseBody = newBuilding.formatAsResponseBody()
+            
             responseObject = {
                 'status': 'success',
-                'message': 'Event successfully added',
-                'body': responseBody
-                }
+                'message': 'Building successfully added',
+                'body' : responseBody
+            }
             statusCode = 201
     except(Exception):
         responseObject = {
@@ -48,44 +46,42 @@ def addEvent(data):
         statusCode = 500
     return responseObject, statusCode
 
-def updateEvent(_id, data):
+def updateBuilding(_id, data):
     try:
-        keys = countEventKeys(data)
-        if not isValidEventInput(keys):
+        keys = countBuildingKeys(data)
+        if not isValidBuildingInput(keys):
             responseObject = {
                 'status': 'failure',
                 'message': 'Invalid input'
             }
             return responseObject, 400
+        elif (len(str(data['code'])) != 2):
+            responseObject = {
+                'status': 'failure',
+                'message': 'Invalid input for code field'
+                }
+            return responseObject, 400
 
-        event = Event()
-        events = event.connectToEvents()
-        ev = events.findEvById(_id, event)
-
-        if ev:
-            eventToUpdate = Event(    
-                _id = _id,        
-                name = data['name'],
-                organizer = data['organizer'],
-                startTime = data['startTime'],
-                endTime = data['endTime'],
-                building  = data['building'],
-                room = data['room'],
-                description = data['description'])
-            eventToUpdate.updateEvent(events, ev)
-            responseBody = eventToUpdate.formatAsResponseBody()
-
+        building = Building()
+        buildings = building.connectToBuildings()
+        build = building.findBuildById(_id, buildings)
+    
+        if build:
+            buildingToUpdate = Building(_id=_id, name=data['name'], code=data['code'])
+            buildingToUpdate.updateBuild(buildings, build)
+            responseBody = buildingToUpdate.formatAsResponseBody()
+        
             responseObject = {
                 'status': 'success',
-                'message': 'Event successfully updated',
+                'message': 'Building successfully updated',
                 'body' : responseBody
-            }
+                }
             statusCode = 201
         else:
             responseObject = {
                 'status': 'failure',
-                'message': 'Event not found'
-            }
+                'message': 'Building not found'
+                }
             statusCode = 404
     except(Exception):
         responseObject = {
@@ -95,11 +91,11 @@ def updateEvent(_id, data):
         statusCode = 500
     return responseObject, statusCode
 
-def getAllEvents():
+def getAllBuildings():
     try:
-        event = Event()
-        events = event.connectToEvents()
-        responseBody = event.formatAllEvs(events)
+        building = Building()
+        buildings = building.connectToBuildings()
+        responseBody = building.formatAllBuilds(buildings)
 
         if responseBody == {}:
             responseObject = {
@@ -110,7 +106,7 @@ def getAllEvents():
         else:
             responseObject = {
                 'status': 'success',
-                'message': 'Found all events',
+                'message': 'Found all buildings',
                 'body' : responseBody
                 }
             statusCode = 200
@@ -122,23 +118,24 @@ def getAllEvents():
         statusCode = 500
     return responseObject, statusCode
 
-def getOneEvent(_id):
+def getOneBuilding(_id):
     try:
-        event = Event()
-        events = event.connectToEvents()
-        ev = event.findEvById(_id, events)
-        if ev:
-            responseBody = event.formatOneEv(ev)
+        building = Building()
+        buildings = building.connectToBuildings()
+        build = building.findBuildById(_id, buildings)
+
+        if build:
+            responseBody = building.formatOneBuild(build)
             responseObject = {
                 'status': 'success',
-                'message': 'Found one event',
+                'message': 'Found one building',
                 'body' : responseBody
                 }
             statusCode = 200
         else:
             responseObject = {
                 'status': 'failure',
-                'message': 'Event not found'
+                'message': 'Building not found'
                 }
             statusCode = 404
     except(Exception):
@@ -149,21 +146,22 @@ def getOneEvent(_id):
         statusCode = 500
     return responseObject, statusCode
 
-def deleteOneEvent(_id):
+def deleteOneBuilding(_id):
     try:
-        event = Event()
-        events = event.connectToEvents()
-        if event.deleteEvById(_id, events):
+        building = Building()
+        buildings = building.connectToBuildings()
+
+        if building.deleteBuildById(_id, buildings):
             responseObject = {
                 'status': 'success',
-                'message': 'Event successfully deleted'
-            }
+                'message': 'Building successfully deleted'
+                }
             statusCode = 200
         else:
             responseObject = {
                 'status': 'failure',
-                'message': 'Event not found'
-            }
+                'message': 'Building not found'
+                }
             statusCode = 404
     except(Exception):
         responseObject = {
@@ -172,15 +170,14 @@ def deleteOneEvent(_id):
             }
         statusCode = 500
     return responseObject, statusCode
-
-def countEventKeys(data):
+    
+def countBuildingKeys(data):
     keys = []
     for key in data:
         keys.append(key)
     return keys
 
-def isValidEventInput(keyList):
-    validity1 = len(keyList) == 7
-    validity2 = ('name' and 'organizer' and 'startTime' and 'endTime' 
-    and 'building' and 'room' and 'description') in keyList
+def isValidBuildingInput(keyList):
+    validity1 = len(keyList) == 2
+    validity2 = ('name' and 'code') in keyList
     return validity1 and validity2
