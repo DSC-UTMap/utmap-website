@@ -194,31 +194,283 @@ font-style: italic;
 
   <h3>Table of Contents </h3>
   <div class="method-summary"></div>
+  <h4><a href="#Buildings">Buildings</a></h4>
+  <ul>
+  <li><a href="#addBuilding"><code><span class="http-method">post</span> /building</code></a></li>
+  <li><a href="#deleteOneBuilding"><code><span class="http-method">delete</span> /building/{_id}</code></a></li>
+  <li><a href="#getAllBuildings"><code><span class="http-method">get</span> /building</code></a></li>
+  <li><a href="#getOneBuilding"><code><span class="http-method">get</span> /building/{_id}</code></a></li>
+  <li><a href="#updateBuilding"><code><span class="http-method">put</span> /building/{_id}</code></a></li>
+  </ul>
   <h4><a href="#Events">Events</a></h4>
   <ul>
   <li><a href="#addEvent"><code><span class="http-method">post</span> /event</code></a></li>
-  <li><a href="#deleteOneEvent"><code><span class="http-method">delete</span> /event/{_id}</code></a></li>
-  <li><a href="#getOneEvent"><code><span class="http-method">get</span> /event/{_id}</code></a></li>
+  <li><a href="#deleteEvent"><code><span class="http-method">delete</span> /event/{_id}</code></a></li>
   <li><a href="#getAllEvents"><code><span class="http-method">get</span> /event</code></a></li>
-  <li><a href="#updateEvent"><code><span class="http-method">put</span> /event</code></a></li>
-  </ul>
-  <h4><a href="#Locations">Locations</a></h4>
-  <ul>
-  <li><a href="#addLocation"><code><span class="http-method">post</span> /location</code></a></li>
-  <li><a href="#deleteOneLocation"><code><span class="http-method">delete</span> /location/{_id}</code></a></li>
-  <li><a href="#getOneLocation"><code><span class="http-method">get</span> /location/{_id}</code></a></li>
-  <li><a href="#getAllLocations"><code><span class="http-method">get</span> /location</code></a></li>
-  <li><a href="#updateLocation"><code><span class="http-method">put</span> /location</code></a></li>
-  </ul>
-  <h4><a href="#SubLocations">SubLocations</a></h4>
-  <ul>
-  <li><a href="#addSubLocation"><code><span class="http-method">post</span> /subLocation</code></a></li>
-  <li><a href="#deleteOneSubLocation"><code><span class="http-method">delete</span> /subLocation/{_id}</code></a></li>
-  <li><a href="#getOneSubLocation"><code><span class="http-method">get</span> /subLocation/{_id}</code></a></li>
-  <li><a href="#getAllSubLocations"><code><span class="http-method">get</span> /subLocation</code></a></li>
-  <li><a href="#updateSubLocation"><code><span class="http-method">put</span> /subLocation</code></a></li>
+  <li><a href="#getEventByName"><code><span class="http-method">get</span> /event/{_id}</code></a></li>
+  <li><a href="#updateEvent"><code><span class="http-method">put</span> /event/{_id}</code></a></li>
   </ul>
 
+  <h1><a name="Buildings">Buildings</a></h1>
+  <div class="method"><a name="addBuilding"/>
+    <div class="method-path">
+    <a class="up" href="#__Methods">Up</a>
+    <pre class="post"><code class="huge"><span class="http-method">post</span> /building</code></pre></div>
+    <div class="method-summary">Adds a building to UTMap (<span class="nickname">addBuilding</span>)</div>
+    <div class="method-notes">A user can submit a json representation of a building to add to the list of existing buildings in the system</div>
+
+
+    <h3 class="field-label">Consumes</h3>
+    This API call consumes the following media types via the <span class="header">Content-Type</span> request header:
+    <ul>
+      <li><code>application/json</code></li>
+    </ul>
+
+    <h3 class="field-label">Request body</h3>
+    <div class="field-items">
+      <div class="param">body <a href="#Building">Building</a> (required)</div>
+
+      <div class="param-desc"><span class="param-type">Body Parameter</span> &mdash; Building object to add to the map </div>
+
+    </div>  <!-- field-items -->
+
+
+
+
+
+    <!--Todo: process Response Object and its headers, schema, examples -->
+
+
+    <h3 class="field-label">Produces</h3>
+    This API call produces the following media types according to the <span class="header">Accept</span> request header;
+    the media type will be conveyed by the <span class="header">Content-Type</span> response header.
+    <ul>
+      <li><code>application/json</code></li>
+    </ul>
+
+    <h3 class="field-label">Responses</h3>
+    <h4 class="field-label">201</h4>
+    item created
+        <a href="#"></a>
+    <h4 class="field-label">400</h4>
+    invalid input, object invalid
+        <a href="#"></a>
+    <h4 class="field-label">409</h4>
+    an existing item already exists
+        <a href="#"></a>
+  </div> <!-- method -->
+  <hr/>
+  <div class="method"><a name="deleteOneBuilding"/>
+    <div class="method-path">
+    <a class="up" href="#__Methods">Up</a>
+    <pre class="delete"><code class="huge"><span class="http-method">delete</span> /building/{_id}</code></pre></div>
+    <div class="method-summary">Deletes a building with the specified unique ID (<span class="nickname">deleteOneBuilding</span>)</div>
+    <div class="method-notes">By passing in a valid ID, a user can delete a specific building in the system</div>
+
+    <h3 class="field-label">Path parameters</h3>
+    <div class="field-items">
+      <div class="param">_id (required)</div>
+
+      <div class="param-desc"><span class="param-type">Path Parameter</span> &mdash; ID unique to the building that needs to be deleted. format: uuid</div>
+    </div>  <!-- field-items -->
+
+
+
+
+
+
+    <h3 class="field-label">Return type</h3>
+    <div class="return-type">
+      <a href="#Building">Building</a>
+      
+    </div>
+
+    <!--Todo: process Response Object and its headers, schema, examples -->
+
+    <h3 class="field-label">Example data</h3>
+    <div class="example-data-content-type">Content-Type: application/json</div>
+    <pre class="example"><code>{
+  "code" : "DH",
+  "name" : "Deerfield Hall",
+  "_id" : "d290f1ee-6c54-4b01-90e6-d701748f0851"
+}</code></pre>
+
+    <h3 class="field-label">Produces</h3>
+    This API call produces the following media types according to the <span class="header">Accept</span> request header;
+    the media type will be conveyed by the <span class="header">Content-Type</span> response header.
+    <ul>
+      <li><code>application/json</code></li>
+    </ul>
+
+    <h3 class="field-label">Responses</h3>
+    <h4 class="field-label">200</h4>
+    building deleted
+        <a href="#Building">Building</a>
+    <h4 class="field-label">400</h4>
+    Invalid id supplied
+        <a href="#"></a>
+    <h4 class="field-label">404</h4>
+    location not found
+        <a href="#"></a>
+  </div> <!-- method -->
+  <hr/>
+  <div class="method"><a name="getAllBuildings"/>
+    <div class="method-path">
+    <a class="up" href="#__Methods">Up</a>
+    <pre class="get"><code class="huge"><span class="http-method">get</span> /building</code></pre></div>
+    <div class="method-summary">Retrieves all buildings on UTMap (<span class="nickname">getAllBuildings</span>)</div>
+    <div class="method-notes">A user can retrieve a full list of existing buildings in the system</div>
+
+
+
+
+
+
+
+    <h3 class="field-label">Return type</h3>
+    <div class="return-type">
+      array[<a href="#Building">Building</a>]
+      
+    </div>
+
+    <!--Todo: process Response Object and its headers, schema, examples -->
+
+    <h3 class="field-label">Example data</h3>
+    <div class="example-data-content-type">Content-Type: application/json</div>
+    <pre class="example"><code>[ {
+  "code" : "DH",
+  "name" : "Deerfield Hall",
+  "_id" : "d290f1ee-6c54-4b01-90e6-d701748f0851"
+}, {
+  "code" : "DH",
+  "name" : "Deerfield Hall",
+  "_id" : "d290f1ee-6c54-4b01-90e6-d701748f0851"
+} ]</code></pre>
+
+    <h3 class="field-label">Produces</h3>
+    This API call produces the following media types according to the <span class="header">Accept</span> request header;
+    the media type will be conveyed by the <span class="header">Content-Type</span> response header.
+    <ul>
+      <li><code>application/json</code></li>
+    </ul>
+
+    <h3 class="field-label">Responses</h3>
+    <h4 class="field-label">200</h4>
+    results found
+        
+    <h4 class="field-label">400</h4>
+    bad input parameter
+        <a href="#"></a>
+  </div> <!-- method -->
+  <hr/>
+  <div class="method"><a name="getOneBuilding"/>
+    <div class="method-path">
+    <a class="up" href="#__Methods">Up</a>
+    <pre class="get"><code class="huge"><span class="http-method">get</span> /building/{_id}</code></pre></div>
+    <div class="method-summary">Finds one building from UTMap (<span class="nickname">getOneBuilding</span>)</div>
+    <div class="method-notes">By passing in a valid ID building code, a user can search for a specific building in the system</div>
+
+    <h3 class="field-label">Path parameters</h3>
+    <div class="field-items">
+      <div class="param">_id (required)</div>
+
+      <div class="param-desc"><span class="param-type">Path Parameter</span> &mdash; ID unique to the building that needs to be deleted. format: uuid</div>
+    </div>  <!-- field-items -->
+
+
+
+
+
+
+    <h3 class="field-label">Return type</h3>
+    <div class="return-type">
+      <a href="#Building">Building</a>
+      
+    </div>
+
+    <!--Todo: process Response Object and its headers, schema, examples -->
+
+    <h3 class="field-label">Example data</h3>
+    <div class="example-data-content-type">Content-Type: application/json</div>
+    <pre class="example"><code>{
+  "code" : "DH",
+  "name" : "Deerfield Hall",
+  "_id" : "d290f1ee-6c54-4b01-90e6-d701748f0851"
+}</code></pre>
+
+    <h3 class="field-label">Produces</h3>
+    This API call produces the following media types according to the <span class="header">Accept</span> request header;
+    the media type will be conveyed by the <span class="header">Content-Type</span> response header.
+    <ul>
+      <li><code>application/json</code></li>
+    </ul>
+
+    <h3 class="field-label">Responses</h3>
+    <h4 class="field-label">200</h4>
+    building found
+        <a href="#Building">Building</a>
+    <h4 class="field-label">400</h4>
+    Invalid id supplied
+        <a href="#"></a>
+    <h4 class="field-label">404</h4>
+    building not found
+        <a href="#"></a>
+  </div> <!-- method -->
+  <hr/>
+  <div class="method"><a name="updateBuilding"/>
+    <div class="method-path">
+    <a class="up" href="#__Methods">Up</a>
+    <pre class="put"><code class="huge"><span class="http-method">put</span> /building/{_id}</code></pre></div>
+    <div class="method-summary">updates an existing building on UTMap (<span class="nickname">updateBuilding</span>)</div>
+    <div class="method-notes">By passing in a valid ID, a user can submit a json representation of a building to replace an existing building in the system</div>
+
+    <h3 class="field-label">Path parameters</h3>
+    <div class="field-items">
+      <div class="param">_id (required)</div>
+
+      <div class="param-desc"><span class="param-type">Path Parameter</span> &mdash; ID unique to the building that needs to be updated. format: uuid</div>
+    </div>  <!-- field-items -->
+
+    <h3 class="field-label">Consumes</h3>
+    This API call consumes the following media types via the <span class="header">Content-Type</span> request header:
+    <ul>
+      <li><code>application/json</code></li>
+    </ul>
+
+    <h3 class="field-label">Request body</h3>
+    <div class="field-items">
+      <div class="param">body <a href="#Building">Building</a> (required)</div>
+
+      <div class="param-desc"><span class="param-type">Body Parameter</span> &mdash; Building object to update </div>
+
+    </div>  <!-- field-items -->
+
+
+
+
+
+    <!--Todo: process Response Object and its headers, schema, examples -->
+
+
+    <h3 class="field-label">Produces</h3>
+    This API call produces the following media types according to the <span class="header">Accept</span> request header;
+    the media type will be conveyed by the <span class="header">Content-Type</span> response header.
+    <ul>
+      <li><code>application/json</code></li>
+    </ul>
+
+    <h3 class="field-label">Responses</h3>
+    <h4 class="field-label">201</h4>
+    item updated
+        <a href="#"></a>
+    <h4 class="field-label">400</h4>
+    invalid input, object invalid
+        <a href="#"></a>
+    <h4 class="field-label">404</h4>
+    object not found
+        <a href="#"></a>
+  </div> <!-- method -->
+  <hr/>
   <h1><a name="Events">Events</a></h1>
   <div class="method"><a name="addEvent"/>
     <div class="method-path">
@@ -268,12 +520,12 @@ font-style: italic;
         <a href="#"></a>
   </div> <!-- method -->
   <hr/>
-  <div class="method"><a name="deleteOneEvent"/>
+  <div class="method"><a name="deleteEvent"/>
     <div class="method-path">
     <a class="up" href="#__Methods">Up</a>
     <pre class="delete"><code class="huge"><span class="http-method">delete</span> /event/{_id}</code></pre></div>
-    <div class="method-summary">Deletes an event by its name (<span class="nickname">deleteOneEvent</span>)</div>
-    <div class="method-notes">By passing in a valid event name, a user can search for a specific event in the system</div>
+    <div class="method-summary">Deletes an event with the specified unique ID (<span class="nickname">deleteEvent</span>)</div>
+    <div class="method-notes">By passing in a valid ID, a user can delete a specific event in the system</div>
 
     <h3 class="field-label">Path parameters</h3>
     <div class="field-items">
@@ -304,8 +556,12 @@ font-style: italic;
   "startTime" : "2021-09-20T17:00:00Z",
   "_id" : "d290f1ee-6c54-4b01-90e6-d701748f0851",
   "endTime" : "2021-09-20T21:00:00Z",
-  "place" : "",
-  "tags" : [ "Board Games", "Computer Science", "Video Games" ]
+  "building" : {
+    "code" : "DH",
+    "name" : "Deerfield Hall",
+    "_id" : "d290f1ee-6c54-4b01-90e6-d701748f0851"
+  },
+  "room" : "DH2000"
 }</code></pre>
 
     <h3 class="field-label">Produces</h3>
@@ -320,66 +576,7 @@ font-style: italic;
     event deleted
         <a href="#Event">Event</a>
     <h4 class="field-label">400</h4>
-    Invalid _id supplied
-        <a href="#"></a>
-    <h4 class="field-label">404</h4>
-    event not found
-        <a href="#"></a>
-  </div> <!-- method -->
-  <hr/>
-  <div class="method"><a name="getOneEvent"/>
-    <div class="method-path">
-    <a class="up" href="#__Methods">Up</a>
-    <pre class="get"><code class="huge"><span class="http-method">get</span> /event/{_id}</code></pre></div>
-    <div class="method-summary">Finds an event by its name (<span class="nickname">getOneEvent</span>)</div>
-    <div class="method-notes">By passing in a valid event name, a user can search for a specific event in the system</div>
-
-    <h3 class="field-label">Path parameters</h3>
-    <div class="field-items">
-      <div class="param">_id (required)</div>
-
-      <div class="param-desc"><span class="param-type">Path Parameter</span> &mdash; ID unique to the event that needs to be deleted. format: uuid</div>
-    </div>  <!-- field-items -->
-
-
-
-
-
-
-    <h3 class="field-label">Return type</h3>
-    <div class="return-type">
-      <a href="#Event">Event</a>
-      
-    </div>
-
-    <!--Todo: process Response Object and its headers, schema, examples -->
-
-    <h3 class="field-label">Example data</h3>
-    <div class="example-data-content-type">Content-Type: application/json</div>
-    <pre class="example"><code>{
-  "organizer" : "MCSS",
-  "name" : "Game Night",
-  "description" : "Come join us for Cards Against Humanity and Super Smash Bros.",
-  "startTime" : "2021-09-20T17:00:00Z",
-  "_id" : "d290f1ee-6c54-4b01-90e6-d701748f0851",
-  "endTime" : "2021-09-20T21:00:00Z",
-  "place" : "",
-  "tags" : [ "Board Games", "Computer Science", "Video Games" ]
-}</code></pre>
-
-    <h3 class="field-label">Produces</h3>
-    This API call produces the following media types according to the <span class="header">Accept</span> request header;
-    the media type will be conveyed by the <span class="header">Content-Type</span> response header.
-    <ul>
-      <li><code>application/json</code></li>
-    </ul>
-
-    <h3 class="field-label">Responses</h3>
-    <h4 class="field-label">200</h4>
-    event found
-        <a href="#Event">Event</a>
-    <h4 class="field-label">400</h4>
-    Invalid _id supplied
+    Invalid id supplied
         <a href="#"></a>
     <h4 class="field-label">404</h4>
     event not found
@@ -390,19 +587,13 @@ font-style: italic;
     <div class="method-path">
     <a class="up" href="#__Methods">Up</a>
     <pre class="get"><code class="huge"><span class="http-method">get</span> /event</code></pre></div>
-    <div class="method-summary">Searches events on UTMap (<span class="nickname">getAllEvents</span>)</div>
-    <div class="method-notes">By passing in the appropriate options, a user can search for existing events in the system</div>
+    <div class="method-summary">Retrieves all events on UTMap (<span class="nickname">getAllEvents</span>)</div>
+    <div class="method-notes">A user can retrieve a full list of existing events in the system</div>
 
 
 
 
 
-    <h3 class="field-label">Query parameters</h3>
-    <div class="field-items">
-      <div class="param">searchString (optional)</div>
-
-      <div class="param-desc"><span class="param-type">Query Parameter</span> &mdash; passes an optional search string to look up events </div>
-    </div>  <!-- field-items -->
 
 
     <h3 class="field-label">Return type</h3>
@@ -422,8 +613,12 @@ font-style: italic;
   "startTime" : "2021-09-20T17:00:00Z",
   "_id" : "d290f1ee-6c54-4b01-90e6-d701748f0851",
   "endTime" : "2021-09-20T21:00:00Z",
-  "place" : "",
-  "tags" : [ "Board Games", "Computer Science", "Video Games" ]
+  "building" : {
+    "code" : "DH",
+    "name" : "Deerfield Hall",
+    "_id" : "d290f1ee-6c54-4b01-90e6-d701748f0851"
+  },
+  "room" : "DH2000"
 }, {
   "organizer" : "MCSS",
   "name" : "Game Night",
@@ -431,8 +626,12 @@ font-style: italic;
   "startTime" : "2021-09-20T17:00:00Z",
   "_id" : "d290f1ee-6c54-4b01-90e6-d701748f0851",
   "endTime" : "2021-09-20T21:00:00Z",
-  "place" : "",
-  "tags" : [ "Board Games", "Computer Science", "Video Games" ]
+  "building" : {
+    "code" : "DH",
+    "name" : "Deerfield Hall",
+    "_id" : "d290f1ee-6c54-4b01-90e6-d701748f0851"
+  },
+  "room" : "DH2000"
 } ]</code></pre>
 
     <h3 class="field-label">Produces</h3>
@@ -444,20 +643,89 @@ font-style: italic;
 
     <h3 class="field-label">Responses</h3>
     <h4 class="field-label">200</h4>
-    search results matching criteria
+    results found
         
     <h4 class="field-label">400</h4>
     bad input parameter
         <a href="#"></a>
   </div> <!-- method -->
   <hr/>
+  <div class="method"><a name="getEventByName"/>
+    <div class="method-path">
+    <a class="up" href="#__Methods">Up</a>
+    <pre class="get"><code class="huge"><span class="http-method">get</span> /event/{_id}</code></pre></div>
+    <div class="method-summary">Finds an event by its unique ID (<span class="nickname">getEventByName</span>)</div>
+    <div class="method-notes">By passing in a valid ID, a user can search for a specific event in the system</div>
+
+    <h3 class="field-label">Path parameters</h3>
+    <div class="field-items">
+      <div class="param">_id (required)</div>
+
+      <div class="param-desc"><span class="param-type">Path Parameter</span> &mdash; ID unique to the event that needs to be deleted. format: uuid</div>
+    </div>  <!-- field-items -->
+
+
+
+
+
+
+    <h3 class="field-label">Return type</h3>
+    <div class="return-type">
+      <a href="#Event">Event</a>
+      
+    </div>
+
+    <!--Todo: process Response Object and its headers, schema, examples -->
+
+    <h3 class="field-label">Example data</h3>
+    <div class="example-data-content-type">Content-Type: application/json</div>
+    <pre class="example"><code>{
+  "organizer" : "MCSS",
+  "name" : "Game Night",
+  "description" : "Come join us for Cards Against Humanity and Super Smash Bros.",
+  "startTime" : "2021-09-20T17:00:00Z",
+  "_id" : "d290f1ee-6c54-4b01-90e6-d701748f0851",
+  "endTime" : "2021-09-20T21:00:00Z",
+  "building" : {
+    "code" : "DH",
+    "name" : "Deerfield Hall",
+    "_id" : "d290f1ee-6c54-4b01-90e6-d701748f0851"
+  },
+  "room" : "DH2000"
+}</code></pre>
+
+    <h3 class="field-label">Produces</h3>
+    This API call produces the following media types according to the <span class="header">Accept</span> request header;
+    the media type will be conveyed by the <span class="header">Content-Type</span> response header.
+    <ul>
+      <li><code>application/json</code></li>
+    </ul>
+
+    <h3 class="field-label">Responses</h3>
+    <h4 class="field-label">200</h4>
+    event found
+        <a href="#Event">Event</a>
+    <h4 class="field-label">400</h4>
+    Invalid id supplied
+        <a href="#"></a>
+    <h4 class="field-label">404</h4>
+    event not found
+        <a href="#"></a>
+  </div> <!-- method -->
+  <hr/>
   <div class="method"><a name="updateEvent"/>
     <div class="method-path">
     <a class="up" href="#__Methods">Up</a>
-    <pre class="put"><code class="huge"><span class="http-method">put</span> /event</code></pre></div>
+    <pre class="put"><code class="huge"><span class="http-method">put</span> /event/{_id}</code></pre></div>
     <div class="method-summary">updates an existing event on UTMap (<span class="nickname">updateEvent</span>)</div>
-    <div class="method-notes"></div>
+    <div class="method-notes">By passing in a valid ID, a user can submit a json representation of an event to replace an existing event in the system</div>
 
+    <h3 class="field-label">Path parameters</h3>
+    <div class="field-items">
+      <div class="param">_id (required)</div>
+
+      <div class="param-desc"><span class="param-type">Path Parameter</span> &mdash; ID unique to the event that needs to be updated. format: uuid</div>
+    </div>  <!-- field-items -->
 
     <h3 class="field-label">Consumes</h3>
     This API call consumes the following media types via the <span class="header">Content-Type</span> request header:
@@ -499,508 +767,28 @@ font-style: italic;
         <a href="#"></a>
   </div> <!-- method -->
   <hr/>
-  <h1><a name="Locations">Locations</a></h1>
-  <div class="method"><a name="addLocation"/>
-    <div class="method-path">
-    <a class="up" href="#__Methods">Up</a>
-    <pre class="post"><code class="huge"><span class="http-method">post</span> /location</code></pre></div>
-    <div class="method-summary">Adds a location to UTMap (<span class="nickname">addLocation</span>)</div>
-    <div class="method-notes">A user can submit a json representation of a location to add to the list of existing locations in the system</div>
-
-
-    <h3 class="field-label">Consumes</h3>
-    This API call consumes the following media types via the <span class="header">Content-Type</span> request header:
-    <ul>
-      <li><code>application/json</code></li>
-    </ul>
-
-    <h3 class="field-label">Request body</h3>
-    <div class="field-items">
-      <div class="param">body <a href="#Location">Location</a> (required)</div>
-
-      <div class="param-desc"><span class="param-type">Body Parameter</span> &mdash; Location object to add to the map </div>
-
-    </div>  <!-- field-items -->
-
-
-
-
-
-    <!--Todo: process Response Object and its headers, schema, examples -->
-
-
-    <h3 class="field-label">Produces</h3>
-    This API call produces the following media types according to the <span class="header">Accept</span> request header;
-    the media type will be conveyed by the <span class="header">Content-Type</span> response header.
-    <ul>
-      <li><code>application/json</code></li>
-    </ul>
-
-    <h3 class="field-label">Responses</h3>
-    <h4 class="field-label">201</h4>
-    item created
-        <a href="#"></a>
-    <h4 class="field-label">400</h4>
-    invalid input, object invalid
-        <a href="#"></a>
-    <h4 class="field-label">409</h4>
-    an existing item already exists
-        <a href="#"></a>
-  </div> <!-- method -->
-  <hr/>
-  <div class="method"><a name="deleteOneLocation"/>
-    <div class="method-path">
-    <a class="up" href="#__Methods">Up</a>
-    <pre class="delete"><code class="huge"><span class="http-method">delete</span> /location/{_id}</code></pre></div>
-    <div class="method-summary">Deletes a location by its 2-character building code (<span class="nickname">deleteOneLocation</span>)</div>
-    <div class="method-notes">By passing in a valid 2-character building code, a user can delete a specific location in the system</div>
-
-    <h3 class="field-label">Path parameters</h3>
-    <div class="field-items">
-      <div class="param">_id (required)</div>
-
-      <div class="param-desc"><span class="param-type">Path Parameter</span> &mdash; ID unique to the location that needs to be deleted. format: uuid</div>
-    </div>  <!-- field-items -->
-
-
-
-
-
-
-    <h3 class="field-label">Return type</h3>
-    <div class="return-type">
-      <a href="#Location">Location</a>
-      
-    </div>
-
-    <!--Todo: process Response Object and its headers, schema, examples -->
-
-    <h3 class="field-label">Example data</h3>
-    <div class="example-data-content-type">Content-Type: application/json</div>
-    <pre class="example"><code>""</code></pre>
-
-    <h3 class="field-label">Produces</h3>
-    This API call produces the following media types according to the <span class="header">Accept</span> request header;
-    the media type will be conveyed by the <span class="header">Content-Type</span> response header.
-    <ul>
-      <li><code>application/json</code></li>
-    </ul>
-
-    <h3 class="field-label">Responses</h3>
-    <h4 class="field-label">200</h4>
-    location deleted
-        <a href="#Location">Location</a>
-    <h4 class="field-label">400</h4>
-    Invalid _id supplied
-        <a href="#"></a>
-    <h4 class="field-label">404</h4>
-    location not found
-        <a href="#"></a>
-  </div> <!-- method -->
-  <hr/>
-  <div class="method"><a name="getOneLocation"/>
-    <div class="method-path">
-    <a class="up" href="#__Methods">Up</a>
-    <pre class="get"><code class="huge"><span class="http-method">get</span> /location/{_id}</code></pre></div>
-    <div class="method-summary">Finds a location by its 2-character building code (<span class="nickname">getOneLocation</span>)</div>
-    <div class="method-notes">By passing in a valid 2-character building code, a user can search for a specific location in the system</div>
-
-    <h3 class="field-label">Path parameters</h3>
-    <div class="field-items">
-      <div class="param">_id (required)</div>
-
-      <div class="param-desc"><span class="param-type">Path Parameter</span> &mdash; ID unique to the location that needs to be deleted. format: uuid</div>
-    </div>  <!-- field-items -->
-
-
-
-
-
-
-    <h3 class="field-label">Return type</h3>
-    <div class="return-type">
-      <a href="#Location">Location</a>
-      
-    </div>
-
-    <!--Todo: process Response Object and its headers, schema, examples -->
-
-    <h3 class="field-label">Example data</h3>
-    <div class="example-data-content-type">Content-Type: application/json</div>
-    <pre class="example"><code>""</code></pre>
-
-    <h3 class="field-label">Produces</h3>
-    This API call produces the following media types according to the <span class="header">Accept</span> request header;
-    the media type will be conveyed by the <span class="header">Content-Type</span> response header.
-    <ul>
-      <li><code>application/json</code></li>
-    </ul>
-
-    <h3 class="field-label">Responses</h3>
-    <h4 class="field-label">200</h4>
-    location found
-        <a href="#Location">Location</a>
-    <h4 class="field-label">400</h4>
-    Invalid _id supplied
-        <a href="#"></a>
-    <h4 class="field-label">404</h4>
-    location not found
-        <a href="#"></a>
-  </div> <!-- method -->
-  <hr/>
-  <div class="method"><a name="getAllLocations"/>
-    <div class="method-path">
-    <a class="up" href="#__Methods">Up</a>
-    <pre class="get"><code class="huge"><span class="http-method">get</span> /location</code></pre></div>
-    <div class="method-summary">Searches locations on UTMap (<span class="nickname">getAllLocations</span>)</div>
-    <div class="method-notes">By passing in the appropriate options, a user can search for existing locations in the system</div>
-
-
-
-
-
-    <h3 class="field-label">Query parameters</h3>
-    <div class="field-items">
-      <div class="param">searchString (optional)</div>
-
-      <div class="param-desc"><span class="param-type">Query Parameter</span> &mdash; passes an optional search string to look up locations </div>
-    </div>  <!-- field-items -->
-
-
-    <h3 class="field-label">Return type</h3>
-    <div class="return-type">
-      array[<a href="#Location">Location</a>]
-      
-    </div>
-
-    <!--Todo: process Response Object and its headers, schema, examples -->
-
-    <h3 class="field-label">Example data</h3>
-    <div class="example-data-content-type">Content-Type: application/json</div>
-    <pre class="example"><code>[ "", "" ]</code></pre>
-
-    <h3 class="field-label">Produces</h3>
-    This API call produces the following media types according to the <span class="header">Accept</span> request header;
-    the media type will be conveyed by the <span class="header">Content-Type</span> response header.
-    <ul>
-      <li><code>application/json</code></li>
-    </ul>
-
-    <h3 class="field-label">Responses</h3>
-    <h4 class="field-label">200</h4>
-    search results matching criteria
-        
-    <h4 class="field-label">400</h4>
-    bad input parameter
-        <a href="#"></a>
-  </div> <!-- method -->
-  <hr/>
-  <div class="method"><a name="updateLocation"/>
-    <div class="method-path">
-    <a class="up" href="#__Methods">Up</a>
-    <pre class="put"><code class="huge"><span class="http-method">put</span> /location</code></pre></div>
-    <div class="method-summary">updates an existing location on UTMap (<span class="nickname">updateLocation</span>)</div>
-    <div class="method-notes">A user can submit a json representation of a location to replace an existing location in the system</div>
-
-
-    <h3 class="field-label">Consumes</h3>
-    This API call consumes the following media types via the <span class="header">Content-Type</span> request header:
-    <ul>
-      <li><code>application/json</code></li>
-    </ul>
-
-    <h3 class="field-label">Request body</h3>
-    <div class="field-items">
-      <div class="param">body <a href="#Location">Location</a> (required)</div>
-
-      <div class="param-desc"><span class="param-type">Body Parameter</span> &mdash; Location object to update </div>
-
-    </div>  <!-- field-items -->
-
-
-
-
-
-    <!--Todo: process Response Object and its headers, schema, examples -->
-
-
-    <h3 class="field-label">Produces</h3>
-    This API call produces the following media types according to the <span class="header">Accept</span> request header;
-    the media type will be conveyed by the <span class="header">Content-Type</span> response header.
-    <ul>
-      <li><code>application/json</code></li>
-    </ul>
-
-    <h3 class="field-label">Responses</h3>
-    <h4 class="field-label">201</h4>
-    item updated
-        <a href="#"></a>
-    <h4 class="field-label">400</h4>
-    invalid input, object invalid
-        <a href="#"></a>
-    <h4 class="field-label">404</h4>
-    object not found
-        <a href="#"></a>
-  </div> <!-- method -->
-  <hr/>
-  <h1><a name="SubLocations">SubLocations</a></h1>
-  <div class="method"><a name="addSubLocation"/>
-    <div class="method-path">
-    <a class="up" href="#__Methods">Up</a>
-    <pre class="post"><code class="huge"><span class="http-method">post</span> /subLocation</code></pre></div>
-    <div class="method-summary">Adds a sublocation to UTMap (<span class="nickname">addSubLocation</span>)</div>
-    <div class="method-notes">A user can submit a json representation of a sublocation to add to the list of existing sublocations in the system</div>
-
-
-    <h3 class="field-label">Consumes</h3>
-    This API call consumes the following media types via the <span class="header">Content-Type</span> request header:
-    <ul>
-      <li><code>application/json</code></li>
-    </ul>
-
-    <h3 class="field-label">Request body</h3>
-    <div class="field-items">
-      <div class="param">subLocation <a href="#SubLocation">SubLocation</a> (optional)</div>
-
-      <div class="param-desc"><span class="param-type">Body Parameter</span> &mdash; subLocation to add </div>
-
-    </div>  <!-- field-items -->
-
-
-
-
-
-    <!--Todo: process Response Object and its headers, schema, examples -->
-
-
-    <h3 class="field-label">Produces</h3>
-    This API call produces the following media types according to the <span class="header">Accept</span> request header;
-    the media type will be conveyed by the <span class="header">Content-Type</span> response header.
-    <ul>
-      <li><code>application/json</code></li>
-    </ul>
-
-    <h3 class="field-label">Responses</h3>
-    <h4 class="field-label">201</h4>
-    item created
-        <a href="#"></a>
-    <h4 class="field-label">400</h4>
-    invalid input, object invalid
-        <a href="#"></a>
-    <h4 class="field-label">409</h4>
-    an existing item already exists
-        <a href="#"></a>
-  </div> <!-- method -->
-  <hr/>
-  <div class="method"><a name="deleteOneSubLocation"/>
-    <div class="method-path">
-    <a class="up" href="#__Methods">Up</a>
-    <pre class="delete"><code class="huge"><span class="http-method">delete</span> /subLocation/{_id}</code></pre></div>
-    <div class="method-summary">Deletes a sublocation by its name (<span class="nickname">deleteOneSubLocation</span>)</div>
-    <div class="method-notes">By passing in a valid sublocation name, a user can search for a specific sublocation in the system</div>
-
-    <h3 class="field-label">Path parameters</h3>
-    <div class="field-items">
-      <div class="param">_id (required)</div>
-
-      <div class="param-desc"><span class="param-type">Path Parameter</span> &mdash; ID unique to the subLocation that needs to be deleted. format: uuid</div>
-    </div>  <!-- field-items -->
-
-
-
-
-
-
-    <h3 class="field-label">Return type</h3>
-    <div class="return-type">
-      <a href="#SubLocation">SubLocation</a>
-      
-    </div>
-
-    <!--Todo: process Response Object and its headers, schema, examples -->
-
-    <h3 class="field-label">Example data</h3>
-    <div class="example-data-content-type">Content-Type: application/json</div>
-    <pre class="example"><code>""</code></pre>
-
-    <h3 class="field-label">Produces</h3>
-    This API call produces the following media types according to the <span class="header">Accept</span> request header;
-    the media type will be conveyed by the <span class="header">Content-Type</span> response header.
-    <ul>
-      <li><code>application/json</code></li>
-    </ul>
-
-    <h3 class="field-label">Responses</h3>
-    <h4 class="field-label">200</h4>
-    sublocation deleted
-        <a href="#SubLocation">SubLocation</a>
-    <h4 class="field-label">400</h4>
-    Invalid _id supplied
-        <a href="#"></a>
-    <h4 class="field-label">404</h4>
-    sublocation not found
-        <a href="#"></a>
-  </div> <!-- method -->
-  <hr/>
-  <div class="method"><a name="getOneSubLocation"/>
-    <div class="method-path">
-    <a class="up" href="#__Methods">Up</a>
-    <pre class="get"><code class="huge"><span class="http-method">get</span> /subLocation/{_id}</code></pre></div>
-    <div class="method-summary">Finds a sublocation by its name (<span class="nickname">getOneSubLocation</span>)</div>
-    <div class="method-notes">By passing in a valid sublocation name, a user can search for a specific sublocation in the system</div>
-
-    <h3 class="field-label">Path parameters</h3>
-    <div class="field-items">
-      <div class="param">_id (required)</div>
-
-      <div class="param-desc"><span class="param-type">Path Parameter</span> &mdash; ID unique to the subLocation that needs to be found. format: uuid</div>
-    </div>  <!-- field-items -->
-
-
-
-
-
-
-    <h3 class="field-label">Return type</h3>
-    <div class="return-type">
-      <a href="#SubLocation">SubLocation</a>
-      
-    </div>
-
-    <!--Todo: process Response Object and its headers, schema, examples -->
-
-    <h3 class="field-label">Example data</h3>
-    <div class="example-data-content-type">Content-Type: application/json</div>
-    <pre class="example"><code>""</code></pre>
-
-    <h3 class="field-label">Produces</h3>
-    This API call produces the following media types according to the <span class="header">Accept</span> request header;
-    the media type will be conveyed by the <span class="header">Content-Type</span> response header.
-    <ul>
-      <li><code>application/json</code></li>
-    </ul>
-
-    <h3 class="field-label">Responses</h3>
-    <h4 class="field-label">200</h4>
-    sublocation found
-        <a href="#SubLocation">SubLocation</a>
-    <h4 class="field-label">400</h4>
-    Invalid _id supplied
-        <a href="#"></a>
-    <h4 class="field-label">404</h4>
-    sublocation not found
-        <a href="#"></a>
-  </div> <!-- method -->
-  <hr/>
-  <div class="method"><a name="getAllSubLocations"/>
-    <div class="method-path">
-    <a class="up" href="#__Methods">Up</a>
-    <pre class="get"><code class="huge"><span class="http-method">get</span> /subLocation</code></pre></div>
-    <div class="method-summary">Searches sublocations on UTMap (<span class="nickname">getAllSubLocations</span>)</div>
-    <div class="method-notes">By passing in the appropriate options, a user can search for existing locations in the system</div>
-
-
-
-
-
-    <h3 class="field-label">Query parameters</h3>
-    <div class="field-items">
-      <div class="param">searchString (optional)</div>
-
-      <div class="param-desc"><span class="param-type">Query Parameter</span> &mdash; passes an optional search string to look up sublocations </div>
-    </div>  <!-- field-items -->
-
-
-    <h3 class="field-label">Return type</h3>
-    <div class="return-type">
-      array[<a href="#SubLocation">SubLocation</a>]
-      
-    </div>
-
-    <!--Todo: process Response Object and its headers, schema, examples -->
-
-    <h3 class="field-label">Example data</h3>
-    <div class="example-data-content-type">Content-Type: application/json</div>
-    <pre class="example"><code>[ "", "" ]</code></pre>
-
-    <h3 class="field-label">Produces</h3>
-    This API call produces the following media types according to the <span class="header">Accept</span> request header;
-    the media type will be conveyed by the <span class="header">Content-Type</span> response header.
-    <ul>
-      <li><code>application/json</code></li>
-    </ul>
-
-    <h3 class="field-label">Responses</h3>
-    <h4 class="field-label">200</h4>
-    search results matching criteria
-        
-    <h4 class="field-label">400</h4>
-    bad input parameter
-        <a href="#"></a>
-  </div> <!-- method -->
-  <hr/>
-  <div class="method"><a name="updateSubLocation"/>
-    <div class="method-path">
-    <a class="up" href="#__Methods">Up</a>
-    <pre class="put"><code class="huge"><span class="http-method">put</span> /subLocation</code></pre></div>
-    <div class="method-summary">updates an existing sublocation on UTMap (<span class="nickname">updateSubLocation</span>)</div>
-    <div class="method-notes"></div>
-
-
-    <h3 class="field-label">Consumes</h3>
-    This API call consumes the following media types via the <span class="header">Content-Type</span> request header:
-    <ul>
-      <li><code>application/json</code></li>
-    </ul>
-
-    <h3 class="field-label">Request body</h3>
-    <div class="field-items">
-      <div class="param">body <a href="#SubLocation">SubLocation</a> (required)</div>
-
-      <div class="param-desc"><span class="param-type">Body Parameter</span> &mdash; Sublocation object to update </div>
-
-    </div>  <!-- field-items -->
-
-
-
-
-
-    <!--Todo: process Response Object and its headers, schema, examples -->
-
-
-    <h3 class="field-label">Produces</h3>
-    This API call produces the following media types according to the <span class="header">Accept</span> request header;
-    the media type will be conveyed by the <span class="header">Content-Type</span> response header.
-    <ul>
-      <li><code>application/json</code></li>
-    </ul>
-
-    <h3 class="field-label">Responses</h3>
-    <h4 class="field-label">201</h4>
-    item updated
-        <a href="#"></a>
-    <h4 class="field-label">400</h4>
-    invalid input, object invalid
-        <a href="#"></a>
-    <h4 class="field-label">404</h4>
-    object not found
-        <a href="#"></a>
-  </div> <!-- method -->
-  <hr/>
 
   <h2><a name="__Models">Models</a></h2>
   [ Jump to <a href="#__Methods">Methods</a> ]
 
   <h3>Table of Contents</h3>
   <ol>
+    <li><a href="#Building"><code>Building</code> - </a></li>
     <li><a href="#Event"><code>Event</code> - </a></li>
-    <li><a href="#Location"><code>Location</code> - </a></li>
-    <li><a href="#Location_subLocations"><code>Location_subLocations</code> - </a></li>
-    <li><a href="#Space"><code>Space</code> - </a></li>
-    <li><a href="#SubLocation"><code>SubLocation</code> - </a></li>
-    <li><a href="#Tag"><code>Tag</code> - </a></li>
   </ol>
 
+  <div class="model">
+    <h3><a name="Building"><code>Building</code> - </a> <a class="up" href="#__Models">Up</a></h3>
+    <div class='model-description'></div>
+    <div class="field-items">
+      <div class="param">_id </div><div class="param-desc"><span class="param-type"><a href="#UUID">UUID</a></span>  format: uuid</div>
+          <div class="param-desc"><span class="param-type">example: d290f1ee-6c54-4b01-90e6-d701748f0851</span></div>
+<div class="param">name </div><div class="param-desc"><span class="param-type"><a href="#string">String</a></span>  </div>
+          <div class="param-desc"><span class="param-type">example: Deerfield Hall</span></div>
+<div class="param">code </div><div class="param-desc"><span class="param-type"><a href="#string">String</a></span>  format: buildingCode</div>
+          <div class="param-desc"><span class="param-type">example: DH</span></div>
+    </div>  <!-- field-items -->
+  </div>
   <div class="model">
     <h3><a name="Event"><code>Event</code> - </a> <a class="up" href="#__Models">Up</a></h3>
     <div class='model-description'></div>
@@ -1015,75 +803,11 @@ font-style: italic;
           <div class="param-desc"><span class="param-type">example: 2021-09-20T17:00:00Z</span></div>
 <div class="param">endTime (optional)</div><div class="param-desc"><span class="param-type"><a href="#DateTime">Date</a></span>  format: date-time</div>
           <div class="param-desc"><span class="param-type">example: 2021-09-20T21:00:00Z</span></div>
-<div class="param">place </div><div class="param-desc"><span class="param-type"><a href="#SubLocation">SubLocation</a></span>  </div>
+<div class="param">building (optional)</div><div class="param-desc"><span class="param-type"><a href="#Building">Building</a></span>  </div>
+<div class="param">room </div><div class="param-desc"><span class="param-type"><a href="#string">String</a></span>  format: roomCode</div>
+          <div class="param-desc"><span class="param-type">example: DH2000</span></div>
 <div class="param">description </div><div class="param-desc"><span class="param-type"><a href="#string">String</a></span>  format: bio</div>
           <div class="param-desc"><span class="param-type">example: Come join us for Cards Against Humanity and Super Smash Bros.</span></div>
-<div class="param">tags </div><div class="param-desc"><span class="param-type"><a href="#Tag">array[Tag]</a></span>  </div>
-          <div class="param-desc"><span class="param-type">example: ["Board Games","Computer Science","Video Games"]</span></div>
-    </div>  <!-- field-items -->
-  </div>
-  <div class="model">
-    <h3><a name="Location"><code>Location</code> - </a> <a class="up" href="#__Models">Up</a></h3>
-    <div class='model-description'></div>
-    <div class="field-items">
-      <div class="param">_id </div><div class="param-desc"><span class="param-type"><a href="#UUID">UUID</a></span>  format: uuid</div>
-          <div class="param-desc"><span class="param-type">example: d290f1ee-6c54-4b01-90e6-d701748f0851</span></div>
-<div class="param">name </div><div class="param-desc"><span class="param-type"><a href="#string">String</a></span>  </div>
-          <div class="param-desc"><span class="param-type">example: Deerfield Hall</span></div>
-<div class="param">code </div><div class="param-desc"><span class="param-type"><a href="#string">String</a></span>  format: buildingCode</div>
-          <div class="param-desc"><span class="param-type">example: DH</span></div>
-<div class="param">coords </div><div class="param-desc"><span class="param-type"><a href="#integer">array[Integer]</a></span>  </div>
-          <div class="param-desc"><span class="param-type">example: "200, 400"</span></div>
-<div class="param">subLocations </div><div class="param-desc"><span class="param-type"><a href="#Location_subLocations">map[String, Location_subLocations]</a></span>  </div>
-          <div class="param-desc"><span class="param-type">example: {"Deerfield Hall":"DH2000"}</span></div>
-    </div>  <!-- field-items -->
-  </div>
-  <div class="model">
-    <h3><a name="Location_subLocations"><code>Location_subLocations</code> - </a> <a class="up" href="#__Models">Up</a></h3>
-    
-    <div class="field-items">
-      <div class="param">code (optional)</div><div class="param-desc"><span class="param-type"><a href="#SubLocation">SubLocation</a></span>  </div>
-<div class="param">text (optional)</div><div class="param-desc"><span class="param-type"><a href="#string">String</a></span>  </div>
-    </div>  <!-- field-items -->
-  </div>
-  <div class="model">
-    <h3><a name="Space"><code>Space</code> - </a> <a class="up" href="#__Models">Up</a></h3>
-    <div class='model-description'></div>
-    <div class="field-items">
-      <div class="param">_id </div><div class="param-desc"><span class="param-type"><a href="#UUID">UUID</a></span>  format: uuid</div>
-          <div class="param-desc"><span class="param-type">example: d290f1ee-6c54-4b01-90e6-d701748f0851</span></div>
-<div class="param">name </div><div class="param-desc"><span class="param-type"><a href="#string">String</a></span>  </div>
-          <div class="param-desc"><span class="param-type">example: Deerfield Hall</span></div>
-<div class="param">code </div><div class="param-desc"><span class="param-type"><a href="#string">String</a></span>  format: buildingCode</div>
-          <div class="param-desc"><span class="param-type">example: DH</span></div>
-    </div>  <!-- field-items -->
-  </div>
-  <div class="model">
-    <h3><a name="SubLocation"><code>SubLocation</code> - </a> <a class="up" href="#__Models">Up</a></h3>
-    <div class='model-description'></div>
-    <div class="field-items">
-      <div class="param">_id </div><div class="param-desc"><span class="param-type"><a href="#UUID">UUID</a></span>  format: uuid</div>
-          <div class="param-desc"><span class="param-type">example: d290f1ee-6c54-4b01-90e6-d701748f0851</span></div>
-<div class="param">name </div><div class="param-desc"><span class="param-type"><a href="#string">String</a></span>  format: roomCode</div>
-          <div class="param-desc"><span class="param-type">example: DH2000</span></div>
-<div class="param">code </div><div class="param-desc"><span class="param-type"><a href="#string">String</a></span>  format: buildingCode</div>
-          <div class="param-desc"><span class="param-type">example: DH</span></div>
-<div class="param">roomNumber </div><div class="param-desc"><span class="param-type"><a href="#integer">Integer</a></span>  </div>
-          <div class="param-desc"><span class="param-type">example: 2000</span></div>
-<div class="param">events </div><div class="param-desc"><span class="param-type"><a href="#Event">array[Event]</a></span>  </div>
-          <div class="param-desc"><span class="param-type">example: ["MCSS Game Night","UTM Exam Jam"]</span></div>
-    </div>  <!-- field-items -->
-  </div>
-  <div class="model">
-    <h3><a name="Tag"><code>Tag</code> - </a> <a class="up" href="#__Models">Up</a></h3>
-    <div class='model-description'></div>
-    <div class="field-items">
-      <div class="param">_id </div><div class="param-desc"><span class="param-type"><a href="#UUID">UUID</a></span>  format: uuid</div>
-          <div class="param-desc"><span class="param-type">example: d290f1ee-6c54-4b01-90e6-d701748f0851</span></div>
-<div class="param">name </div><div class="param-desc"><span class="param-type"><a href="#string">String</a></span>  </div>
-          <div class="param-desc"><span class="param-type">example: Board Games</span></div>
-<div class="param">description </div><div class="param-desc"><span class="param-type"><a href="#string">String</a></span>  format: bio</div>
-          <div class="param-desc"><span class="param-type">example: This event has board games.</span></div>
     </div>  <!-- field-items -->
   </div>
   </body>

@@ -4,12 +4,12 @@
 
 The following packages must be installed for UTMap Server to function properly.
 
-Flask-1.1.2
-Flask-Script-2.0.6
-flask-restx-0.2.0
-flask-testing-0.8.1
-pylint-2.6.0
-pymongo-3.11.2
+Flask-1.1.2,  
+Flask-Script-2.0.6,  
+flask-restx-0.2.0,  
+flask-testing-0.8.1,  
+pylint-2.6.0,  
+pymongo-3.11.2,  
 
 ## Architecture
 
@@ -25,11 +25,11 @@ The main folder contains all the files necessary to run the app which are organi
 
 ##### controller:
 
-The controller folder contains the endpoints for the API in manage.py.  It contains files that route the appropriate http requests calls to their corresponding services.  These files include the existing locationController.py and eventController.py.  A subLocationController.py is planned.
+The controller folder contains the endpoints for the API in manage.py.  It contains files that route the appropriate http requests calls to their corresponding services.  These files include the existing buildingController.py and eventController.py.
 
-###### locationController.py:
+###### buildingController.py:
 
-This file routes http requests related to locations to the locationService.py file.  The LocationController class adds these routes to the API as resources, making them accessible when the app runs.
+This file routes http requests related to buildings to the buildingService.py file.  The BuildingController class adds these routes to the API as resources, making them accessible when the app runs.
 
 ###### eventController.py:
 
@@ -37,7 +37,7 @@ This file routes http requests related to events to the eventService.py file.  T
 
 ##### services:
 
-The services folder contains the services responsible for querying the database.  The eventService.py file queries the database's event collection using the event.py model's helper functions.  The locationService.py file queries the database's location collection using the location.py model's helper functions.
+The services folder contains the services responsible for querying the database.  The eventService.py file queries the database's event collection using the event.py model's helper functions.  The buildingService.py file queries the database's building collection using the building.py model's helper functions.
 
 #### test:
 
@@ -45,28 +45,113 @@ The test folder contains all files necessary to unit-test the app.  Currently, t
 
 ## API
 
-### Locations
+### Models
 
-#### GET /location
+The following models represent the two types of objects stored in the UTMap database: buildings and events.  Buildings are stored in UTMap's "building" collection, while events are stored in UTMap's "event" collection.
 
-#### POST /location
+#### Buildings
 
-#### GET /location/{_id}
+Buildings are JSON objects that represent a building or plot of land at which events are held.  A building object has the following format:  
+  
+'building' : {
+    '_id' : UUID (Unique ID)
+    'name' : String (The building's name)
+    'code' : String (2-letter building code)
+}
 
-#### PUT /location/{_id}
+#### Events
 
-#### DELETE /location/{_id}
+Events are JSON objects that represent an event scheduled to happen at a building.  An event object has the following format:  
+  
+'event' : {
+    '_id' : UUID (Unique ID)
+    'name' : String (The event's name)
+    'organizer' : String (The event organizer's name)
+    'startTime' : DateTime (The date and time the event begins)
+    'endTime' : DateTime (The date and time the event ends)
+    'building' : building (see above)
+    'room' : String (The room the event is held in)
+    'description' : String (A short description of the event)
+}
 
-### SubLocations
+### HTTP Requests
 
-### Events
+#### GET /building
+
+- Purpose: Retrieves a list of every building in the UTMap database. 
+- Method: Routes to the method getAllBuildings().
+- Return Type: Returns a list of buildings.
+- Responses: Status 200 if a list is found, 404 if no list is found.
+
+#### POST /building
+
+- Purpose: Adds a new building to the UTMap database.
+- Method: Routes to the method addBuilding().
+- Request Body: Requires a building object as the request body (_id not necessary).
+- Produces: Produces a building as a JSON object in the response body.
+- Responses: Status 201 if a building is posted successfully, 400 if the input data is invalid, 409 if the building already exists.
+
+#### GET /building/{_id}
+
+- Purpose: Retrieves a building with the specified _id from the UTMap database. 
+- Path Parameters: Requires the specified _id in the HTTP request.
+- Method: Routes to the method getOneBuilding().
+- Return Type: Returns a single building.
+- Responses: Status 200 if a building is found, 400 if the specified _id is invalid, 404 if no building is found.
+
+#### PUT /building/{_id}
+
+- Purpose: Updates an existing building in the UTMap database.
+- Path Parameters: Requires the specified _id in the HTTP request.
+- Method: Routes to the method updateBuilding().
+- Request Body: Requires a building object as the request body (_id necessary).
+- Produces: Produces the updated building as a JSON object in the response body.
+- Responses: Status 201 if a building is updated successfully, 400 if the input data is invalid, 404 if no building is found.
+
+#### DELETE /building/{_id}
+
+- Purpose: Deletes a building with the specified _id from the UTMap database. 
+- Path Parameters: Requires the specified _id in the HTTP request.
+- Method: Routes to the method deleteOneBuilding().
+- Return Type: Returns a single building.
+- Responses: Status 200 if a building is deleted successfully, 400 if the specified _id is invalid, 404 if no building is found.
 
 #### GET /event
 
+- Purpose: Retrieves a list of every event in the UTMap database. 
+- Method: Routes to the method getAllEvents().
+- Return Type: Returns a list of events.
+- Responses: Status 200 if a list is found, 404 if no list is found.
+
 #### POST /event
+
+- Purpose: Adds a new event to the UTMap database.
+- Method: Routes to the method addEvent().
+- Request Body: Requires an event object as the request body (_id not necessary).
+- Produces: Produces an event as a JSON object in the response body.
+- Responses: Status 201 if an event is posted successfully, 400 if the input data is invalid, 409 if the event already exists.
 
 #### GET /event/{_id}
 
+- Purpose: Retrieves an event with the specified _id from the UTMap database. 
+- Path Parameters: Requires the specified _id in the HTTP request.
+- Method: Routes to the method getOneEvent().
+- Return Type: Returns a single event.
+- Responses: Status 200 if a event is found, 400 if the specified _id is invalid, 404 if no event is found.
+
 #### PUT /event/{_id}
 
+- Purpose: Updates an existing event in the UTMap database.
+- Path Parameters: Requires the specified _id in the HTTP request.
+- Method: Routes to the method updateEvent().
+- Request Body: Requires an event object as the request body (_id necessary).
+- Produces: Produces the updated event as a JSON object in the response body.
+- Responses: Status 201 if an event is updated successfully, 400 if the input data is invalid, 404 if no event is found.
+
 #### DELETE /event/{_id}
+
+- Purpose: Deletes an event with the specified _id from the UTMap database. 
+- Path Parameters: Requires the specified _id in the HTTP request.
+- Method: Routes to the method deleteOneEvent().
+- Return Type: Returns a single event.
+- Responses: Status 200 if an event is deleted successfully, 400 if the specified _id is invalid, 404 if no event is found.
