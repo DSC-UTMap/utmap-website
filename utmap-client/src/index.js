@@ -8,7 +8,7 @@ import { createMuiTheme, ThemeProvider } from "@material-ui/core";
 const theme = createMuiTheme({
   palette: {
      primary: {
-        main: "#1976d2" // This is an orange looking color
+        main: "#f44336" // This is an orange looking color
                },
      secondary: {
         main: "#f44336" //Another orange-ish color
@@ -18,11 +18,11 @@ const theme = createMuiTheme({
 });
 
 ReactDOM.render(
-  <ThemeProvider theme={theme}>
   <React.StrictMode>
-    <App />
-  </React.StrictMode>
-  </ThemeProvider>,
+    <ThemeProvider theme={theme}>
+      <App />
+    </ThemeProvider>
+  </React.StrictMode>,
   document.getElementById('root')
 );
 

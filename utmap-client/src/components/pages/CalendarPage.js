@@ -26,7 +26,6 @@ import MenuIcon from '@material-ui/icons/Menu';
 import SideBar from "./SideBar";
 import clsx from 'clsx';
 import SingleEventPage from './SingleEventPage';
-import { blue } from "@material-ui/core/colors";
 
 //example events REMOVE once the backend is connected
 const exampleEvents = [
@@ -50,7 +49,6 @@ const exampleEvents = [
 ]
 
 const useStyles = makeStyles(theme => ({
-	primaryColor: theme.palette.primary.main,
 	topSpace: {
 		marginTop: theme.spacing(1),
 		marginRight: theme.spacing(5),
@@ -71,7 +69,7 @@ const useStyles = makeStyles(theme => ({
 	},
 }));
 
-function provideCustomAppointment(openEventInfo, theme) {
+function provideCustomAppointment(openEventInfo) {
 	//Curried component which overrides default event info popup
 	return ((props) => {
 		return (
@@ -79,7 +77,7 @@ function provideCustomAppointment(openEventInfo, theme) {
 				{...props}
 				onClick={() => openEventInfo(props.data)}
 				style={{
-					backgroundColor: theme,
+					backgroundColor: "#1976d2"
 				}}
 			/>
 		);
@@ -147,7 +145,7 @@ function CalendarPage() {
 				<DateNavigator />
 				<TodayButton />
 				<Appointments
-					appointmentComponent={provideCustomAppointment(handleOpenEventInfo, classes.primaryColor)}
+					appointmentComponent={provideCustomAppointment(handleOpenEventInfo)}
 				/>
 				</Scheduler>
 			</Paper>
