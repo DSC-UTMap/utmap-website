@@ -18,7 +18,7 @@ import DescriptionIcon from '@material-ui/icons/Description';
 import DateFnsUtils from '@date-io/date-fns';
 import { DateTimePicker, MuiPickersUtilsProvider } from "@material-ui/pickers";
 import { makeStyles } from '@material-ui/core/styles';
-import locationData from '../LocationData';
+import locationData from '../data/LocationData';
 
 const useStyles = makeStyles(theme => ({ //CSS styles on components
 	box: {

@@ -3,8 +3,9 @@ import { makeStyles } from '@material-ui/core/styles';
 import Drawer from '@material-ui/core/Drawer';
 import IconButton from '@material-ui/core/IconButton';
 import MenuIcon from '@material-ui/icons/Menu';
+import SideBarContent from '../SideBarContent';
 
-const drawerWidth = '30rem';
+const drawerWidth = '32rem';
 
 const useStyles = makeStyles((theme) => ({
   drawer: {
@@ -25,7 +26,7 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 
-function SideBar({open, onClose}) {
+function SideBar({open, onClose, events}) {
     const classes = useStyles();
     return (
         <Drawer
@@ -44,6 +45,7 @@ function SideBar({open, onClose}) {
                     <MenuIcon />
                 </IconButton>
             </div>
+						<SideBarContent events={events}/>
         </Drawer>
     );
     
