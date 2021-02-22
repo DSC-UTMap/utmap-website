@@ -4,6 +4,8 @@ import IconButton from '@material-ui/core/IconButton';
 import MenuIcon from '@material-ui/icons/Menu';
 import SideBar from "./SideBar";
 import clsx from 'clsx';
+import exampleEvents from '../data/EventData';//Temporary dummy data
+import Map from '../Map.js'
   
 const useStyles = makeStyles(theme => ({
     hide: {
@@ -34,12 +36,14 @@ function MapPage() {
           onClick={handleDrawerOpen}
           className={clsx(openDrawer && classes.hide)}
           alignment="right"
-          >
+        >
           <MenuIcon />
         </IconButton>
-        <SideBar open={openDrawer} onClose={handleDrawerClose}></SideBar>
+        <SideBar open={openDrawer} onClose={handleDrawerClose} events={exampleEvents}/>
       </div>
-      <p>Map</p>
+
+      {/* Map */}
+      <Map />
     </>
   )
 }
