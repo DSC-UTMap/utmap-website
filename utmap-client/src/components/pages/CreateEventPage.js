@@ -185,7 +185,7 @@ function CreateEventPage({onClose, addEvent}) {
 				<Grid item className={formStyle.row} justify='flex-end'>
 					<Button 
 						variant='contained' 
-						color='primary'
+						color='secondary'
 						type='submit'
 					>
 						Submit

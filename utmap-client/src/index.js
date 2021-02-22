@@ -4,24 +4,30 @@ import './index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
 import { createMuiTheme, ThemeProvider } from "@material-ui/core";
+import CssBaseline from "@material-ui/core/CssBaseline";
 
 const theme = createMuiTheme({
   palette: {
-     primary: {
-        main: "#f44336" // This is an orange looking color
-               },
-     secondary: {
-        main: "#f44336" //Another orange-ish color
-                }
-           },
-//fontFamily: font // as an aside, highly recommend importing roboto font for Material UI projects! Looks really nice
+    background: {
+      default: '#F4F8FC'
+    },
+    primary: {
+      main: "#01579b",  // This is a dark blue color
+      light: "#4f83cc",
+      dark: "#002f6c",
+    },
+    secondary: {
+      main: "#ec422a" // This is an orange color
+    }
+  },
 });
 
 ReactDOM.render(
   <React.StrictMode>
     <ThemeProvider theme={theme}>
-      <App />
-    </ThemeProvider>
+      <CssBaseline />
+        <App />
+      </ThemeProvider>
   </React.StrictMode>,
   document.getElementById('root')
 );
