@@ -43,7 +43,6 @@ function MapPage() {
 
       {/* Map */}
       <Map />
-      <p>Map</p>
     </>
   )
 }
