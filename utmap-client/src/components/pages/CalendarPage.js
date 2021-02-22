@@ -1,8 +1,5 @@
 import React, {useCallback, useState} from "react";
-import Paper from '@material-ui/core/Paper';
-import Button from '@material-ui/core/Button';
 import AddIcon from '@material-ui/icons/Add';
-import Dialog from '@material-ui/core/Dialog';
 import { ViewState } from '@devexpress/dx-react-scheduler';
 import {
 	Scheduler,
@@ -12,19 +9,44 @@ import {
 	Appointments,
 	TodayButton,
 } from '@devexpress/dx-react-scheduler-material-ui';
-import CreateEventPage from './CreateEventPage';
-import { makeStyles } from '@material-ui/core/styles';
-import IconButton from '@material-ui/core/IconButton';
-import MenuIcon from '@material-ui/icons/Menu';
-import SideBar from "./SideBar";
-import clsx from 'clsx';
+import ToolbarMaterial from '@material-ui/core/Toolbar';
+import {
+	Paper,
+	Button,
+	Dialog,
+	Box,
+	IconButton,
+	AppBar,
+	Typography,
+} from '@material-ui/core';
+
 import SingleEventPage from './SingleEventPage';
+import CreateEventPage from './CreateEventPage';
+import SideBar from "./SideBar";
+
+import { makeStyles } from '@material-ui/core/styles';
+import MenuIcon from '@material-ui/icons/Menu';
+import EventIcon from '@material-ui/icons/Event';
+import clsx from 'clsx';
 import exampleEvents from '../data/EventData'; //Temporary dummy data
 
 
 const useStyles = makeStyles(theme => ({
+	spacing: 8,
+	title:{
+		flexGrow:1,
+	},
 	hide: {
-    	display: 'none',
+		visibility: 'hidden'
+	},
+	buttonShape: {
+		margin: theme.spacing(5),
+		borderRadius: '5em',
+	},
+	paper: {
+		marginLeft: theme.spacing(5),
+		marginRight: theme.spacing(5),
+		display: 'flex',
 	},
 }));
 
@@ -35,10 +57,15 @@ function provideCustomAppointment(openEventInfo) {
 			<Appointments.Appointment
 				{...props}
 				onClick={() => openEventInfo(props.data)}
+				style={{
+					backgroundColor: "#4f83cc"
+				}}
 			/>
 		);
 	});
 }
+
+
 
 //Scheduler is the calendar, today, and taskbar components
 function CalendarPage() { 
@@ -78,22 +105,31 @@ function CalendarPage() {
 	return (
 		<>
 			{/* Sidebar */}
-			<div align="right">
-				<IconButton
-					color="inherit"
-					aria-label="open drawer"
-					edge="end"
-					onClick={handleDrawerOpen}
-					className={clsx(openDrawer && classes.hide)}
-					alignment="right"
-					>
-					<MenuIcon />
-				</IconButton>
-				<SideBar open={openDrawer} onClose={handleDrawerClose} events={eventList}/>
-			</div>
+			<AppBar position="relative" elevation={4} color='primary'>
+				<ToolbarMaterial>
+					<IconButton>
+						<EventIcon style={{ color: '#ffffff' }} />
+					</IconButton>
+					<Typography variant="h6" className={classes.title} edge="start">
+						Calendar
+					</Typography>
+					<IconButton
+						color="inherit"
+						aria-label="open drawer"
+						onClick={handleDrawerOpen}
+						className={clsx(openDrawer && classes.hide)}
+						>
+						<MenuIcon />
+					</IconButton>
+				</ToolbarMaterial>
+			</AppBar>
+
+			<Box p={2} bgcolor="background"/>
+
+			<SideBar open={openDrawer} onClose={handleDrawerClose} events={eventList}/>
 
 			{/* Calendar */}
-			<Paper>
+			<Paper className={classes.paper} elevation='3'>
 				<Scheduler data={eventList}>
 				<ViewState />
 				<MonthView />
@@ -108,8 +144,9 @@ function CalendarPage() {
 
 			{/* Add event button */}
 			<Button
+				className={classes.buttonShape}
 				variant='contained' 
-				color='primary'
+				color='secondary'
 				startIcon={<AddIcon/>}
 				onClick={handleOpenEventForm}
 			>
@@ -121,7 +158,7 @@ function CalendarPage() {
 				open={openEventForm} 
 				onClose={handleOpenEventForm}
 				disableBackdropClick
-      	disableEscapeKeyDown>
+      			disableEscapeKeyDown>
 				<CreateEventPage onClose={handleOpenEventForm} addEvent={addEvent}/>
 			</Dialog>
 
