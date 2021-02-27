@@ -1,4 +1,5 @@
-import React, {useCallback, useState} from "react";
+import React, {useCallback, useState, useEffect} from "react";
+import {isSameDay, addMinutes} from 'date-fns';
 import AddIcon from '@material-ui/icons/Add';
 import { ViewState } from '@devexpress/dx-react-scheduler';
 import {
@@ -56,7 +57,8 @@ function provideCustomAppointment(openEventInfo) {
 		return (
 			<Appointments.Appointment
 				{...props}
-				onClick={() => openEventInfo(props.data)}
+				//Don't do anything if event is grouped
+				onClick={() => {if(!props.data.isGroup) openEventInfo(props.data)}}
 				style={{
 					backgroundColor: "#4f83cc"
 				}}
@@ -65,15 +67,52 @@ function provideCustomAppointment(openEventInfo) {
 	});
 }
 
+const sortEvents = (events) => {
+	events.sort((a, b) => {
+		//sort by startDate, earliest to latest
+		return (Date.parse(a.startDate) < Date.parse(b.startDate)) ? -1 : 1; 
+	});
+	return events; //Kind of wacky to return an array that was sorted in place
+};
+
+const groupEvents = (eventsList) => {
+	//Groups events on the same day together if there are more than 3
+	let count = 0;
+	return eventsList.reduce((newList, event) => {
+		let lastElem = newList[newList.length - 1];
+		if(newList.length === 0 || !isSameDay(Date.parse(event.startDate), Date.parse(lastElem.startDate))) {
+			newList.push(event);
+			count = 1;
+		} else if(count > 2) {//Turn the third event into a group
+			let endDate = addMinutes(Date.parse(lastElem.startDate), 1);
+			lastElem = { 
+				title: `${count - 1}+ events`,
+				startDate: lastElem.startDate,
+				endDate: endDate.toLocaleString('en-US', { timeZone: 'America/New_York' }),
+				isGroup: true
+			}
+			newList[newList.length - 1] = lastElem;
+			count++;
+		} else {
+			newList.push(event);
+			count++;
+		}
+		return newList;
+	}, []);	
+}
+
+//Init list outside component to prevent function calls every time it renders
+const initEventsList = sortEvents(exampleEvents);
+const initCalendarEvents = groupEvents(initEventsList);
 
 
 //Scheduler is the calendar, today, and taskbar components
 function CalendarPage() { 
 	const [openEventForm, setOpenEventForm] = useState(false);
 	const [openEventInfo, setOpenEventInfo] = useState(false);
-	const [eventInfo, setEventInfo] = useState(
-		{});
-	const [eventList, setEventList] = useState(exampleEvents); //uses dummy data
+	const [eventInfo, setEventInfo] = useState({});
+	const [eventsList, setEventsList] = useState(initEventsList); //uses dummy data
+	const [calendarEvents, setCalendarEvents] = useState(initCalendarEvents);
 
 	const handleOpenEventInfo = (data) => {
 		//set data that will be passed into the event popup
@@ -87,9 +126,14 @@ function CalendarPage() {
 		setOpenEventForm(!openEventForm);
 	}
 
-	const addEvent = useCallback((eventData) => {
-		setEventList([...eventList, eventData]);
-	}, [eventList]);
+	const addEvent = useCallback(eventData => {
+		setEventsList(sortEvents([...eventsList, eventData]));
+	}, [eventsList]);
+
+	useEffect(() => {
+		//Update calendarEvents whenever eventsList is updated
+		setCalendarEvents(groupEvents(eventsList));
+	}, [eventsList]);
 
 	//Siderbar functions and variables
 	const classes = useStyles();
@@ -126,11 +170,11 @@ function CalendarPage() {
 
 			<Box p={2} bgcolor="background"/>
 
-			<SideBar open={openDrawer} onClose={handleDrawerClose} events={eventList}/>
+			<SideBar open={openDrawer} onClose={handleDrawerClose} events={eventsList}/>
 
 			{/* Calendar */}
 			<Paper className={classes.paper} elevation='3'>
-				<Scheduler data={eventList}>
+				<Scheduler data={calendarEvents}>
 				<ViewState />
 				<MonthView />
 				<Toolbar />
