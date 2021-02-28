@@ -51,18 +51,20 @@ const useStyles = makeStyles(theme => ({ //CSS styles on components
 }));
 
 
-function CreateEventPage({onClose, addEvent}) {
+function CreateEventPage({onClose, addEvent, editEvent, event}) {
+	const isEdit = Object.keys(event).length !== 0;
+	console.log(`eventForm render, edit: ${isEdit}`);
 	const formStyle = useStyles(); 
-	const [startDate, setStartDate] = useState(new Date());
-	const [endDate, setEndDate] = useState(new Date());
-	const [location, setLocation] = useState(locationData[0]);
-	const [title, setTitle] = useState('');
-	const [sublocation, setSublocation] = useState('');
-	const [description, setDescription] = useState('');
+	const [startDate, setStartDate] = useState(isEdit ? new Date(event.startDate) : new Date());
+	const [endDate, setEndDate] = useState(isEdit ? new Date(event.endDate) : new Date());
+	const [location, setLocation] = useState(isEdit ? event.location : locationData[0]);
+	const [title, setTitle] = useState(isEdit ? event.title : '');
+	const [sublocation, setSublocation] = useState(isEdit ? event.sublocation : '');
+	const [description, setDescription] = useState(isEdit ? event.description : '');
 
 	//This is where the form will send to server
-	const handleSubmit = event => {
-		event.preventDefault(); //Stop the form from submitting
+	const handleSubmit = e => {
+		e.preventDefault(); //Stop the form from submitting
 		//Send info???
 		startDate.setSeconds(0,0);
 		endDate.setSeconds(0,0);
@@ -75,7 +77,11 @@ function CreateEventPage({onClose, addEvent}) {
 				startDate: startDate.toLocaleString('en-US', { timeZone: 'America/New_York' }), 
 				endDate: endDate.toLocaleString('en-US', { timeZone: 'America/New_York' }),
 				location, sublocation, description};
-			addEvent(eventForm);
+			if(isEdit) {
+				editEvent(eventForm);
+			} else {
+				addEvent(eventForm);
+			}
 			onClose();
 		}
 	}
