@@ -24,6 +24,7 @@ import {
 import SingleEventPage from './SingleEventPage';
 import CreateEventPage from './CreateEventPage';
 import SideBar from "./SideBar";
+import EventList from '../EventList';
 
 import { makeStyles } from '@material-ui/core/styles';
 import MenuIcon from '@material-ui/icons/Menu';
@@ -58,7 +59,7 @@ function provideCustomAppointment(openEventInfo) {
 			<Appointments.Appointment
 				{...props}
 				//Don't do anything if event is grouped
-				onClick={() => {if(!props.data.isGroup) openEventInfo(props.data)}}
+				onClick={() => {openEventInfo(props.data)}}
 				style={{
 					backgroundColor: "#4f83cc"
 				}}
@@ -80,16 +81,19 @@ const groupEvents = (eventsList) => {
 	let count = 0;
 	return eventsList.reduce((newList, event) => {
 		let lastElem = newList[newList.length - 1];
-		if(newList.length === 0 || !isSameDay(Date.parse(event.startDate), Date.parse(lastElem.startDate))) {
+		if(newList.length === 0 || 
+			!isSameDay(Date.parse(event.startDate), Date.parse(lastElem.startDate))) {
 			newList.push(event);
 			count = 1;
 		} else if(count > 2) {//Turn the third event into a group
 			let endDate = addMinutes(Date.parse(lastElem.startDate), 1);
+			let group = lastElem.group ? lastElem.group : [lastElem];
 			lastElem = { 
 				title: `${count - 1}+ events`,
 				startDate: lastElem.startDate,
 				endDate: endDate.toLocaleString('en-US', { timeZone: 'America/New_York' }),
-				isGroup: true
+				isGroup: true,
+				group:[...group, event],
 			}
 			newList[newList.length - 1] = lastElem;
 			count++;
@@ -113,15 +117,29 @@ function CalendarPage() {
 	const [eventInfo, setEventInfo] = useState({});
 	const [eventsList, setEventsList] = useState(initEventsList); //uses dummy data
 	const [calendarEvents, setCalendarEvents] = useState(initCalendarEvents);
+	const [groupedEvent, setGroupedEvent] = useState([]);
+	const [openGroupedList, setOpenGroupedList] = useState(false);
 
 	const handleOpenEventInfo = (data) => {
 		//set data that will be passed into the event popup
-		setEventInfo({...data, organizer:(data.organizer ? data.organizer : 'Unknown')});
-		setOpenEventInfo(true);
+		if(data.isGroup) {
+			//Open a popup designed to display grouped events
+			setGroupedEvent(data.group);
+			setOpenGroupedList(true);
+		} else {
+			//Singular event info popup
+			setEventInfo({...data, organizer:(data.organizer ? data.organizer : 'Unknown')});
+			setOpenEventInfo(true);
+		}
 	}
 	const handleCloseEventInfo = () => {
 		setOpenEventInfo(false);
 	}
+
+	const handleCloseGroupedList = () => {
+		setOpenGroupedList(false);
+	}
+
 	const handleOpenEventForm = () => {
 		setOpenEventForm(!openEventForm);
 	}
@@ -218,6 +236,11 @@ function CalendarPage() {
 					organizer={eventInfo.organizer}
 					closePopup={handleCloseEventInfo}
 				/>
+			</Dialog>
+
+			{/* Popup box for grouped event info */}
+			<Dialog open={openGroupedList} onClose={handleCloseGroupedList}>
+				<EventList eventList={groupedEvent}/>
 			</Dialog>
 		</>
 	);    
