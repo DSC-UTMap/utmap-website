@@ -33,7 +33,7 @@ const avatars = [
     },
     {
         url: r_sanii,
-        name: "Roberti Sanii",
+        name: "Roberto Sanii",
         title: "Team Member",
     },
 ]
