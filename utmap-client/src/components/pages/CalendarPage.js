@@ -71,8 +71,8 @@ function provideCustomAppointment(openEventInfo) {
 function CalendarPage() { 
 	const [openEventForm, setOpenEventForm] = useState(false);
 	const [openEventInfo, setOpenEventInfo] = useState(false);
-	const [eventInfo, setEventInfo] = useState(
-		{});
+	const [eventInfo, setEventInfo] = useState({});
+	const [editingEvent, setEditingEvent] = useState({});
 	const [eventList, setEventList] = useState(exampleEvents); //uses dummy data
 
 	const handleOpenEventInfo = (data) => {
@@ -84,11 +84,29 @@ function CalendarPage() {
 		setOpenEventInfo(false);
 	}
 	const handleOpenEventForm = () => {
-		setOpenEventForm(!openEventForm);
+		setOpenEventForm(true);
+	}
+
+	const handleCloseEventForm = () => {
+		setOpenEventForm(false);
+		setEditingEvent({});
+	}
+
+	const handleEditEventForm = (event) => {
+		setEditingEvent(event);
+		setOpenEventInfo(false);
+		setOpenEventForm(true);
 	}
 
 	const addEvent = useCallback((eventData) => {
 		setEventList([...eventList, eventData]);
+	}, [eventList]);
+
+	const editEvent = useCallback(editedEvent => {
+		const withoutEdited = eventList.filter(event => 
+			event.title !== editedEvent.title);
+		setEventList([...withoutEdited, editedEvent]); 
+			//! when GET is implemented change title to id
 	}, [eventList]);
 
 	//Siderbar functions and variables
@@ -156,23 +174,23 @@ function CalendarPage() {
 			{/* Popup box for event form */}
 			<Dialog 
 				open={openEventForm} 
-				onClose={handleOpenEventForm}
+				onClose={handleCloseEventForm}
 				disableBackdropClick
       			disableEscapeKeyDown>
-				<CreateEventPage onClose={handleOpenEventForm} addEvent={addEvent}/>
+				<CreateEventPage 
+					onClose={handleCloseEventForm} 
+					addEvent={addEvent}
+					editEvent={editEvent}
+					event={editingEvent}
+				/>
 			</Dialog>
 
 			{/* Popup box for event info */}
 			<Dialog open={openEventInfo} onClose={handleCloseEventInfo}>
 				<SingleEventPage
-					title={eventInfo.title}
-					startDate={eventInfo.startDate}
-					endDate={eventInfo.endDate}
-					description={eventInfo.description}
-					location={eventInfo.location}
-					sublocation={eventInfo.sublocation}
-					organizer={eventInfo.organizer}
+					event={eventInfo}
 					closePopup={handleCloseEventInfo}
+					handleEdit={handleEditEventForm}
 				/>
 			</Dialog>
 		</>
