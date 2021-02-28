@@ -5,8 +5,8 @@ import Paper from '@material-ui/core/Paper';
 import Typography from '@material-ui/core/Typography';
 import Button from '@material-ui/core/Button';
 import { Link } from 'react-router-dom';
-import Header from '../Header';
-import Footer from '../Footer';
+import Header from '../layout/Header';
+import Footer from '../layout/Footer';
 import preview_image from "../img/preview_image.png";
 
 const useStyles = makeStyles(theme => ({
