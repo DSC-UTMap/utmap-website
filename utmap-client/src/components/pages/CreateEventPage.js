@@ -53,7 +53,6 @@ const useStyles = makeStyles(theme => ({ //CSS styles on components
 
 function CreateEventPage({onClose, addEvent, editEvent, event}) {
 	const isEdit = Object.keys(event).length !== 0;
-	console.log(`eventForm render, edit: ${isEdit}`);
 	const formStyle = useStyles(); 
 	const [startDate, setStartDate] = useState(isEdit ? new Date(event.startDate) : new Date());
 	const [endDate, setEndDate] = useState(isEdit ? new Date(event.endDate) : new Date());
@@ -69,8 +68,8 @@ function CreateEventPage({onClose, addEvent, editEvent, event}) {
 		startDate.setSeconds(0,0);
 		endDate.setSeconds(0,0);
 		
-		if (startDate > endDate){
-			alert("End date must be after start date")
+		if (startDate >= endDate){
+			alert("End date must be after start date");
 		} else {
 			const eventForm = {
 				title, 
