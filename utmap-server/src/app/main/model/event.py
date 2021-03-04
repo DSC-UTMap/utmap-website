@@ -49,7 +49,7 @@ class Event:
         self._id = formatId(evId)
         return self._id
 
-    def updateEvent(self, events, evToUpdate):
+    def updateEv(self, events, evToUpdate):
         fieldList = [
             'name', 'organizer', 'startTime', 'endTime', 'building', 'room', 'description'
             ]

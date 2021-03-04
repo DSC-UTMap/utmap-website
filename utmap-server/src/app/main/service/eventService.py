@@ -64,7 +64,7 @@ def updateEvent(_id, data):
                 building  = data['building'],
                 room = data['room'],
                 description = data['description'])
-            eventToUpdate.updateEvent(events, ev)
+            eventToUpdate.updateEv(events, ev)
             responseBody = eventToUpdate.formatAsResponseBody()
 
             responseObject = {
