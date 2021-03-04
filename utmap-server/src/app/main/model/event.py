@@ -41,7 +41,7 @@ class Event:
             'organizer' : self.organizer,
             'startTime' : self.startTime,
             'endTime' : self.endTime,
-            'building' : self.building,
+            'building' : {self.building._id, self.building.name, self.building.code},
             'room' : self.room,
             'description' : self.description
         }
@@ -54,8 +54,9 @@ class Event:
             'name', 'organizer', 'startTime', 'endTime', 'building', 'room', 'description'
             ]
         fieldVals = [
-            self.name, self.organizer, self.startTime, self.endTime, self.building, self.room, self.description
-            ]
+            self.name, self.organizer, self.startTime, self.endTime, 
+            {self.building._id, self.building.name, self.building.code},
+            self.room, self.description]
         updateDocument(evToUpdate, events, fieldList, fieldVals)
 
     def formatAllEvs(self, events):
