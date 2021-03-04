@@ -9,22 +9,27 @@ class Config:
 
 class DevelopmentConfig(Config):
     DEBUG = True
-    MONGODB_HOST = 'localhost'
-    MONGODB_PORT = 27017
+    MONGODB_HOST = os.getenv('MONGODB_HOST', 'localhost')
+    MONGODB_PORT = os.getenv('MONGODB_PORT', 27017)
+    SERVER_PORT = os.getenv('SERVER_PORT', 5000)
     MONGODB_TRACK_MODIFICATIONS = False
 
 
 class TestingConfig(Config):
     DEBUG = True
     TESTING = True
-    MONGODB_HOST = 'localhost'
-    MONGODB_PORT = 27017
+    MONGODB_HOST = os.getenv('MONGODB_HOST', 'localhost')
+    MONGODB_PORT = os.getenv('MONGODB_PORT', 27017)
+    SERVER_PORT = os.getenv('SERVER_PORT', 5001)
     PRESERVE_CONTEXT_ON_EXCEPTION = False
     MONGODB_TRACK_MODIFICATIONS = False
 
 
 class ProductionConfig(Config):
     DEBUG = False
+    MONGODB_HOST = os.getenv('MONGODB_HOST', 'localhost')
+    MONGODB_PORT = os.getenv('MONGODB_PORT', 27017)
+    SERVER_PORT = os.getenv('SERVER_PORT', 5002)
 
 
 configByName = dict(
