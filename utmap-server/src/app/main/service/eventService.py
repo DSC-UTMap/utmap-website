@@ -52,7 +52,7 @@ def updateEvent(_id, data):
 
         event = Event()
         events = event.connectToEvents()
-        ev = events.findEvById(_id, event)
+        ev = event.findEvById(_id, events)
 
         if ev:
             eventToUpdate = Event(    
