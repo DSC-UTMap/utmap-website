@@ -13,33 +13,25 @@ def addEvent(data):
 
         event = Event()
         events = event.connectToEvents()
-        ev = events.findEvById(data['_id'], event)
 
-        if ev:
-            responseObject = {
-                'status': 'failure',
-                'message': 'Item already exists'
-                }
-            statusCode = 409
-        else:
-            newEvent =  Event(
-                name = data['name'],
-                organizer = data['organizer'],
-                startTime = data['startTime'],
-                endTime = data['endTime'],
-                building  = data['building'],
-                room = data['room'],
-                description = data['description']
-            )
-            newEvent.assignEventId(events)
-            responseBody = newEvent.formatAsResponseBody()
+        newEvent =  Event(
+            name = data['name'],
+            organizer = data['organizer'],
+            startTime = data['startTime'],
+            endTime = data['endTime'],
+            building  = data['building'],
+            room = data['room'],
+            description = data['description']
+        )
+        newEvent.assignEventId(events)
+        responseBody = newEvent.formatAsResponseBody()
 
-            responseObject = {
-                'status': 'success',
-                'message': 'Event successfully added',
-                'body': responseBody
-                }
-            statusCode = 201
+        responseObject = {
+            'status': 'success',
+            'message': 'Event successfully added',
+            'body': responseBody
+            }
+        statusCode = 201
     except(Exception):
         responseObject = {
             'status': 'failure',
