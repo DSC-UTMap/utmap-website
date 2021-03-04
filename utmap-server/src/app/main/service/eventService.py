@@ -13,33 +13,25 @@ def addEvent(data):
 
         event = Event()
         events = event.connectToEvents()
-        ev = events.findEvById(data['_id'], event)
 
-        if ev:
-            responseObject = {
-                'status': 'failure',
-                'message': 'Item already exists'
-                }
-            statusCode = 409
-        else:
-            newEvent =  Event(
-                name = data['name'],
-                organizer = data['organizer'],
-                startTime = data['startTime'],
-                endTime = data['endTime'],
-                building  = data['building'],
-                room = data['room'],
-                description = data['description']
-            )
-            newEvent.assignEventId(events)
-            responseBody = newEvent.formatAsResponseBody()
+        newEvent =  Event(
+            name = data['name'],
+            organizer = data['organizer'],
+            startTime = data['startTime'],
+            endTime = data['endTime'],
+            building  = data['building'],
+            room = data['room'],
+            description = data['description']
+        )
+        newEvent.assignEventId(events)
+        responseBody = newEvent.formatAsResponseBody()
 
-            responseObject = {
-                'status': 'success',
-                'message': 'Event successfully added',
-                'body': responseBody
-                }
-            statusCode = 201
+        responseObject = {
+            'status': 'success',
+            'message': 'Event successfully added',
+            'body': responseBody
+            }
+        statusCode = 201
     except(Exception):
         responseObject = {
             'status': 'failure',
@@ -60,7 +52,7 @@ def updateEvent(_id, data):
 
         event = Event()
         events = event.connectToEvents()
-        ev = events.findEvById(_id, event)
+        ev = event.findEvById(_id, events)
 
         if ev:
             eventToUpdate = Event(    
@@ -72,7 +64,7 @@ def updateEvent(_id, data):
                 building  = data['building'],
                 room = data['room'],
                 description = data['description'])
-            eventToUpdate.updateEvent(events, ev)
+            eventToUpdate.updateEv(events, ev)
             responseBody = eventToUpdate.formatAsResponseBody()
 
             responseObject = {
@@ -181,6 +173,9 @@ def countEventKeys(data):
 
 def isValidEventInput(keyList):
     validity1 = len(keyList) == 7
-    validity2 = ('name' and 'organizer' and 'startTime' and 'endTime' 
-    and 'building' and 'room' and 'description') in keyList
+    validity2 = True
+    keys = ['name', 'organizer', 'startTime', 'endTime', 'building', 'room', 'description']
+    for key in keys:
+        if key not in keyList:
+            validity2 = False
     return validity1 and validity2
