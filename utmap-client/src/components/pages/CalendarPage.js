@@ -1,4 +1,4 @@
-import React, {useCallback, useState, useEffect} from "react";
+import React, { useState, useEffect} from "react";
 import {isSameDay, addMinutes} from 'date-fns';
 import AddIcon from '@material-ui/icons/Add';
 import { ViewState } from '@devexpress/dx-react-scheduler';
@@ -144,9 +144,20 @@ function CalendarPage() {
 		setOpenEventForm(!openEventForm);
 	}
 
-	const addEvent = useCallback(eventData => {
-		setEventsList(sortEvents([...eventsList, eventData]));
-	}, [eventsList]);
+	const addEvent = async (eventData) => {
+		// using localhost database for now
+		const res = await fetch('http://localhost:5000/event', {
+			method: 'POST',
+			headers: {
+			'Content-type': 'application/json',
+			},
+			body: JSON.stringify(eventData),
+		})
+
+		const newEventData = await res.json();
+
+		setEventsList(sortEvents([...eventsList, newEventData]));
+	}
 
 	useEffect(() => {
 		//Update calendarEvents whenever eventsList is updated
