@@ -41,7 +41,7 @@ class Event:
             'organizer' : self.organizer,
             'startTime' : self.startTime,
             'endTime' : self.endTime,
-            'building' : self.building,
+            'building' : {"_id": ObjectId(self.building._id), "name": self.building.name, "code": self.building.code},
             'room' : self.room,
             'description' : self.description
         }
@@ -49,13 +49,14 @@ class Event:
         self._id = formatId(evId)
         return self._id
 
-    def updateEvent(self, events, evToUpdate):
+    def updateEv(self, events, evToUpdate):
         fieldList = [
             'name', 'organizer', 'startTime', 'endTime', 'building', 'room', 'description'
             ]
         fieldVals = [
-            self.name, self.organizer, self.startTime, self.endTime, self.building, self.room, self.description
-            ]
+            self.name, self.organizer, self.startTime, self.endTime, 
+            {"_id": ObjectId(self.building._id), "name": self.building.name, "code": self.building.code},
+            self.room, self.description]
         updateDocument(evToUpdate, events, fieldList, fieldVals)
 
     def formatAllEvs(self, events):
@@ -84,6 +85,7 @@ class Event:
             'startTime' : str(self.startTime),
             'endTime' : str(self.endTime),
             'building' : self.building.formatAsResponseBody(),
+            'room' : self.room,
             'description' : self.description
             }
         return output
