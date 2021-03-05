@@ -5,6 +5,7 @@
 The following packages must be installed for UTMap Server to function properly.
 
 Flask-1.1.2,  
+flask-cors-3.0.10,
 Flask-Script-2.0.6,  
 flask-restx-0.2.0,  
 flask-testing-0.8.1,  
