@@ -8,24 +8,19 @@ import EventList from './EventList';
 import NavigationBar from './NavigationBar';
 
 
-function SideBarContent({events}) {
-	const sortedEvents = events.sort((a, b) => {
-		//sort by startDate, earliest to latest
-		return (Date.parse(a.startDate) < Date.parse(b.startDate)) ? -1 : 1; 
-	});
-	
-	const [eventList, setEventList] = useState(sortedEvents);
+function SideBarContent({events}) {	
+	const [eventList, setEventList] = useState(events);
 
 	const filterEvents = useCallback((searchTerm) => {
-		const filteredEvents = sortedEvents.filter(event =>
+		const filteredEvents = events.filter(event =>
 			event.title.toLowerCase().includes(searchTerm)
 		);
 		setEventList(filteredEvents);
-	},[sortedEvents]);
+	},[events]);
 
 	useEffect(() => {
-		setEventList(sortedEvents);
-	}, [sortedEvents]);
+		setEventList(events);
+	}, [events]);
 
 	return (
 		<List>
