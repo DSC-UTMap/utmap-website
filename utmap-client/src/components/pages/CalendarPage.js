@@ -155,8 +155,7 @@ function CalendarPage() {
 		})
 
 		const newEventData = await res.json();
-
-		setEventsList(sortEvents([...eventsList, newEventData]));
+		setEventsList(sortEvents([...eventsList, newEventData.body]));
 	}
 
 	useEffect(() => {
