@@ -83,7 +83,7 @@ function EventListItem(props) {
                     </Typography>
                     <Divider />
                     <Typography variant="caption" noWrap='true' >
-                        {props.event.location}
+                        {props.event.location.name}
                     </Typography>
                 </div>
             </AccordionSummary>

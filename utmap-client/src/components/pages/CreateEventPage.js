@@ -74,7 +74,13 @@ function CreateEventPage({onClose, addEvent}) {
 				title, 
 				startDate: startDate.toLocaleString('en-US', { timeZone: 'America/New_York' }), 
 				endDate: endDate.toLocaleString('en-US', { timeZone: 'America/New_York' }),
-				location, sublocation, description};
+				location: {
+					name: location.name,
+					code: location.code,
+					id: location.id
+				}, 
+				organizer: "cow on the moon", //temporary dummy organizer until there is organizer input
+				sublocation, description};
 			addEvent(eventForm);
 			onClose();
 		}
@@ -145,12 +151,12 @@ function CreateEventPage({onClose, addEvent}) {
 						<Select
 							id='eventLocation'
 							name='location'
-							value={location}
+							value={location.name}
 							onChange={event => setLocation(event.target.value)}
 							label='Location *'
 						>
 							{locationData.map((location) => {
-								return <MenuItem value={location}>{location}</MenuItem>;
+								return <MenuItem value={location.name}>{location.name}</MenuItem>;
 							})}
 						</Select>
 					</FormControl>

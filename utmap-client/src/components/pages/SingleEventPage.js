@@ -98,7 +98,7 @@ function SingleEventPage(
 
 					{/* Location */}
 					<Typography variant="subtitle1" align="center">
-						{sublocation + " in " + location}
+						{sublocation + " in " + location.name}
 					</Typography>
 
 					{/* Dates and Times */}
@@ -138,7 +138,7 @@ SingleEventPage.propTypes = {
 	endDate: PropTypes.string.isRequired,
 	title: PropTypes.string.isRequired,
 	description: PropTypes.string.isRequired,
-	location: PropTypes.string.isRequired,
+	location: PropTypes.array.isRequired,
 	sublocation: PropTypes.string.isRequired,
 	organizer: PropTypes.string.isRequired,
 }
