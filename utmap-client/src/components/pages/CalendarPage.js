@@ -68,7 +68,7 @@ function provideCustomAppointment(openEventInfo) {
 	});
 }
 
-const convertEvent = event => { //Temporary function to bandage issue
+const convertEvent = event => { //Server => Calendar
 	return {
 		_id: event._id,
 		title: event.name,
