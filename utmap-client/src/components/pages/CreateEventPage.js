@@ -72,6 +72,7 @@ function CreateEventPage({onClose, addEvent}) {
 		} else {
 			const eventForm = {
 				name, 
+				organizer: "cow on the moon", // dummy organizer data until proper organizer input
 				startTime: startTime.toLocaleString('en-US', { timeZone: 'America/New_York' }), 
 				endTime: endTime.toLocaleString('en-US', { timeZone: 'America/New_York' }),
 				building, room, description};
