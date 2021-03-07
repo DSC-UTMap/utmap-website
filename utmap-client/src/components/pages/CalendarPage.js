@@ -22,7 +22,7 @@ import {
 } from '@material-ui/core';
 
 import SingleEventPage from './SingleEventPage';
-import CreateEventPage from './CreateEventPage';
+import EventFormPage from './EventFormPage';
 import SideBar from "./SideBar";
 import EventList from '../EventList';
 
@@ -30,7 +30,7 @@ import { makeStyles } from '@material-ui/core/styles';
 import MenuIcon from '@material-ui/icons/Menu';
 import EventIcon from '@material-ui/icons/Event';
 import clsx from 'clsx';
-import exampleEvents from '../data/EventData'; //Temporary dummy data
+import {getAllEvents} from '../../requests';
 
 
 const useStyles = makeStyles(theme => ({
@@ -67,6 +67,19 @@ function provideCustomAppointment(openEventInfo) {
 		);
 	});
 }
+
+const convertEvent = event => { //Server => Calendar
+	return {
+		_id: event._id,
+		title: event.name,
+		organizer: event.organizer,
+		startDate: event.startTime,
+		endDate: event.endTime,
+		location: event.building.name,
+		sublocation: event.room,
+		description: event.description
+	};
+};
 
 const sortEvents = (events) => {
 	events.sort((a, b) => {
@@ -105,20 +118,26 @@ const groupEvents = (eventsList) => {
 	}, []);	
 }
 
-//Init list outside component to prevent function calls every time it renders
-const initEventsList = sortEvents(exampleEvents);
-const initCalendarEvents = groupEvents(initEventsList);
-
 
 //Scheduler is the calendar, today, and taskbar components
 function CalendarPage() { 
 	const [openEventForm, setOpenEventForm] = useState(false);
 	const [openEventInfo, setOpenEventInfo] = useState(false);
 	const [eventInfo, setEventInfo] = useState({});
-	const [eventsList, setEventsList] = useState(initEventsList); //uses dummy data
-	const [calendarEvents, setCalendarEvents] = useState(initCalendarEvents);
+	const [editingEvent, setEditingEvent] = useState({});
+	const [eventsList, setEventsList] = useState([]);
+	const [calendarEvents, setCalendarEvents] = useState([]);
 	const [groupedEvent, setGroupedEvent] = useState([]);
 	const [openGroupedList, setOpenGroupedList] = useState(false);
+
+	//Get the list of events
+	useEffect(() => {
+		getAllEvents().then(events => {
+			const tempEvents = events.map(convertEvent); //temp fix
+			setEventsList(sortEvents(tempEvents));
+			//Note: calendarEvents has its own useEffect to update
+		});
+	}, []);
 
 	const handleOpenEventInfo = (data) => {
 		//set data that will be passed into the event popup
@@ -141,7 +160,18 @@ function CalendarPage() {
 	}
 
 	const handleOpenEventForm = () => {
-		setOpenEventForm(!openEventForm);
+		setOpenEventForm(true);
+	}
+
+	const handleCloseEventForm = () => {
+		setOpenEventForm(false);
+		setEditingEvent({});
+	}
+
+	const handleEditEventForm = (event) => {
+		setEditingEvent(event);
+		setOpenEventInfo(false);
+		setOpenEventForm(true);
 	}
 
 	const addEvent = useCallback(eventData => {
@@ -151,6 +181,12 @@ function CalendarPage() {
 	useEffect(() => {
 		//Update calendarEvents whenever eventsList is updated
 		setCalendarEvents(groupEvents(eventsList));
+	}, [eventsList]);
+
+	const editEvent = useCallback(editedEvent => {
+		const withoutEdited = eventsList.filter(event => 
+			event._id !== editedEvent._id);
+		setEventsList([...withoutEdited, editedEvent]);
 	}, [eventsList]);
 
 	//Siderbar functions and variables
@@ -191,7 +227,7 @@ function CalendarPage() {
 			<SideBar open={openDrawer} onClose={handleDrawerClose} events={eventsList}/>
 
 			{/* Calendar */}
-			<Paper className={classes.paper} elevation='3'>
+			<Paper className={classes.paper} elevation={3}>
 				<Scheduler data={calendarEvents}>
 				<ViewState />
 				<MonthView />
@@ -218,23 +254,23 @@ function CalendarPage() {
 			{/* Popup box for event form */}
 			<Dialog 
 				open={openEventForm} 
-				onClose={handleOpenEventForm}
+				onClose={handleCloseEventForm}
 				disableBackdropClick
       			disableEscapeKeyDown>
-				<CreateEventPage onClose={handleOpenEventForm} addEvent={addEvent}/>
+				<EventFormPage 
+					onClose={handleCloseEventForm} 
+					addEvent={addEvent}
+					editEvent={editEvent}
+					event={editingEvent}
+				/>
 			</Dialog>
 
 			{/* Popup box for event info */}
 			<Dialog open={openEventInfo} onClose={handleCloseEventInfo}>
 				<SingleEventPage
-					title={eventInfo.title}
-					startDate={eventInfo.startDate}
-					endDate={eventInfo.endDate}
-					description={eventInfo.description}
-					location={eventInfo.location}
-					sublocation={eventInfo.sublocation}
-					organizer={eventInfo.organizer}
+					event={eventInfo}
 					closePopup={handleCloseEventInfo}
+					handleEdit={handleEditEventForm}
 				/>
 			</Dialog>
 

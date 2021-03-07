@@ -6,7 +6,7 @@ function EventList (props) {
   return (
       <>
           {/* Display an Accordion for each item in eventList */}
-          {props.eventList.map((event) => (<EventListItem event={event}/>))}
+          {props.eventList.map((event) => (<EventListItem key={event._id} event={event}/>))}
       </>
   )
 }
