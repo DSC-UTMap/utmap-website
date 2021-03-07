@@ -1,3 +1,4 @@
+import locationData from './LocationData'
 //example events REMOVE once the backend is connected
 const exampleEvents = [
 	{ startDate: '2021-01-03T09:45', 
@@ -11,12 +12,19 @@ const exampleEvents = [
 	Numb, we got you! Maybe your dog died or your partner broke up with you but you got an
 	Assignment due in 12 hours. Don't worry we got professional yellers to motivate you!
 	They will come into your private room and yell at you while you cry.`,
-	location: 'Davis',
+	location: locationData[0],
 	sublocation: 'Spiegal Hall',
 	organizer: 'Qianqian Feng'
 	},
-	{ startDate: '2021-01-27T12:00', endDate: '2021-01-29T13:30', title: 'Attend Andis Awesome Lecture', description:'' },
-	{ startDate: '2021-03-27T12:00', endDate: '2021-03-30T13:30', title: 'Get jacked', description:''}
+	{
+		organizer : "MCSS",
+		title : "Game Night",
+		description : "Come join us for Cards Against Humanity and Super Smash Bros.",
+		startDate : "2021-03-20T17:00:00Z",
+		endDate : "2021-03-20T21:00:00Z",
+		location : locationData[1],
+		sublocation : "DH2000"
+	  }
 ];
 
 export default exampleEvents;
