@@ -51,7 +51,7 @@ const useStyles = makeStyles(theme => ({ //CSS styles on components
 }));
 
 
-function CreateEventPage({onClose, addEvent, editEvent, event}) {
+function EventFormPage({onClose, addEvent, editEvent, event}) {
 	const isEdit = Object.keys(event).length !== 0;
 	const formStyle = useStyles(); 
 	const [startDate, setStartDate] = useState(isEdit ? new Date(event.startDate) : new Date());
@@ -83,7 +83,7 @@ function CreateEventPage({onClose, addEvent, editEvent, event}) {
 				location, sublocation, description};
 			const toBackend = {
 				name: title,
-				organizer: '',
+				organizer: event.organizer,
 				startTime: eventForm.startDate,
 				endTime: eventForm.endDate,
 				building: buildings.find(building => building.name === location),
@@ -91,10 +91,10 @@ function CreateEventPage({onClose, addEvent, editEvent, event}) {
 				description
 			};
 			if(isEdit) {
-				toBackend._id = event._id;
 				eventForm._id = event._id;
 				editEvent(eventForm);
-				//updateEvent(toBackend);
+				console.table(toBackend);
+				updateEvent(toBackend, event._id);
 			} else {
 				addEvent(eventForm);
 			}
@@ -220,4 +220,4 @@ function CreateEventPage({onClose, addEvent, editEvent, event}) {
 	);
 }
 
-export default CreateEventPage;
+export default EventFormPage;
