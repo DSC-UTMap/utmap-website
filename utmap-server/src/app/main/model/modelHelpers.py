@@ -32,4 +32,4 @@ def insertDocument(document, collection):
 
 def updateDocument(document, collection, fields, newData):
     for i in range(len(fields)):
-        collection.update_one(document, {'$set': {fields[i] : newData[i]}})
+        collection.update_one({'_id': document['_id']}, {'$set': {fields[i] : newData[i]}})
