@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import {
 	Paper,
 	Grid,
@@ -18,7 +18,7 @@ import DescriptionIcon from '@material-ui/icons/Description';
 import DateFnsUtils from '@date-io/date-fns';
 import { DateTimePicker, MuiPickersUtilsProvider } from "@material-ui/pickers";
 import { makeStyles } from '@material-ui/core/styles';
-import locationData from '../data/LocationData';
+import {updateEvent, getBuildings} from '../../requests';
 
 const useStyles = makeStyles(theme => ({ //CSS styles on components
 	box: {
@@ -56,15 +56,20 @@ function CreateEventPage({onClose, addEvent, editEvent, event}) {
 	const formStyle = useStyles(); 
 	const [startDate, setStartDate] = useState(isEdit ? new Date(event.startDate) : new Date());
 	const [endDate, setEndDate] = useState(isEdit ? new Date(event.endDate) : new Date());
-	const [location, setLocation] = useState(isEdit ? event.location : locationData[0]);
+	const [location, setLocation] = useState(isEdit ? event.location : '');
 	const [title, setTitle] = useState(isEdit ? event.title : '');
 	const [sublocation, setSublocation] = useState(isEdit ? event.sublocation : '');
 	const [description, setDescription] = useState(isEdit ? event.description : '');
+	const [buildings, setBuildings] = useState([]);
+
+	//Get list of buildings
+	useEffect(() => {
+		getBuildings().then(data => setBuildings(data))
+	}, []);
 
 	//This is where the form will send to server
 	const handleSubmit = e => {
 		e.preventDefault(); //Stop the form from submitting
-		//Send info???
 		startDate.setSeconds(0,0);
 		endDate.setSeconds(0,0);
 		
@@ -76,8 +81,20 @@ function CreateEventPage({onClose, addEvent, editEvent, event}) {
 				startDate: startDate.toLocaleString('en-US', { timeZone: 'America/New_York' }), 
 				endDate: endDate.toLocaleString('en-US', { timeZone: 'America/New_York' }),
 				location, sublocation, description};
+			const toBackend = {
+				name: title,
+				organizer: '',
+				startTime: eventForm.startDate,
+				endTime: eventForm.endDate,
+				building: buildings.find(building => building.name === location),
+				room: sublocation,
+				description
+			};
 			if(isEdit) {
+				toBackend._id = event._id;
+				eventForm._id = event._id;
 				editEvent(eventForm);
+				//updateEvent(toBackend);
 			} else {
 				addEvent(eventForm);
 			}
@@ -154,8 +171,8 @@ function CreateEventPage({onClose, addEvent, editEvent, event}) {
 							onChange={event => setLocation(event.target.value)}
 							label='Location *'
 						>
-							{locationData.map((location) => {
-								return <MenuItem value={location}>{location}</MenuItem>;
+							{buildings.map((building) => {
+								return <MenuItem value={building.name}>{building.name} ({building.code})</MenuItem>;
 							})}
 						</Select>
 					</FormControl>

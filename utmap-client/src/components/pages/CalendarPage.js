@@ -31,6 +31,7 @@ import MenuIcon from '@material-ui/icons/Menu';
 import EventIcon from '@material-ui/icons/Event';
 import clsx from 'clsx';
 import exampleEvents from '../data/EventData'; //Temporary dummy data
+import {getAllEvents} from '../../requests';
 
 
 const useStyles = makeStyles(theme => ({
@@ -67,6 +68,19 @@ function provideCustomAppointment(openEventInfo) {
 		);
 	});
 }
+
+const convertEvent = event => { //Temporary function to bandage issue
+	return {
+		_id: event._id,
+		title: event.name,
+		organizer: event.organizer,
+		startDate: event.startTime,
+		endDate: event.endTime,
+		location: event.building.name,
+		sublocation: event.room,
+		description: event.description
+	};
+};
 
 const sortEvents = (events) => {
 	events.sort((a, b) => {
@@ -105,10 +119,6 @@ const groupEvents = (eventsList) => {
 	}, []);	
 }
 
-//Init list outside component to prevent function calls every time it renders
-const initEventsList = sortEvents(exampleEvents);
-const initCalendarEvents = groupEvents(initEventsList);
-
 
 //Scheduler is the calendar, today, and taskbar components
 function CalendarPage() { 
@@ -116,10 +126,19 @@ function CalendarPage() {
 	const [openEventInfo, setOpenEventInfo] = useState(false);
 	const [eventInfo, setEventInfo] = useState({});
 	const [editingEvent, setEditingEvent] = useState({});
-	const [eventsList, setEventsList] = useState(initEventsList); //uses dummy data
-	const [calendarEvents, setCalendarEvents] = useState(initCalendarEvents);
+	const [eventsList, setEventsList] = useState([]); //uses dummy data
+	const [calendarEvents, setCalendarEvents] = useState([]);
 	const [groupedEvent, setGroupedEvent] = useState([]);
 	const [openGroupedList, setOpenGroupedList] = useState(false);
+
+	//Get the list of events
+	useEffect(() => {
+		getAllEvents().then(events => {
+			const tempEvents = events.map(convertEvent); //temp fix
+			setEventsList(sortEvents(tempEvents));
+			//Note: calendarEvents has its own useEffect to update
+		});
+	}, []);
 
 	const handleOpenEventInfo = (data) => {
 		//set data that will be passed into the event popup
