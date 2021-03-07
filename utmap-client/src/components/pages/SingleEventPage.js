@@ -52,8 +52,8 @@ const useStyles = makeStyles(theme => ({ //CSS styles on components
 }));
 
 function SingleEventPage(
-	{startDate, endDate, title, description, 
-		location, sublocation, organizer, closePopup}) {
+	{startTime, endTime, name, description, 
+		building, room, organizer, closePopup}) {
 	const classes = useStyles();
 
 	//expand for description
@@ -88,7 +88,7 @@ function SingleEventPage(
 
 					{/* Title */}
 					<Typography className={classes.title} variant="h4">
-						{title}
+						{name}
 					</Typography>
 
 					{/* Organizer */}
@@ -96,21 +96,21 @@ function SingleEventPage(
 						Organizer: {organizer}
 					</Typography>
 
-					{/* Location */}
+					{/* Building */}
 					<Typography variant="subtitle1" align="center">
-						{sublocation + " in " + location}
+						{room + " in " + building.name}
 					</Typography>
 
 					{/* Dates and Times */}
 					<Grid item className={classes.row}>
 						<Grid item xs="6" align="center">
 							<Typography variant="subtitle2" align="center">
-								{"Start Date: " + (new Date(startDate)).toLocaleString()}
+								{"Start Date: " + (new Date(startTime)).toLocaleString()}
 							</Typography>
 						</Grid>
 						<Grid item xs="6" align="center">
 							<Typography variant="subtitle2" align="center">
-								{"End Date: " + (new Date(endDate)).toLocaleString()}
+								{"End Date: " + (new Date(endTime)).toLocaleString()}
 							</Typography>
 						</Grid>
 					</Grid>
@@ -134,12 +134,12 @@ function SingleEventPage(
 }
 
 SingleEventPage.propTypes = {
-	startDate: PropTypes.string.isRequired,
-	endDate: PropTypes.string.isRequired,
-	title: PropTypes.string.isRequired,
+	startTime: PropTypes.string.isRequired,
+	endTime: PropTypes.string.isRequired,
+	name: PropTypes.string.isRequired,
 	description: PropTypes.string.isRequired,
-	location: PropTypes.string.isRequired,
-	sublocation: PropTypes.string.isRequired,
+	building: PropTypes.array.isRequired,
+	room: PropTypes.string.isRequired,
 	organizer: PropTypes.string.isRequired,
 }
  

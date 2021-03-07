@@ -13,7 +13,7 @@ function SideBarContent({events}) {
 
 	const filterEvents = useCallback((searchTerm) => {
 		const filteredEvents = events.filter(event =>
-			event.title.toLowerCase().includes(searchTerm)
+			event.name.toLowerCase().includes(searchTerm)
 		);
 		setEventList(filteredEvents);
 	},[events]);

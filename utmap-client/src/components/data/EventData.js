@@ -1,8 +1,9 @@
+import locationData from './LocationData'
 //example events REMOVE once the backend is connected
 const exampleEvents = [
-	{ startDate: '2021-01-03T09:45', 
-	endDate: '2021-01-03T10:00', 
-	title: 'Cry and Code',  
+	{ startTime: '2021-01-03T09:45', 
+	endTime: '2021-01-03T10:00', 
+	name: 'Cry and Code',  
 	description: `Ever feel so overwhelmed that you wanna break down. Well in this event, 
 	you can do that and more. We rent our couches so you can cry on a comfortable surface. 
 	It's okay if you just want to chill and cry with friends or use this time to improve
@@ -11,12 +12,19 @@ const exampleEvents = [
 	Numb, we got you! Maybe your dog died or your partner broke up with you but you got an
 	Assignment due in 12 hours. Don't worry we got professional yellers to motivate you!
 	They will come into your private room and yell at you while you cry.`,
-	location: 'Davis',
-	sublocation: 'Spiegal Hall',
+	building: locationData[0],
+	room: 'Spiegal Hall',
 	organizer: 'Qianqian Feng'
 	},
-	{ startDate: '2021-01-27T12:00', endDate: '2021-01-29T13:30', title: 'Attend Andis Awesome Lecture', description:'' },
-	{ startDate: '2021-03-27T12:00', endDate: '2021-03-30T13:30', title: 'Get jacked', description:''}
+	{
+		organizer : "MCSS",
+		name : "Game Night",
+		description : "Come join us for Cards Against Humanity and Super Smash Bros.",
+		startTime : "2021-03-20T17:00:00Z",
+		endTime : "2021-03-20T21:00:00Z",
+		building : locationData[1],
+		"room" : "DH2000"
+	  }
 ];
 
 export default exampleEvents;

@@ -39,11 +39,11 @@ function EventListItem(props) {
         setExpanded(!expanded);
     }
 
-    const displayTitle = () => {
-        if (props.event.title.length >= 50){
-            return (props.event.title.substring(0,50) + '...');
+    const displayName = () => {
+        if (props.event.name.length >= 50){
+            return (props.event.name.substring(0,50) + '...');
         } else {
-            return (props.event.title);
+            return (props.event.name);
         }
     }
 
@@ -56,7 +56,7 @@ function EventListItem(props) {
     }
 
     const displayDate = () => {
-        var date = new Date(props.event.startDate);
+        var date = new Date(props.event.startTime);
         return (date.toDateString());
     }
         
@@ -66,7 +66,7 @@ function EventListItem(props) {
                 {/* Event Title and First 50 characters */}
                 <div className={classes.heading}>
                     <Typography>
-                        {displayTitle()}
+                        {displayName()}
                     </Typography>
                 </div>
                 <div className={classes.secondaryHeading}>
@@ -83,7 +83,7 @@ function EventListItem(props) {
                     </Typography>
                     <Divider />
                     <Typography variant="caption" noWrap='true' >
-                        {props.event.location}
+                        {props.event.building.name}
                     </Typography>
                 </div>
             </AccordionSummary>
@@ -91,7 +91,7 @@ function EventListItem(props) {
                 <div className={classes.description}>
                     {/* Event Description */}
                     <Typography align='center' variant='h6'>
-                        {props.event.title}
+                        {props.event.name}
                     </Typography>
                     <Typography>
                         {props.event.description ? props.event.description : 'No description'}

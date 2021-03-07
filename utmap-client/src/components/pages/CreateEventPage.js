@@ -53,28 +53,28 @@ const useStyles = makeStyles(theme => ({ //CSS styles on components
 
 function CreateEventPage({onClose, addEvent}) {
 	const formStyle = useStyles(); 
-	const [startDate, setStartDate] = useState(new Date());
-	const [endDate, setEndDate] = useState(new Date());
-	const [location, setLocation] = useState(locationData[0]);
-	const [title, setTitle] = useState('');
-	const [sublocation, setSublocation] = useState('');
+	const [startTime, setStartTime] = useState(new Date());
+	const [endTime, setEndTime] = useState(new Date());
+	const [building, setBuilding] = useState(locationData[0]);
+	const [name, setName] = useState('');
+	const [room, setRoom] = useState('');
 	const [description, setDescription] = useState('');
 
 	//This is where the form will send to server
 	const handleSubmit = event => {
 		event.preventDefault(); //Stop the form from submitting
 		//Send info???
-		startDate.setSeconds(0,0);
-		endDate.setSeconds(0,0);
+		startTime.setSeconds(0,0);
+		endTime.setSeconds(0,0);
 		
-		if (startDate > endDate){
+		if (startTime > endTime){
 			alert("End date must be after start date")
 		} else {
 			const eventForm = {
-				title, 
-				startDate: startDate.toLocaleString('en-US', { timeZone: 'America/New_York' }), 
-				endDate: endDate.toLocaleString('en-US', { timeZone: 'America/New_York' }),
-				location, sublocation, description};
+				name, 
+				startTime: startTime.toLocaleString('en-US', { timeZone: 'America/New_York' }), 
+				endTime: endTime.toLocaleString('en-US', { timeZone: 'America/New_York' }),
+				building, room, description};
 			addEvent(eventForm);
 			onClose();
 		}
@@ -96,12 +96,12 @@ function CreateEventPage({onClose, addEvent}) {
 					<CreateIcon/>
 	        <TextField
 						className={formStyle.longBox}
-						id='eventTitle'
+						id='eventName'
 						variant='outlined'
-						name='title'
+						name='name'
 						label='Title'
-						value={title}
-						onChange={event => setTitle(event.target.value)}
+						value={name}
+						onChange={event => setName(event.target.value)}
 						autoComplete='off'
 						required
 						autofocus
@@ -114,20 +114,20 @@ function CreateEventPage({onClose, addEvent}) {
 					<MuiPickersUtilsProvider utils={DateFnsUtils}>
 	 					<DateTimePicker 
 							className={formStyle.shortBox}
-							name='startDate'
-							value={startDate}
-							onChange={setStartDate} 
+							name='startTime'
+							value={startTime}
+							onChange={setStartTime} 
 							inputVariant='outlined'
-							label='Start Date'
+							label='Start Time'
 							disablePast
 						/>
 						<DateTimePicker 
 							className={formStyle.shortBox}
-							name='endDate'
-							value={endDate}
-							onChange={setEndDate} 
+							name='endTime'
+							value={endTime}
+							onChange={setEndTime} 
 							inputVariant='outlined'
-							label='End Date'
+							label='End Time'
 							disablePast
 						/>
 					</MuiPickersUtilsProvider>
@@ -143,25 +143,25 @@ function CreateEventPage({onClose, addEvent}) {
 					>
 						<InputLabel>Location</InputLabel>
 						<Select
-							id='eventLocation'
-							name='location'
-							value={location}
-							onChange={event => setLocation(event.target.value)}
+							id='eventBuilding'
+							name='building'
+							value={building.name}
+							onChange={event => setBuilding(event.target.value)}
 							label='Location *'
 						>
-							{locationData.map((location) => {
-								return <MenuItem value={location}>{location}</MenuItem>;
+							{locationData.map((building) => {
+								return <MenuItem value={building.name}>{building.name}</MenuItem>;
 							})}
 						</Select>
 					</FormControl>
 					<TextField
 						className={formStyle.shortBox}
-						id='eventSublocation'
-						name='sublocation'
+						id='eventRoom'
+						name='room'
 						variant='outlined'
 						label='Room'
-						value={sublocation}
-						onChange={event => setSublocation(event.target.value)}
+						value={room}
+						onChange={event => setRoom(event.target.value)}
 					/>
 				</Grid>
 

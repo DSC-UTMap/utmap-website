@@ -68,10 +68,36 @@ function provideCustomAppointment(openEventInfo) {
 	});
 }
 
+const convertToCalendarEvent = (event) => {
+	return ({
+		title: event.name,
+		startDate: event.startTime,
+		endDate: event.endTime,
+		id: event._id,
+		building: event.building,
+		room: event.room,
+		description: event.description,
+		organizer: event.organizer
+	})
+}
+
+const convertToUTMapEvent = (event) => {
+	return ({
+		name: event.title,
+		startTime: event.startDate,
+		endTime: event.endDate,
+		id: event._id,
+		building: event.building,
+		room: event.room,
+		description: event.description,
+		organizer: event.organizer
+	})
+}
+
 const sortEvents = (events) => {
 	events.sort((a, b) => {
-		//sort by startDate, earliest to latest
-		return (Date.parse(a.startDate) < Date.parse(b.startDate)) ? -1 : 1; 
+		//sort by startTime, earliest to latest
+		return (Date.parse(a.startTime) < Date.parse(b.startTime)) ? -1 : 1; 
 	});
 	return events; //Kind of wacky to return an array that was sorted in place
 };
@@ -80,6 +106,7 @@ const groupEvents = (eventsList) => {
 	//Groups events on the same day together if there are more than 3
 	let count = 0;
 	return eventsList.reduce((newList, event) => {
+		event = convertToCalendarEvent(event);
 		let lastElem = newList[newList.length - 1];
 		if(newList.length === 0 || 
 			!isSameDay(Date.parse(event.startDate), Date.parse(lastElem.startDate))) {
@@ -124,7 +151,9 @@ function CalendarPage() {
 		//set data that will be passed into the event popup
 		if(data.isGroup) {
 			//Open a popup designed to display grouped events
-			setGroupedEvent(data.group);
+			setGroupedEvent(data.group.map((event) => (
+				convertToUTMapEvent(event)
+			)));
 			setOpenGroupedList(true);
 		} else {
 			//Singular event info popup
@@ -227,12 +256,12 @@ function CalendarPage() {
 			{/* Popup box for event info */}
 			<Dialog open={openEventInfo} onClose={handleCloseEventInfo}>
 				<SingleEventPage
-					title={eventInfo.title}
-					startDate={eventInfo.startDate}
-					endDate={eventInfo.endDate}
+					name={eventInfo.title}
+					startTime={eventInfo.startDate}
+					endTime={eventInfo.endDate}
 					description={eventInfo.description}
-					location={eventInfo.location}
-					sublocation={eventInfo.sublocation}
+					building={eventInfo.building}
+					room={eventInfo.room}
 					organizer={eventInfo.organizer}
 					closePopup={handleCloseEventInfo}
 				/>
