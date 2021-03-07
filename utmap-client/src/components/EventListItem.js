@@ -78,11 +78,11 @@ function EventListItem(props) {
                 </div>
                 {/* Event Date and Location*/}
                 <div className={classes.column}>
-                    <Typography variant="caption" noWrap='true' >
+                    <Typography variant="caption" noWrap>
                         {displayDate()}
                     </Typography>
                     <Divider />
-                    <Typography variant="caption" noWrap='true' >
+                    <Typography variant="caption" noWrap>
                         {props.event.location}
                     </Typography>
                 </div>

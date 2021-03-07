@@ -139,6 +139,7 @@ function SingleEventPage({event, closePopup, handleEdit}) {
 
 SingleEventPage.propTypes = {
 	event: PropTypes.exact({
+		_id: PropTypes.string,
 		startDate: PropTypes.string.isRequired,
 		endDate: PropTypes.string.isRequired,
 		title: PropTypes.string.isRequired,
