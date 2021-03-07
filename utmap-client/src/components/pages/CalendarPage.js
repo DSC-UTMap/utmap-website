@@ -227,7 +227,7 @@ function CalendarPage() {
 			<SideBar open={openDrawer} onClose={handleDrawerClose} events={eventsList}/>
 
 			{/* Calendar */}
-			<Paper className={classes.paper} elevation='3'>
+			<Paper className={classes.paper} elevation={3}>
 				<Scheduler data={calendarEvents}>
 				<ViewState />
 				<MonthView />
