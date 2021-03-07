@@ -12,9 +12,10 @@ function getAllEvents() {
     .then(res => res.data.body, err => console.log(err));
 }
 
-function updateEvent(event) {
-  axios.put(`${url}/event/${event._id}`, event)
-    .then(res => console.log(`PUT /event - ${res.status}: ${res.message}`));
+function updateEvent(event, _id) {
+  axios.put(`${url}/event/${_id}`, event)
+    .then(res => console.log(`PUT /event - ${res.status}: ${res.message}`))
+    .catch(res => console.log(res));
 }
 
 

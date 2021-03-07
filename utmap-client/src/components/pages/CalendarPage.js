@@ -22,7 +22,7 @@ import {
 } from '@material-ui/core';
 
 import SingleEventPage from './SingleEventPage';
-import CreateEventPage from './CreateEventPage';
+import EventFormPage from './EventFormPage';
 import SideBar from "./SideBar";
 import EventList from '../EventList';
 
@@ -30,7 +30,6 @@ import { makeStyles } from '@material-ui/core/styles';
 import MenuIcon from '@material-ui/icons/Menu';
 import EventIcon from '@material-ui/icons/Event';
 import clsx from 'clsx';
-import exampleEvents from '../data/EventData'; //Temporary dummy data
 import {getAllEvents} from '../../requests';
 
 
@@ -126,7 +125,7 @@ function CalendarPage() {
 	const [openEventInfo, setOpenEventInfo] = useState(false);
 	const [eventInfo, setEventInfo] = useState({});
 	const [editingEvent, setEditingEvent] = useState({});
-	const [eventsList, setEventsList] = useState([]); //uses dummy data
+	const [eventsList, setEventsList] = useState([]);
 	const [calendarEvents, setCalendarEvents] = useState([]);
 	const [groupedEvent, setGroupedEvent] = useState([]);
 	const [openGroupedList, setOpenGroupedList] = useState(false);
@@ -186,9 +185,8 @@ function CalendarPage() {
 
 	const editEvent = useCallback(editedEvent => {
 		const withoutEdited = eventsList.filter(event => 
-			event.title !== editedEvent.title);
-		setEventsList([...withoutEdited, editedEvent]); 
-			//! when GET is implemented change title to id
+			event._id !== editedEvent._id);
+		setEventsList([...withoutEdited, editedEvent]);
 	}, [eventsList]);
 
 	//Siderbar functions and variables
@@ -259,7 +257,7 @@ function CalendarPage() {
 				onClose={handleCloseEventForm}
 				disableBackdropClick
       			disableEscapeKeyDown>
-				<CreateEventPage 
+				<EventFormPage 
 					onClose={handleCloseEventForm} 
 					addEvent={addEvent}
 					editEvent={editEvent}
