@@ -105,6 +105,40 @@ const groupEvents = (eventsList) => {
 	}, []);	
 }
 
+const convertToFrontendFields = (event) => {
+	return ({
+		title: event.name,
+		startDate: event.startTime,
+		endDate: event.endTime,
+		id: event._id,
+		location: {
+			name: event.building.name,
+			id: event.building._id,
+			code: event.building.code
+		},
+		sublocation: event.room,
+		description: event.description,
+		organizer: event.organizer
+	})
+}
+
+const convertToBackendFields = (event) => {
+	return ({
+		name: event.title,
+		startTime: event.startDate,
+		endTime: event.endDate,
+		_id: event.id,
+		building: {
+			name: event.location.name,
+			_id: event.location.id,
+			code: event.location.code
+		},
+		room: event.sublocation,
+		description: event.description,
+		organizer: event.organizer
+	})
+}
+
 //Init list outside component to prevent function calls every time it renders
 const initEventsList = sortEvents(exampleEvents);
 const initCalendarEvents = groupEvents(initEventsList);
@@ -151,11 +185,11 @@ function CalendarPage() {
 			headers: {
 			'Content-type': 'application/json',
 			},
-			body: JSON.stringify(eventData),
+			body: JSON.stringify(convertToBackendFields(eventData)),
 		})
 
 		const newEventData = await res.json();
-		setEventsList(sortEvents([...eventsList, newEventData.body]));
+		setEventsList(sortEvents([...eventsList, convertToFrontendFields(newEventData.body)]));
 	}
 
 	useEffect(() => {
