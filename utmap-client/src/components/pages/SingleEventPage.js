@@ -75,9 +75,11 @@ function SingleEventPage({event, closePopup, handleEdit}) {
 							</IconButton>
 						</Grid>
 						<Grid item xs="6" align="right">
-							<IconButton aria-label="edit" onClick={() => handleEdit(event)}>
-								<EditIcon />
-							</IconButton>
+							{(Date.now() <= Date.parse(event.endDate)) &&
+								<IconButton aria-label="edit" onClick={() => handleEdit(event)}>
+									<EditIcon />
+								</IconButton>
+							}
 						</Grid>
 					</Grid>
 
