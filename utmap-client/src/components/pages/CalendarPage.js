@@ -164,6 +164,15 @@ function CalendarPage() {
 		setOpenDrawer(false);
 	};
 
+	//delete event
+	const handleDeleteEvent = async (_id) => {
+		const res = await fetch(`http://localhost:5000/event/$(_id)`, {
+		  method: 'DELETE',
+		})
+	  }	
+
+
+
 	return (
 		<>
 			{/* Sidebar */}
@@ -227,6 +236,7 @@ function CalendarPage() {
 			{/* Popup box for event info */}
 			<Dialog open={openEventInfo} onClose={handleCloseEventInfo}>
 				<SingleEventPage
+					_id={eventInfo._id}
 					title={eventInfo.title}
 					startDate={eventInfo.startDate}
 					endDate={eventInfo.endDate}
@@ -235,6 +245,7 @@ function CalendarPage() {
 					sublocation={eventInfo.sublocation}
 					organizer={eventInfo.organizer}
 					closePopup={handleCloseEventInfo}
+					deleteEvent={handleDeleteEvent}
 				/>
 			</Dialog>
 
