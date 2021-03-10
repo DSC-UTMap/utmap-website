@@ -15,6 +15,7 @@ import ExpandLessIcon from '@material-ui/icons/ExpandLess';
 import CloseIcon from '@material-ui/icons/Close';
 import EditIcon from '@material-ui/icons/Edit';
 import PropTypes from 'prop-types';
+import DeleteIcon from '@material-ui/icons/Delete'
 
 const useStyles = makeStyles(theme => ({ //CSS styles on components
 	box: {
@@ -52,8 +53,8 @@ const useStyles = makeStyles(theme => ({ //CSS styles on components
 }));
 
 function SingleEventPage(
-	{startDate, endDate, title, description, 
-		location, sublocation, organizer, closePopup}) {
+	{_id, startDate, endDate, title, description, 
+		location, sublocation, organizer, closePopup, deleteEvent}) {
 	const classes = useStyles();
 
 	//expand for description
@@ -62,6 +63,8 @@ function SingleEventPage(
     	setExpanded(!expanded);
 	  };
 	  
+
+	
 	return (
 		<div className={classes.box}>
 			<Paper className={classes.paper}>
@@ -76,6 +79,7 @@ function SingleEventPage(
 						</Grid>
 						<Grid item xs="6" align="right">
 							<IconButton aria-label="edit"><EditIcon /></IconButton>
+							<IconButton aria-label="delete" onClick={deleteEvent(_id)}><DeleteIcon/></IconButton>
 						</Grid>
 					</Grid>
 
