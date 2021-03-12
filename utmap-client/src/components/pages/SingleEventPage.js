@@ -102,7 +102,7 @@ function SingleEventPage({event, closePopup, handleEdit}) {
 
 					{/* Location */}
 					<Typography variant="subtitle1" align="center">
-						{sublocation + " in " + location.name}
+						{sublocation + " in " + location}
 					</Typography>
 
 					{/* Dates and Times */}

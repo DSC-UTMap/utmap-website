@@ -168,7 +168,7 @@ function EventFormPage({onClose, refreshEvents, editEvent, event}) {
 						<Select
 							id='eventLocation'
 							name='location'
-							value={location.name}
+							value={location}
 							onChange={event => setLocation(event.target.value)}
 							label='Location *'
 						>
