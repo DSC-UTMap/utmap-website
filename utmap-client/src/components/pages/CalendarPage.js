@@ -175,6 +175,7 @@ function CalendarPage() {
 	}
 
 	const addEvent = useCallback(eventData => {
+		
 		setEventsList(sortEvents([...eventsList, eventData]));
 	}, [eventsList]);
 
