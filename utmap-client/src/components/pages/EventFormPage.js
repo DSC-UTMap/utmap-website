@@ -18,7 +18,7 @@ import DescriptionIcon from '@material-ui/icons/Description';
 import DateFnsUtils from '@date-io/date-fns';
 import { DateTimePicker, MuiPickersUtilsProvider } from "@material-ui/pickers";
 import { makeStyles } from '@material-ui/core/styles';
-import {updateEvent, getBuildings} from '../../requests';
+import {updateEvent, getBuildings, addEvent} from '../../requests';
 
 const useStyles = makeStyles(theme => ({ //CSS styles on components
 	box: {
@@ -51,7 +51,7 @@ const useStyles = makeStyles(theme => ({ //CSS styles on components
 }));
 
 
-function EventFormPage({onClose, addEvent, editEvent, event}) {
+function EventFormPage({onClose, refreshEvents, editEvent, event}) {
 	const isEdit = Object.keys(event).length !== 0;
 	const formStyle = useStyles(); 
 	const [startDate, setStartDate] = useState(isEdit ? new Date(event.startDate) : new Date());
@@ -60,6 +60,7 @@ function EventFormPage({onClose, addEvent, editEvent, event}) {
 	const [title, setTitle] = useState(isEdit ? event.title : '');
 	const [sublocation, setSublocation] = useState(isEdit ? event.sublocation : '');
 	const [description, setDescription] = useState(isEdit ? event.description : '');
+	const [organizer] = useState(isEdit ? event.organizer : 'Unknown'); // currently no organizer input
 	const [buildings, setBuildings] = useState([]);
 
 	//Get list of buildings
@@ -80,10 +81,10 @@ function EventFormPage({onClose, addEvent, editEvent, event}) {
 				title, 
 				startDate: startDate.toLocaleString('en-US', { timeZone: 'America/New_York' }), 
 				endDate: endDate.toLocaleString('en-US', { timeZone: 'America/New_York' }),
-				location, sublocation, description};
+				location, sublocation, description, organizer};
 			const toBackend = {
 				name: title,
-				organizer: event.organizer,
+				organizer: eventForm.organizer,
 				startTime: eventForm.startDate,
 				endTime: eventForm.endDate,
 				building: buildings.find(building => building.name === location),
@@ -93,10 +94,10 @@ function EventFormPage({onClose, addEvent, editEvent, event}) {
 			if(isEdit) {
 				eventForm._id = event._id;
 				editEvent(eventForm);
-				console.table(toBackend);
 				updateEvent(toBackend, event._id);
 			} else {
-				addEvent(eventForm);
+				addEvent(toBackend);
+				refreshEvents();
 			}
 			onClose();
 		}
