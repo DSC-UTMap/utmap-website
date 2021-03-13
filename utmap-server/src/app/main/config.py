@@ -4,21 +4,21 @@ basedir = os.path.abspath(os.path.dirname(__file__))
 
 class Config:
     SECRET_KEY = os.getenv('SECRET KEY', 'skeleton_key_sans_undertale_haha')
-    DEBUG = False
+    MONGODB_HOST = os.getenv('MONGODB_HOST', 'localhost')
+    MONGODB_PORT = int(os.getenv('MONGODB_PORT', 27017))
+    SERVER_HOST = os.getenv('SERVER_HOST', '127.0.0.0')
+    SERVER_PORT = int(os.getenv('SERVER_PORT', 5000))
+    DEBUG = bool(os.getenv('SERVER_PORT', False))
 
 
 class DevelopmentConfig(Config):
     DEBUG = True
-    MONGODB_HOST = 'localhost'
-    MONGODB_PORT = 27017
     MONGODB_TRACK_MODIFICATIONS = False
 
 
 class TestingConfig(Config):
     DEBUG = True
     TESTING = True
-    MONGODB_HOST = 'localhost'
-    MONGODB_PORT = 27017
     PRESERVE_CONTEXT_ON_EXCEPTION = False
     MONGODB_TRACK_MODIFICATIONS = False
 
@@ -34,5 +34,11 @@ configByName = dict(
     )
 
 key = Config.SECRET_KEY
+
+dbHost = Config.MONGODB_HOST
+dbPort = Config.MONGODB_PORT
+serverHost = Config.SERVER_HOST
+serverPort = Config.SERVER_PORT
+debugSetting = Config.DEBUG
 
 dbName = 'UTMap'

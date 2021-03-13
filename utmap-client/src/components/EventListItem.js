@@ -17,14 +17,17 @@ const useStyles = makeStyles(theme => ({
     heading: {
         fontSize: theme.typography.pxToRem(15),
         flexBasis: '40%',
+				textAlign: 'left',
     },
     secondaryHeading: {
         fontSize: theme.typography.pxToRem(15),
         flexBasis: '40%',
         color: theme.palette.text.secondary,
+				textAlign: 'left',
     },
     description: {
         width: '100%',
+				textAlign: 'center',
     }
 }));
 
@@ -75,11 +78,11 @@ function EventListItem(props) {
                 </div>
                 {/* Event Date and Location*/}
                 <div className={classes.column}>
-                    <Typography variant="caption" noWrap='true' >
+                    <Typography variant="caption" noWrap>
                         {displayDate()}
                     </Typography>
                     <Divider />
-                    <Typography variant="caption" noWrap='true' >
+                    <Typography variant="caption" noWrap>
                         {props.event.location}
                     </Typography>
                 </div>
@@ -91,7 +94,7 @@ function EventListItem(props) {
                         {props.event.title}
                     </Typography>
                     <Typography>
-                        {props.event.description}
+                        {props.event.description ? props.event.description : 'No description'}
                     </Typography>
                 </div>
 
