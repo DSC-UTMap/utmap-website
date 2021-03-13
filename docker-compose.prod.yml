@@ -1,0 +1,21 @@
+version: '3'
+
+services:
+  utmap-server-service:
+    build: ./utmap-server
+    volumes: 
+      - ./utmap-server:/usr/src/app
+    environment:
+      - UTMAP_ENV=prod
+      - MONGODB_HOST=mongo
+      - MONGODB_PORT=27017
+      - SERVER_HOST=0.0.0.0
+      - SERVER_PORT=5002
+      - DEBUG=False
+    ports:
+      - 8082:5002
+  
+  mongo:
+    image: mongo
+    ports:
+      - 9002:27017

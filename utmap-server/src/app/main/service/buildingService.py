@@ -179,5 +179,5 @@ def countBuildingKeys(data):
 
 def isValidBuildingInput(keyList):
     validity1 = len(keyList) == 2
-    validity2 = ('name' and 'code') in keyList
+    validity2 = 'name' in keyList and 'code' in keyList
     return validity1 and validity2

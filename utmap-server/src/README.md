@@ -5,6 +5,7 @@
 The following packages must be installed for UTMap Server to function properly.
 
 Flask-1.1.2,  
+flask-cors-3.0.10,
 Flask-Script-2.0.6,  
 flask-restx-0.2.0,  
 flask-testing-0.8.1,  
@@ -81,7 +82,7 @@ Events are JSON objects that represent an event scheduled to happen at a buildin
 - Purpose: Retrieves a list of every building in the UTMap database. 
 - Method: Routes to the method getAllBuildings().
 - Return Type: Returns a list of buildings.
-- Responses: Status 200 if a list is found, 404 if no list is found.
+- Responses: Status 200 if a list is found, 404 if no list is found, 500 in case of an internal server error.
 
 #### POST /building
 
@@ -89,7 +90,7 @@ Events are JSON objects that represent an event scheduled to happen at a buildin
 - Method: Routes to the method addBuilding().
 - Request Body: Requires a building object as the request body (_id not necessary).
 - Produces: Produces a building as a JSON object in the response body.
-- Responses: Status 201 if a building is posted successfully, 400 if the input data is invalid, 409 if the building already exists.
+- Responses: Status 201 if a building is posted successfully, 400 if the input data is invalid, 409 if building already exists, 500 in case of an internal server error.
 
 #### GET /building/{_id}
 
@@ -97,7 +98,7 @@ Events are JSON objects that represent an event scheduled to happen at a buildin
 - Path Parameters: Requires the specified _id in the HTTP request.
 - Method: Routes to the method getOneBuilding().
 - Return Type: Returns a single building.
-- Responses: Status 200 if a building is found, 400 if the specified _id is invalid, 404 if no building is found.
+- Responses: Status 200 if a building is found, 400 if the specified _id is invalid, 404 if no building is found, 500 in case of an internal server error.
 
 #### PUT /building/{_id}
 
@@ -106,7 +107,7 @@ Events are JSON objects that represent an event scheduled to happen at a buildin
 - Method: Routes to the method updateBuilding().
 - Request Body: Requires a building object as the request body (_id necessary).
 - Produces: Produces the updated building as a JSON object in the response body.
-- Responses: Status 201 if a building is updated successfully, 400 if the input data is invalid, 404 if no building is found.
+- Responses: Status 201 if a building is updated successfully, 400 if the input data is invalid, 404 if no building is found, 500 in case of an internal server error.
 
 #### DELETE /building/{_id}
 
@@ -114,14 +115,14 @@ Events are JSON objects that represent an event scheduled to happen at a buildin
 - Path Parameters: Requires the specified _id in the HTTP request.
 - Method: Routes to the method deleteOneBuilding().
 - Return Type: Returns a single building.
-- Responses: Status 200 if a building is deleted successfully, 400 if the specified _id is invalid, 404 if no building is found.
+- Responses: Status 200 if a building is deleted successfully, 400 if the specified _id is invalid, 404 if no building is found, 500 in case of an internal server error.
 
 #### GET /event
 
 - Purpose: Retrieves a list of every event in the UTMap database. 
 - Method: Routes to the method getAllEvents().
 - Return Type: Returns a list of events.
-- Responses: Status 200 if a list is found, 404 if no list is found.
+- Responses: Status 200 if a list is found, 404 if no list is found, 500 in case of an internal server error.
 
 #### POST /event
 
@@ -129,7 +130,7 @@ Events are JSON objects that represent an event scheduled to happen at a buildin
 - Method: Routes to the method addEvent().
 - Request Body: Requires an event object as the request body (_id not necessary).
 - Produces: Produces an event as a JSON object in the response body.
-- Responses: Status 201 if an event is posted successfully, 400 if the input data is invalid, 409 if the event already exists.
+- Responses: Status 201 if an event is posted successfully, 400 if the input data is invalid, 500 in case of an internal server error.
 
 #### GET /event/{_id}
 
@@ -137,7 +138,7 @@ Events are JSON objects that represent an event scheduled to happen at a buildin
 - Path Parameters: Requires the specified _id in the HTTP request.
 - Method: Routes to the method getOneEvent().
 - Return Type: Returns a single event.
-- Responses: Status 200 if a event is found, 400 if the specified _id is invalid, 404 if no event is found.
+- Responses: Status 200 if a event is found, 400 if the specified _id is invalid, 404 if no event is found, 500 in case of an internal server error.
 
 #### PUT /event/{_id}
 
@@ -146,7 +147,7 @@ Events are JSON objects that represent an event scheduled to happen at a buildin
 - Method: Routes to the method updateEvent().
 - Request Body: Requires an event object as the request body (_id necessary).
 - Produces: Produces the updated event as a JSON object in the response body.
-- Responses: Status 201 if an event is updated successfully, 400 if the input data is invalid, 404 if no event is found.
+- Responses: Status 201 if an event is updated successfully, 400 if the input data is invalid, 404 if no event is found, 500 in case of an internal server error.
 
 #### DELETE /event/{_id}
 
@@ -154,4 +155,4 @@ Events are JSON objects that represent an event scheduled to happen at a buildin
 - Path Parameters: Requires the specified _id in the HTTP request.
 - Method: Routes to the method deleteOneEvent().
 - Return Type: Returns a single event.
-- Responses: Status 200 if an event is deleted successfully, 400 if the specified _id is invalid, 404 if no event is found.
+- Responses: Status 200 if an event is deleted successfully, 400 if the specified _id is invalid, 404 if no event is found, 500 in case of an internal server error.
