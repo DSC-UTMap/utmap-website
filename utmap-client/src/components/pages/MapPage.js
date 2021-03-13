@@ -6,7 +6,7 @@ import SideBar from "./SideBar";
 import clsx from 'clsx';
 import exampleEvents from '../data/EventData';//Temporary dummy data
 import Map from '../Map.js'
-  
+
 const useStyles = makeStyles(theme => ({
     hide: {
       display: 'none',

@@ -25,6 +25,9 @@ class TestingConfig(Config):
 
 class ProductionConfig(Config):
     DEBUG = False
+    MONGODB_HOST = os.getenv('MONGODB_HOST', 'localhost')
+    MONGODB_PORT = os.getenv('MONGODB_PORT', 27017)
+    SERVER_PORT = os.getenv('SERVER_PORT', 5002)
 
 
 configByName = dict(
