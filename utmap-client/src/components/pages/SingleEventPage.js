@@ -120,14 +120,17 @@ function SingleEventPage({event, closePopup, handleEdit}) {
 					</Grid>
 
 					{/* Description */}
-					<div align="right">
-						<IconButton onClick={handleExpandClick} aria-label="show more">
-							{expanded ? <ExpandLessIcon/> : <ExpandMoreIcon/>}
+					<div align="center">
+						<IconButton onClick={handleExpandClick} disableRipple aria-label="show more">
+							<Typography variant="caption">
+								DESCRIPTION
+							</Typography>
+							{expanded ? <ExpandLessIcon fontSize={'large'}/> : <ExpandMoreIcon fontSize={'large'}/>}
 						</IconButton>
 					</div>
 					<Collapse in={expanded} timeout="auto" unmountOnExit>
 						<Typography variant="body2" component="span">
-							Description: {description}
+							{description}
 						</Typography>
 					</Collapse>
 
