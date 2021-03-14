@@ -203,11 +203,6 @@ function CalendarPage() {
 		setOpenDrawer(false);
 	};
 
-	const [currentViewName, setCurrentViewName] = useState('Month');
-	const currentViewNameChange = (e) => {
-		setCurrentViewName(e.target.value);
-	}
-	console.log(currentViewName);
 	return (
 		
 		<>
