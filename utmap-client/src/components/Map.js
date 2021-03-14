@@ -1,48 +1,40 @@
-import React, {useState} from 'react'
+import React, { useState, useEffect } from 'react'
 import { MapContainer, TileLayer, GeoJSON } from 'react-leaflet'
 import 'leaflet/dist/leaflet.css';
 import buildingsData from './data/UTMbuildings.json';
-//import mapData from "./data/countries.json"
-import { map } from 'leaflet';
-import { Popup } from 'leaflet';
-import Tooltip from 'leaflet';
 import EventList from './EventList';
-import exampleEvents from './data/EventData';//Temporary dummy data
-import ReactDOM from "react-dom";
-import ReactDOMServer from "react-dom/server";
 import { Dialog } from '@material-ui/core';
 
 
-const CustomReactPopup = () => {
-    return (
-        <EventList eventList={exampleEvents}/>
-    );
-  };
-
-function Map() {
+function Map({events}) {
     const position = [43.549942349553365, -79.6627086348402]; // UTM coords
-    const [open, setOpen] = React.useState(false);
+    const [openPopup, setOpenPopup] = useState(false);
+    const [eventList, setEventList] = useState(events);
 
-    const handleClickOpen = () => {
-        setOpen(true);
+    const handleOpenPopup = () => {
+        setOpenPopup(true);
       };
+
+    const handleClosePopup = () => {
+        setOpenPopup(false);
+    }
     
-    //console.log(mapData)
+    const filterEventsByBuilding = (buildingName) => {
+        return (
+            events.filter(event =>
+                event.location === buildingName
+                )
+        )
+    }
 
     const onEachBuilding = (building, layer) => {
         const buildingName = building.properties.Building;
-        //var customPopup = "Mozilla Toronto Offices<br/><script src='EventList.js'></script>>"
-        
         layer.on({
-            click: (event)=>{
-                console.log(layer.feature.properties.Building);
-                return (
-                    <p> find </p>
-                );
+            click: ()=>{
+                setEventList(filterEventsByBuilding(buildingName));
+                handleOpenPopup();
             }    
-    })
-        
-        //console.log(events);
+        })
     }
 
     return (
@@ -54,9 +46,12 @@ function Map() {
             
             <TileLayer
                 attribution='&amp;copy <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
-                url="https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png"
+                url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
             />
             <GeoJSON data={buildingsData.features} onEachFeature={onEachBuilding}/>
+            <Dialog open={openPopup} onClose={handleClosePopup}>
+                <EventList eventList={eventList}/>
+            </Dialog>
             
         </MapContainer>
     )
