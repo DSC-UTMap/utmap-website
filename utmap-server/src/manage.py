@@ -1,15 +1,16 @@
 import os
 import unittest
 
-from flask_script import Manager
+from flask_cors import CORS
 from flask_restx import Api
-from app.main import createApp, createClient
+from flask_script import Manager
+from app.main import createApp, serverHost, serverPort, debugSetting
 from app.main.controller import buildingController as buildCon, eventController as evCon
 
 app = createApp(os.getenv('UTMAP_ENV') or 'dev')
 app.app_context().push()
 
-db = createClient(os.getenv('UTMAP_ENV') or 'dev')
+cors = CORS(app)
 
 api = Api(app)
 api = buildCon.BuildingController().addBuildResources(api)
@@ -19,7 +20,7 @@ manager = Manager(app)
 
 @manager.command
 def run():
-    app.run()
+    app.run(host=serverHost, port=serverPort, debug=debugSetting)
 
 @manager.command
 def test():

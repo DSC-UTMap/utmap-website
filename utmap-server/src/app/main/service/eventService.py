@@ -96,7 +96,7 @@ def getAllEvents():
         if responseBody == {}:
             responseObject = {
                 'status': 'failure',
-                'message': 'No buildings found',
+                'message': 'No events found',
                 }
             statusCode = 404
         else:
