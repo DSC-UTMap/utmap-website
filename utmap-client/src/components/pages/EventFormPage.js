@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import {
 	Paper,
 	Grid,
@@ -18,7 +18,7 @@ import DescriptionIcon from '@material-ui/icons/Description';
 import DateFnsUtils from '@date-io/date-fns';
 import { DateTimePicker, MuiPickersUtilsProvider } from "@material-ui/pickers";
 import { makeStyles } from '@material-ui/core/styles';
-import locationData from '../data/LocationData';
+import {updateEvent, getBuildings, addEvent} from '../../requests';
 
 const useStyles = makeStyles(theme => ({ //CSS styles on components
 	box: {
@@ -51,31 +51,54 @@ const useStyles = makeStyles(theme => ({ //CSS styles on components
 }));
 
 
-function CreateEventPage({onClose, addEvent}) {
+function EventFormPage({onClose, refreshEvents, editEvent, event}) {
+	const isEdit = Object.keys(event).length !== 0;
 	const formStyle = useStyles(); 
-	const [startDate, setStartDate] = useState(new Date());
-	const [endDate, setEndDate] = useState(new Date());
-	const [location, setLocation] = useState(locationData[0]);
-	const [title, setTitle] = useState('');
-	const [sublocation, setSublocation] = useState('');
-	const [description, setDescription] = useState('');
+	const [startDate, setStartDate] = useState(isEdit ? new Date(event.startDate) : new Date());
+	const [endDate, setEndDate] = useState(isEdit ? new Date(event.endDate) : new Date());
+	const [location, setLocation] = useState(isEdit ? event.location : '');
+	const [title, setTitle] = useState(isEdit ? event.title : '');
+	const [sublocation, setSublocation] = useState(isEdit ? event.sublocation : '');
+	const [description, setDescription] = useState(isEdit ? event.description : '');
+	const [organizer] = useState(isEdit ? event.organizer : 'Unknown'); // currently no organizer input
+	const [buildings, setBuildings] = useState([]);
+
+	//Get list of buildings
+	useEffect(() => {
+		getBuildings().then(data => setBuildings(data))
+	}, []);
 
 	//This is where the form will send to server
-	const handleSubmit = event => {
-		event.preventDefault(); //Stop the form from submitting
-		//Send info???
+	const handleSubmit = e => {
+		e.preventDefault(); //Stop the form from submitting
 		startDate.setSeconds(0,0);
 		endDate.setSeconds(0,0);
 		
-		if (startDate > endDate){
-			alert("End date must be after start date")
+		if (startDate >= endDate){
+			alert("End date must be after start date");
 		} else {
 			const eventForm = {
 				title, 
 				startDate: startDate.toLocaleString('en-US', { timeZone: 'America/New_York' }), 
 				endDate: endDate.toLocaleString('en-US', { timeZone: 'America/New_York' }),
-				location, sublocation, description};
-			addEvent(eventForm);
+				location, sublocation, description, organizer};
+			const toBackend = {
+				name: title,
+				organizer: eventForm.organizer,
+				startTime: eventForm.startDate,
+				endTime: eventForm.endDate,
+				building: buildings.find(building => building.name === location),
+				room: sublocation,
+				description
+			};
+			if(isEdit) {
+				eventForm._id = event._id;
+				editEvent(eventForm);
+				updateEvent(toBackend, event._id);
+			} else {
+				addEvent(toBackend);
+				refreshEvents();
+			}
 			onClose();
 		}
 	}
@@ -149,8 +172,8 @@ function CreateEventPage({onClose, addEvent}) {
 							onChange={event => setLocation(event.target.value)}
 							label='Location *'
 						>
-							{locationData.map((location) => {
-								return <MenuItem value={location}>{location}</MenuItem>;
+							{buildings.map((building) => {
+								return <MenuItem value={building.name}>{building.name} ({building.code})</MenuItem>;
 							})}
 						</Select>
 					</FormControl>
@@ -198,4 +221,4 @@ function CreateEventPage({onClose, addEvent}) {
 	);
 }
 
-export default CreateEventPage;
+export default EventFormPage;

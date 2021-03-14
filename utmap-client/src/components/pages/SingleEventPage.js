@@ -52,9 +52,9 @@ const useStyles = makeStyles(theme => ({ //CSS styles on components
 
 }));
 
-function SingleEventPage(
-	{_id, startDate, endDate, title, description, 
-		location, sublocation, organizer, closePopup, deleteEvent}) {
+function SingleEventPage({event, closePopup, handleEdit}) {
+	const {startDate, endDate, title, description, 
+		location, sublocation, organizer} = event;
 	const classes = useStyles();
 
 	//expand for description
@@ -78,8 +78,11 @@ function SingleEventPage(
 							</IconButton>
 						</Grid>
 						<Grid item xs="6" align="right">
-							<IconButton aria-label="edit"><EditIcon /></IconButton>
-							<IconButton aria-label="delete" onClick={deleteEvent(_id)}><DeleteIcon/></IconButton>
+							{(Date.now() <= Date.parse(event.endDate)) &&
+								<IconButton aria-label="edit" onClick={() => handleEdit(event)}>
+									<EditIcon />
+								</IconButton>
+							}
 						</Grid>
 					</Grid>
 
@@ -138,13 +141,16 @@ function SingleEventPage(
 }
 
 SingleEventPage.propTypes = {
-	startDate: PropTypes.string.isRequired,
-	endDate: PropTypes.string.isRequired,
-	title: PropTypes.string.isRequired,
-	description: PropTypes.string.isRequired,
-	location: PropTypes.string.isRequired,
-	sublocation: PropTypes.string.isRequired,
-	organizer: PropTypes.string.isRequired,
+	event: PropTypes.exact({
+		_id: PropTypes.string,
+		startDate: PropTypes.string.isRequired,
+		endDate: PropTypes.string.isRequired,
+		title: PropTypes.string.isRequired,
+		description: PropTypes.string.isRequired,
+		location: PropTypes.string.isRequired,
+		sublocation: PropTypes.string.isRequired,
+		organizer: PropTypes.string.isRequired,
+	}),
 }
  
 export default SingleEventPage;
