@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-const url = 'http://localhost:5000';
+const url = 'http://localhost:8080';
 
 function getBuildings() {
   return axios.get(`${url}/building`)
