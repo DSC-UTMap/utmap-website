@@ -204,7 +204,6 @@ function CalendarPage() {
 	};
 
 	return (
-		
 		<>
 			{/* Sidebar */}
 			<AppBar position="relative" elevation={4} color='primary'>
@@ -248,7 +247,6 @@ function CalendarPage() {
 					cellDuration={60}
 				/>
 				<ViewSwitcher />
-
 				<DateNavigator />
 				<TodayButton />
 				<Appointments
