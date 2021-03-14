@@ -39,9 +39,6 @@ const exampleEvents = [
 	sublocation: 'Spiegal Hall',
 	organizer: 'Qianqian Feng'
 	},
-
-	//{ startDate: '2021-01-27T12:00', endDate: '2021-01-29T13:30', title: 'Attend Andis Awesome Lecture', location: 'Davis building (DV)', description:'' },
-	//{ startDate: '2021-03-27T12:00', endDate: '2021-03-30T13:30', title: 'Get jacked', location: 'Davis building (DV)', description:''}
 ];
 
 export default exampleEvents;

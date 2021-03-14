@@ -23,10 +23,10 @@ function Map({events}) {
         return (
             events.filter(event =>
                 event.location === buildingName
-                )
+            )
         )
     }
-
+    
     const onEachBuilding = (building, layer) => {
         const buildingName = building.properties.Building;
         layer.on({
