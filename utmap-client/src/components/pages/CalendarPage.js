@@ -32,7 +32,6 @@ import EventIcon from '@material-ui/icons/Event';
 import clsx from 'clsx';
 import {getAllEvents} from '../../requests';
 
-
 const useStyles = makeStyles(theme => ({
 	spacing: 8,
 	title:{
@@ -118,7 +117,6 @@ const groupEvents = (eventsList) => {
 	}, []);	
 }
 
-
 //Scheduler is the calendar, today, and taskbar components
 function CalendarPage() { 
 	const [openEventForm, setOpenEventForm] = useState(false);
@@ -200,15 +198,6 @@ function CalendarPage() {
 		setOpenDrawer(false);
 	};
 
-	//delete event
-	const handleDeleteEvent = async (_id) => {
-		const res = await fetch(`http://localhost:5000/event/$(_id)`, {
-		  method: 'DELETE',
-		})
-	  }	
-
-
-
 	return (
 		<>
 			{/* Sidebar */}
@@ -280,6 +269,7 @@ function CalendarPage() {
 					event={eventInfo}
 					closePopup={handleCloseEventInfo}
 					handleEdit={handleEditEventForm}
+					refreshEvents={refreshEvents}
 				/>
 			</Dialog>
 
