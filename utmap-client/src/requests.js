@@ -17,5 +17,9 @@ function updateEvent(event, _id) {
     .catch(err => console.log(err));
 }
 
+function addEvent(event) {
+  axios.post(`${url}/event`, event)
+    .catch(err => console.log(err));
+}
 
-export {getBuildings, getAllEvents, updateEvent}
+export {getBuildings, getAllEvents, updateEvent, addEvent}
