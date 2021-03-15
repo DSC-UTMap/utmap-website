@@ -177,9 +177,9 @@ function CalendarPage() {
 		setOpenEventForm(true);
 	}
 
-	const addEvent = useCallback(eventData => {
-		setEventsList(sortEvents([...eventsList, eventData]));
-	}, [eventsList]);
+	const refreshEvents = () => {
+		window.location.reload();
+	}
 
 	useEffect(() => {
 		//Update calendarEvents whenever eventsList is updated
@@ -274,7 +274,7 @@ function CalendarPage() {
       			disableEscapeKeyDown>
 				<EventFormPage 
 					onClose={handleCloseEventForm} 
-					addEvent={addEvent}
+					refreshEvents={refreshEvents}
 					editEvent={editEvent}
 					event={editingEvent}
 				/>
