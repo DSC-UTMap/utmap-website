@@ -71,7 +71,7 @@ function SingleEventPage({event, closePopup, handleEdit, refreshEvents}) {
     	setExpanded(!expanded);
 	  };
 
-	  const handleCloseDeletionConfirm = () => {
+	const handleCloseDeletionConfirm = () => {
 		setOpenDeletionConfirm(false);
 	}
 
