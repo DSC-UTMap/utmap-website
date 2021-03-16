@@ -1,19 +1,24 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import { MapContainer, TileLayer, GeoJSON } from 'react-leaflet'
 import 'leaflet/dist/leaflet.css';
 import buildingsData from './data/UTMbuildings.json';
 import EventList from './EventList';
 import { Dialog } from '@material-ui/core';
+import build from '@date-io/date-fns';
 
 
 function Map({events}) {
     const position = [43.549942349553365, -79.6627086348402]; // UTM coords
     const [openPopup, setOpenPopup] = useState(false);
     const [eventList, setEventList] = useState(events);
+    
+	useEffect(() => {
+		setEventList(events);
+	}, [events]);
 
     const handleOpenPopup = () => {
         setOpenPopup(true);
-      };
+    };
 
     const handleClosePopup = () => {
         setOpenPopup(false);
@@ -29,6 +34,8 @@ function Map({events}) {
     
     const onEachBuilding = (building, layer) => {
         const buildingName = building.properties.Building;
+        //console.log(building)
+        //console.log(eventList)
         layer.on({
             click: ()=>{
                 setEventList(filterEventsByBuilding(buildingName));
