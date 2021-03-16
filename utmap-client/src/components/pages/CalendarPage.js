@@ -32,7 +32,6 @@ import EventIcon from '@material-ui/icons/Event';
 import clsx from 'clsx';
 import {getAllEvents} from '../../requests';
 
-
 const useStyles = makeStyles(theme => ({
 	spacing: 8,
 	title:{
@@ -117,7 +116,6 @@ const groupEvents = (eventsList) => {
 		return newList;
 	}, []);	
 }
-
 
 //Scheduler is the calendar, today, and taskbar components
 function CalendarPage() { 
@@ -271,6 +269,7 @@ function CalendarPage() {
 					event={eventInfo}
 					closePopup={handleCloseEventInfo}
 					handleEdit={handleEditEventForm}
+					refreshEvents={refreshEvents}
 				/>
 			</Dialog>
 
