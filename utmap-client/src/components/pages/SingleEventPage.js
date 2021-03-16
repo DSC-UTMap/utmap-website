@@ -8,6 +8,12 @@ import {
 	makeStyles,
 	Paper,
 	Typography,
+	DialogActions,
+	DialogContent,
+	DialogTitle,
+	DialogContentText,
+	Dialog,
+	Button
 } from '@material-ui/core';
 import AssignmentIcon from '@material-ui/icons/Assignment';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
@@ -15,6 +21,8 @@ import ExpandLessIcon from '@material-ui/icons/ExpandLess';
 import CloseIcon from '@material-ui/icons/Close';
 import EditIcon from '@material-ui/icons/Edit';
 import PropTypes from 'prop-types';
+import DeleteIcon from '@material-ui/icons/Delete'
+import { deleteEvent } from '../../requests'
 
 const useStyles = makeStyles(theme => ({ //CSS styles on components
 	box: {
@@ -51,23 +59,55 @@ const useStyles = makeStyles(theme => ({ //CSS styles on components
 
 }));
 
-function SingleEventPage({event, closePopup, handleEdit}) {
+function SingleEventPage({event, closePopup, handleEdit, refreshEvents}) {
 	const {startDate, endDate, title, description, 
 		location, sublocation, organizer} = event;
 	const classes = useStyles();
+	const [openDeletionConfirm, setOpenDeletionConfirm] = useState(false);
 
 	//expand for description
 	const [expanded, setExpanded] = useState(false);
   	const handleExpandClick = () => {
     	setExpanded(!expanded);
 	  };
-	  
+
+	const handleCloseDeletionConfirm = () => {
+		setOpenDeletionConfirm(false);
+	}
+
+	const handleOpenDeletionConfirm = () => {
+		setOpenDeletionConfirm(true);
+	}
+	
+	const handleDelete = (id) => {
+		deleteEvent(id);
+		refreshEvents();
+	}
+	
 	return (
 		<div className={classes.box}>
+			{/* Popup box for deletion confirmation*/}
+			<Dialog open={openDeletionConfirm} onClose={handleCloseDeletionConfirm}>
+				<DialogTitle id="alert-dialog-title">{"Are you sure you want to delete this event?"}</DialogTitle>
+				<DialogContent>
+					<DialogContentText id="alert-dialog-description">
+						Once an event is deleted, it is gone forever.
+					</DialogContentText>
+				</DialogContent>
+				<DialogActions>
+					<Button onClick={handleCloseDeletionConfirm} color="primary">
+						Cancel
+					</Button>
+					<Button onClick={() => handleDelete(event._id)} color="primary" autoFocus>
+						Delete
+					</Button>
+				</DialogActions>
+			</Dialog>
+
 			<Paper className={classes.paper}>
 				<GridList cellHeight='auto' cols={1}>
 
-					{/* Close and Edit Icons */}
+					{/* Close, Edit, and Delete Icons */}
 					<Grid item className={classes.row}>
 						<Grid item xs="6" align="left">
 							<IconButton aria-label="close" onClick={closePopup}>
@@ -80,6 +120,10 @@ function SingleEventPage({event, closePopup, handleEdit}) {
 									<EditIcon />
 								</IconButton>
 							}
+							<IconButton aria-label="delete" onClick={handleOpenDeletionConfirm}>
+								<DeleteIcon />
+							</IconButton>
+							
 						</Grid>
 					</Grid>
 
@@ -120,14 +164,17 @@ function SingleEventPage({event, closePopup, handleEdit}) {
 					</Grid>
 
 					{/* Description */}
-					<div align="right">
-						<IconButton onClick={handleExpandClick} aria-label="show more">
-							{expanded ? <ExpandLessIcon/> : <ExpandMoreIcon/>}
+					<div align="center">
+						<IconButton onClick={handleExpandClick} disableRipple aria-label="show more">
+							<Typography variant="caption">
+								DESCRIPTION
+							</Typography>
+							{expanded ? <ExpandLessIcon fontSize={'large'}/> : <ExpandMoreIcon fontSize={'large'}/>}
 						</IconButton>
 					</div>
 					<Collapse in={expanded} timeout="auto" unmountOnExit>
 						<Typography variant="body2" component="span">
-							Description: {description}
+							{description}
 						</Typography>
 					</Collapse>
 

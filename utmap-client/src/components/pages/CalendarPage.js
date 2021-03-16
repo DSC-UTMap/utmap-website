@@ -32,7 +32,6 @@ import EventIcon from '@material-ui/icons/Event';
 import clsx from 'clsx';
 import {getAllEvents} from '../../requests';
 
-
 const useStyles = makeStyles(theme => ({
 	spacing: 8,
 	title:{
@@ -118,7 +117,6 @@ const groupEvents = (eventsList) => {
 	}, []);	
 }
 
-
 //Scheduler is the calendar, today, and taskbar components
 function CalendarPage() { 
 	const [openEventForm, setOpenEventForm] = useState(false);
@@ -174,9 +172,9 @@ function CalendarPage() {
 		setOpenEventForm(true);
 	}
 
-	const addEvent = useCallback(eventData => {
-		setEventsList(sortEvents([...eventsList, eventData]));
-	}, [eventsList]);
+	const refreshEvents = () => {
+		window.location.reload();
+	}
 
 	useEffect(() => {
 		//Update calendarEvents whenever eventsList is updated
@@ -259,7 +257,7 @@ function CalendarPage() {
       			disableEscapeKeyDown>
 				<EventFormPage 
 					onClose={handleCloseEventForm} 
-					addEvent={addEvent}
+					refreshEvents={refreshEvents}
 					editEvent={editEvent}
 					event={editingEvent}
 				/>
@@ -271,6 +269,7 @@ function CalendarPage() {
 					event={eventInfo}
 					closePopup={handleCloseEventInfo}
 					handleEdit={handleEditEventForm}
+					refreshEvents={refreshEvents}
 				/>
 			</Dialog>
 
