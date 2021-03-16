@@ -52,11 +52,13 @@ function MapPage() {
 
   useEffect(() => {
 		getAllEvents().then(events => {
+      console.log("in useEvents MapPage")
 			const tempEvents = events.map(convertEvent); //temp fix
 			setEventsList(sortEvents(tempEvents));
-			//Note: calendarEvents has its own useEffect to update
 		});
 	}, []);
+
+ // console.log("outside useEvents MapPage")
 
   return (
     <>
