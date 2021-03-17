@@ -4,19 +4,23 @@ import IconButton from '@material-ui/core/IconButton';
 import MenuIcon from '@material-ui/icons/Menu';
 import SideBar from "./SideBar";
 import clsx from 'clsx';
-import exampleEvents from '../data/EventData'; //Temporary dummy data
 import Map from '../Map.js'
 import {getAllEvents} from '../../requests';
-
+import CircularProgress from '@material-ui/core/CircularProgress';
 
 const useStyles = makeStyles(theme => ({
     hide: {
       display: 'none',
     },
+    centerBox: {
+      height: '50em', 
+      display: 'flex',
+      alignItems: 'center',
+      justifyContent: 'center',
+    }
   }));
 
-
-const convertEvent = event => { //Server => Calendar
+const convertEvent = event => { //Server => Map
   return {
     _id: event._id,
     title: event.name,
@@ -41,6 +45,7 @@ function MapPage() {
   const classes = useStyles();
   const [openDrawer, setOpenDrawer] = useState(false);
   const [eventsList, setEventsList] = useState([]);
+  const [gotEvents, setGotEvents] = useState(false);
 
   const handleDrawerOpen = () => {
     setOpenDrawer(true);
@@ -52,13 +57,11 @@ function MapPage() {
 
   useEffect(() => {
 		getAllEvents().then(events => {
-      console.log("in useEvents MapPage")
 			const tempEvents = events.map(convertEvent); //temp fix
 			setEventsList(sortEvents(tempEvents));
+      setGotEvents(true);
 		});
 	}, []);
-
- // console.log("outside useEvents MapPage")
 
   return (
     <>
@@ -78,7 +81,8 @@ function MapPage() {
       </div>
 
       {/* Map */}
-      <Map events={eventsList}/>
+      {(gotEvents && <Map events={eventsList}/>) || <div className={classes.centerBox}> <CircularProgress />  </div>}
+      
     </>
   )
 }
