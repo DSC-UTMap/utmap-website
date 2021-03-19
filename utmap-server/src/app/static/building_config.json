@@ -1,6 +1,6 @@
 [
     {
-        "name": "Instructional Building (IB)",
+        "name": "Instructional Building",
         "code": "IB" 
     },
     {
@@ -8,7 +8,7 @@
         "code": "HM" 
     },
     {
-        "name": "CCT building (CCT)",
+        "name": "CCT building",
         "code": "CC" 
     },
     {
@@ -24,7 +24,7 @@
         "code": "DW" 
     },
     {
-        "name": "Deerfield Hall (DH)",
+        "name": "Deerfield Hall",
         "code": "DH" 
     },
     {
@@ -32,15 +32,15 @@
         "code": "WC" 
     },
     {
-        "name": "Kaneff Building (KN)",
+        "name": "Kaneff Building",
         "code": "KN" 
     },
     {
-        "name": "Davis building (DV)",
+        "name": "Davis building",
         "code": "DV" 
     },
     {
-        "name": "Maanjiwe Nendamowinan (MN)",
+        "name": "Maanjiwe Nendamowinan",
         "code": "MN" 
     },
     {
