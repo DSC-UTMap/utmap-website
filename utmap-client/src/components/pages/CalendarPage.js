@@ -3,6 +3,9 @@ import {isSameDay, addMinutes} from 'date-fns';
 import AddIcon from '@material-ui/icons/Add';
 import { ViewState } from '@devexpress/dx-react-scheduler';
 import {
+	DayView,
+	WeekView,
+	ViewSwitcher,
 	Scheduler,
 	MonthView,
 	Toolbar,
@@ -66,7 +69,7 @@ function provideCustomAppointment(openEventInfo) {
 		);
 	});
 }
-
+  
 const convertEvent = event => { //Server => Calendar
 	return {
 		_id: event._id,
@@ -227,9 +230,21 @@ function CalendarPage() {
 			{/* Calendar */}
 			<Paper className={classes.paper} elevation={3}>
 				<Scheduler data={calendarEvents}>
-				<ViewState />
+				<ViewState defaultCurrentViewName="Month"/>
 				<MonthView />
 				<Toolbar />
+				<MonthView />
+				<WeekView 
+					startDayHour={7}
+					endDayHour={21}
+					cellDuration={60}
+				/>
+				<DayView 
+					startDayHour={7}
+					endDayHour={21}
+					cellDuration={60}
+				/>
+				<ViewSwitcher />
 				<DateNavigator />
 				<TodayButton />
 				<Appointments
