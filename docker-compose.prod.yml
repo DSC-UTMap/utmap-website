@@ -12,6 +12,7 @@ services:
       - SERVER_HOST=0.0.0.0
       - SERVER_PORT=5002
       - DEBUG=False
+      - BUILDINGS=building_config.json
     ports:
       - 8082:5002
   

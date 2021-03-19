@@ -9,6 +9,7 @@ class Config:
     SERVER_HOST = os.getenv('SERVER_HOST', '127.0.0.0')
     SERVER_PORT = int(os.getenv('SERVER_PORT', 5000))
     DEBUG = bool(os.getenv('SERVER_PORT', False))
+    BUILDINGS = os.getenv('BUILDINGS', 'building_config.json')
 
 
 class DevelopmentConfig(Config):
