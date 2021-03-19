@@ -1,5 +1,5 @@
 import React from "react";
-import {BrowserRouter as Router, Route, Link} from 'react-router-dom';
+import {BrowserRouter as Router, Route} from 'react-router-dom';
 import LandingPage from './components/pages/LandingPage';
 import CalendarPage from './components/pages/CalendarPage';
 import MapPage from './components/pages/MapPage';
