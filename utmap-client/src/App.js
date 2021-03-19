@@ -11,10 +11,6 @@ function App() {
         <Route exact path="/" component={LandingPage}/>    
         <Route path="/calendar" component={CalendarPage}/>
         <Route path="/map" component={MapPage}/>
-    
-        <div><Link to="/">Landing</Link></div>
-        <div><Link to="/calendar">Calendar</Link></div>
-        <div><Link to="/map">Map</Link></div>
       </div>
     </Router>         
   );

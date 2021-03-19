@@ -5,7 +5,7 @@ const locationData =
 		'Student Center',
 		'Davis building (DV)',
 		'Deerfield Hall (DH)',
-		'Instuctional Building (IB)',
+		'Instructional Building (IB)',
 		'Maanjiwe Nendamowinan (MN)',
 		'CCT building (CCT)',
 		'Kaneff Building (KN)',
