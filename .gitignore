@@ -103,8 +103,6 @@ dist
 # TernJS port file
 .tern-port
 
-
-
 # Created by https://www.toptal.com/developers/gitignore/api/react
 # Edit at https://www.toptal.com/developers/gitignore?templates=react
 
@@ -125,3 +123,6 @@ thumb
 sketch
 
 # End of https://www.toptal.com/developers/gitignore/api/react
+
+### Python ###
+__pycache__/

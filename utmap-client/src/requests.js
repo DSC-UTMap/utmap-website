@@ -26,4 +26,9 @@ function addEvent(event) {
     .catch(err => console.log(err));
 }
 
-export {getBuildings, getAllEvents, updateEvent, addEvent}
+function deleteEvent(_id) {
+  axios.delete(`${url}/event/${_id}`)
+    .catch(err => console.log(err));
+}
+
+export {getBuildings, getAllEvents, updateEvent, addEvent, deleteEvent}
