@@ -24,10 +24,13 @@ def init_db():
     # load data from file
     SITE_ROOT = os.path.realpath(os.path.dirname(__file__))
     buildings_url = os.path.join(SITE_ROOT, 'app/static', app.config['BUILDINGS'])
-    buildings = json.load(open(buildings_url))
-    # send to db (addBuilding checks for repeats)
-    for building in buildings:
-        addBuilding(building)
+    try:
+        buildings = json.load(open(buildings_url))
+        # send to db (addBuilding checks for repeats)
+        for building in buildings:
+            addBuilding(building)
+    except(Exception):
+        pass
 
 @manager.command
 def run():
