@@ -1,6 +1,6 @@
 from flask import Flask
 from pymongo import MongoClient
-from .config import configByName, dbHost, dbPort, dbName, serverHost, serverPort, debugSetting
+from .config import configByName, dbHost, dbPort, dbName, serverHost, serverPort, debugSetting, skipDBInit
 
 db = MongoClient(dbHost, dbPort).get_database(dbName)
 

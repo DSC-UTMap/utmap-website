@@ -5,7 +5,7 @@ from flask_cors import CORS
 from flask_restx import Api
 from flask_script import Manager
 from flask import json
-from app.main import createApp, serverHost, serverPort, debugSetting
+from app.main import createApp, serverHost, serverPort, debugSetting, skipDBInit
 from app.main.controller import buildingController as buildCon, eventController as evCon
 from app.main.service.buildingService import addBuilding
 
@@ -45,5 +45,6 @@ def test():
     return 1
 
 if __name__ == '__main__':
-    init_db()
+    if not skipDBInit:
+        init_db()
     manager.run()
