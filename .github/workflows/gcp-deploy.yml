@@ -1,0 +1,37 @@
+name: Deploy to Google Cloud Platform
+on:
+  push:
+    branches: [main]
+    paths:
+      - utmap-server/**
+
+jobs:
+  deploy:
+    name: Setup Gcloud Account
+    runs-on: ubuntu-latest
+    env:
+      IMAGE_NAME: gcr.io/${{secrets.GCP_PROJECT_ID}}/${{secrets.GCP_APP_NAME}}:$GITHUB_SHA
+    steps:
+    - name: Login
+      uses: GoogleCloudPlatform/github-actions/setup-gcloud@master
+      with:
+        GCP_PROJECT_ID: ${{secrets.GCP_PROJECT_ID}}
+        service_account_email: ${{secrets.GCP_EMAIL}}
+        service_account_key: ${{secrets.GCP_CREDENTIALS}}
+    
+    - name: Configure Docker
+      run: gcloud auth configure-docker --quiet
+
+    - name: Checkout utmap-website
+      uses: actions/checkout@v2
+
+    - name: Build Docker utmap-server
+      run: docker build ./utmap-server -t $IMAGE_NAME
+
+    - name: Push Docker utmap-server
+      run: docker push $IMAGE_NAME
+
+    - name: Deploy Docker utmap-server
+      run: |
+        gcloud run deploy utmap-server --image $IMAGE_NAME --region us-central1 --platform managed
+         --allow-unauthenticated --set-env-vars='SERVER_HOST=0.0.0.0' --set-env-vars='SERVER_PORT=8080'
