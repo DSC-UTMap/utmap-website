@@ -9,6 +9,7 @@ services:
       - UTMAP_ENV=prod
       - MONGODB_HOST=mongo
       - MONGODB_PORT=27017
+      - SKIP_DB_INIT=True
       - SERVER_HOST=0.0.0.0
       - SERVER_PORT=5002
       - DEBUG=False
