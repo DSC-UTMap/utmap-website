@@ -10,7 +10,7 @@ jobs:
     name: Deploy Server to Gcloud Run
     runs-on: ubuntu-latest
     env:
-      IMAGE_NAME: gcr.io/${{secrets.GCP_PROJECT_ID}}/${{secrets.GCP_APP_NAME}}
+      IMAGE_NAME: gcr.io/${{secrets.GCP_PROJECT_ID}}/${{secrets.GCP_APP_NAME}}:$GITHUB_SHA
     steps:
     - name: Login
       uses: GoogleCloudPlatform/github-actions/setup-gcloud@master
@@ -29,7 +29,7 @@ jobs:
       uses: actions/checkout@v2
 
     - name: Build Docker utmap-server
-      run: docker build ./utmap-server -t $IMAGE_NAME -t $GITHUB_SHA
+      run: docker build ./utmap-server -t $IMAGE_NAME
 
     - name: Push Docker utmap-server
       run: docker push $IMAGE_NAME
