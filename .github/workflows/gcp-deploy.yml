@@ -36,5 +36,4 @@ jobs:
 
     - name: Deploy Docker utmap-server
       run: |
-        gcloud run deploy utmap-server --image $IMAGE_NAME --region us-central1 --platform managed
-         --allow-unauthenticated --set-env-vars='SERVER_HOST=0.0.0.0' --set-env-vars='SERVER_PORT=8080'
+        gcloud run deploy utmap-server --image $IMAGE_NAME --region us-central1 --platform managed --allow-unauthenticated --set-env-vars="SERVER_HOST=0.0.0.0" --set-env-vars="SERVER_PORT=8080"
