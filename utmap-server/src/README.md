@@ -54,26 +54,26 @@ The following models represent the two types of objects stored in the UTMap data
 
 Buildings are JSON objects that represent a building or plot of land at which events are held. A building object has the following format:
 
-'building' : {
-'\_id' : UUID (Unique ID)
-'name' : String (The building's name)
-'code' : String (2-letter building code)
+'building' : {  
+'\_id' : UUID (Unique ID)  
+'name' : String (The building's name)  
+'code' : String (2-letter building code)  
 }
 
 #### Events
 
 Events are JSON objects that represent an event scheduled to happen at a building. An event object has the following format:
 
-'event' : {
-'\_id' : UUID (Unique ID)
-'name' : String (The event's name)
-'organizer' : String (The event organizer's name)
-'startTime' : DateTime (The date and time the event begins)
-'endTime' : DateTime (The date and time the event ends)
-'building' : building (see above)
-'room' : String (The room the event is held in)
-'description' : String (A short description of the event)
-'tags' : [String] (A list of user-defined key words for searching purposes)
+'event' : {  
+'\_id' : UUID (Unique ID)  
+'name' : String (The event's name)  
+'organizer' : String (The event organizer's name)  
+'startTime' : DateTime (The date and time the event begins)  
+'endTime' : DateTime (The date and time the event ends)  
+'building' : building (see above)  
+'room' : String (The room the event is held in)  
+'description' : String (A short description of the event)  
+'tags' : [String] (A list of user-defined key words for searching purposes)  
 }
 
 ### HTTP Requests
