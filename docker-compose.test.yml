@@ -9,9 +9,11 @@ services:
       - UTMAP_ENV=test
       - MONGODB_HOST=mongo
       - MONGODB_PORT=27017
+      - SKIP_DB_INIT=False
       - SERVER_HOST=0.0.0.0
       - SERVER_PORT=5001
       - DEBUG=True
+      - BUILDINGS=building_config.json
     ports:
       - 8081:5001
   
