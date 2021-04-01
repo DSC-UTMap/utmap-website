@@ -9,7 +9,8 @@ from datetime import datetime
 class Event:
     def __init__(
         self, _id=None, name='Connector', organizer='Unnamed', startTime=datetime.today(), endTime=datetime.today(), 
-        building={'_id': None, 'name': None, 'code': None}, room='NA0000', description='No description available.'):
+        building={'_id': None, 'name': None, 'code': None}, room='NA0000', description='No description available.',
+        tags=[]):
         self._id = _id
         self.name = name
         self.organizer = organizer
@@ -18,6 +19,7 @@ class Event:
         self.building = Building(_id=building['_id'], name=building['name'], code=building['code'])
         self.room = room
         self.description = description
+        self.tags = tags
 
     def connectToEvents(self):
         events = db.get_collection('event')
@@ -43,7 +45,8 @@ class Event:
             'endTime' : self.endTime,
             'building' : {"_id": ObjectId(self.building._id), "name": self.building.name, "code": self.building.code},
             'room' : self.room,
-            'description' : self.description
+            'description' : self.description,
+            'tags' : self.tags
         }
         evId = assignId(fields, events).inserted_id
         self._id = formatId(evId)
@@ -51,12 +54,12 @@ class Event:
 
     def updateEv(self, events, evToUpdate):
         fieldList = [
-            'name', 'organizer', 'startTime', 'endTime', 'building', 'room', 'description'
+            'name', 'organizer', 'startTime', 'endTime', 'building', 'room', 'description', 'tags'
             ]
         fieldVals = [
             self.name, self.organizer, self.startTime, self.endTime, 
             {"_id": ObjectId(self.building._id), "name": self.building.name, "code": self.building.code},
-            self.room, self.description]
+            self.room, self.description, self.tags]
         updateDocument(evToUpdate, events, fieldList, fieldVals)
 
     def formatAllEvs(self, events):
@@ -75,6 +78,11 @@ class Event:
                 _id=evObject['_id'], name=evObject['name'], organizer=evObject['organizer'],
                 startTime=evObject['startTime'], endTime=evObject['endTime'], building=evObject['building'], 
                 room=evObject['room'], description=evObject['description'])
+        try:
+            # Events may or may not have tags
+            tempEv.tags = evObject['tags']
+        except:
+            tempEv.tags = []
         return tempEv
 
     def formatAsResponseBody(self):
@@ -86,7 +94,8 @@ class Event:
             'endTime' : str(self.endTime),
             'building' : self.building.formatAsResponseBody(),
             'room' : self.room,
-            'description' : self.description
+            'description' : self.description,
+            'tags' : self.tags
             }
         return output
 
