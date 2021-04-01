@@ -77,7 +77,12 @@ class Event:
         tempEv = Event(
                 _id=evObject['_id'], name=evObject['name'], organizer=evObject['organizer'],
                 startTime=evObject['startTime'], endTime=evObject['endTime'], building=evObject['building'], 
-                room=evObject['room'], description=evObject['description'], tags=evObject['tags'])
+                room=evObject['room'], description=evObject['description'])
+        try:
+            # Events may or may not have tags
+            tempEv.tags = evObject['tags']
+        except:
+            tempEv.tags = []
         return tempEv
 
     def formatAsResponseBody(self):

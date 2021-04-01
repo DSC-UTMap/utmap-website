@@ -18,21 +18,21 @@ http://www.apache.org/licenses/LICENSE-2.0.html
 
 ### Table of Contents
 
-#### [Buildings](#Buildings)
+#### [Buildings](#Buildings-1)
 
--   [`post /building`](#addBuilding)
--   [`delete /building/{_id}`](#deleteOneBuilding)
--   [`get /building`](#getAllBuildings)
--   [`get /building/{_id}`](#getOneBuilding)
--   [`put /building/{_id}`](#updateBuilding)
+-   [`post /building`](#add-building)
+-   [`delete /building/{_id}`](#delete-One-Building)
+-   [`get /building`](#get-All-Buildings)
+-   [`get /building/{_id}`](#get-One-Building)
+-   [`put /building/{_id}`](#update-Building)
 
-#### [Events](#Events)
+#### [Events](#Events-1)
 
--   [`post /event`](#addEvent)
--   [`delete /event/{_id}`](#deleteEvent)
--   [`get /event`](#getAllEvents)
--   [`get /event/{_id}`](#getOneEvent)
--   [`put /event/{_id}`](#updateEvent)
+-   [`post /event`](#add-Event)
+-   [`delete /event/{_id}`](#delete-Event)
+-   [`get /event`](#get-All-Events)
+-   [`get /event/{_id}`](#get-One-Event)
+-   [`put /event/{_id}`](#update-Event)
 
 # Buildings
 
@@ -177,9 +177,9 @@ This API call produces the following media types according to the Accept request
 
 results found
 
-#### 400
+#### 404
 
-bad input parameter[](#)
+no list found
 
 #### 500
 
@@ -334,10 +334,6 @@ item created[](#)
 
 invalid input, object invalid[](#)
 
-#### 409
-
-an existing item already exists[](#)
-
 #### 500
 
 internal server error[](#)
@@ -468,9 +464,9 @@ This API call produces the following media types according to the Accept request
 
 results found
 
-#### 400
+#### 404
 
-bad input parameter[](#)
+list is not found
 
 #### 500
 
