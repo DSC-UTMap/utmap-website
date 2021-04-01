@@ -79,7 +79,8 @@ const convertEvent = event => { //Server => Calendar
 		endDate: event.endTime,
 		location: event.building.name,
 		sublocation: event.room,
-		description: event.description
+		description: event.description,
+		tags: event.tags,
 	};
 };
 
