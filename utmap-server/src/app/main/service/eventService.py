@@ -174,7 +174,7 @@ def countEventKeys(data):
     return keys
 
 def isValidEventInput(keyList):
-    validity1 = len(keyList) == 7
+    validity1 = len(keyList) == 8
     validity2 = True
     keys = ['name', 'organizer', 'startTime', 'endTime', 'building', 'room', 'description', 'tags']
     for key in keys:
