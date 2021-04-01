@@ -135,7 +135,7 @@ function CalendarPage() {
 	//Get the list of events
 	useEffect(() => {
 		getAllEvents().then(events => {
-			const tempEvents = events.map(convertEvent); //temp fix
+			const tempEvents = events.map(convertEvent);
 			setEventsList(sortEvents(tempEvents));
 			//Note: calendarEvents has its own useEffect to update
 		});

@@ -12,10 +12,11 @@ function SideBarContent({events}) {
 	const [eventList, setEventList] = useState(events);
 
 	const filterEvents = useCallback((searchTerm) => {
-		const filteredEvents = events.filter(event =>
-			event.title.toLowerCase().includes(searchTerm) ||
-			event.tags.includes(searchTerm)
-		);
+		const filteredEvents = events.filter(event => {
+			const lowerCaseTags = event.tags.map(tag => tag.toLowerCase());
+			return (event.title.toLowerCase().includes(searchTerm.toLowerCase()) ||
+			lowerCaseTags.includes(searchTerm.toLowerCase()));
+		});
 		setEventList(filteredEvents);
 	},[events]);
 
