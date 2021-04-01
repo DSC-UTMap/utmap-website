@@ -81,7 +81,7 @@ function EventFormPage({onClose, refreshEvents, editEvent, event}) {
 				title, 
 				startDate: startDate.toLocaleString('en-US', { timeZone: 'America/New_York' }), 
 				endDate: endDate.toLocaleString('en-US', { timeZone: 'America/New_York' }),
-				location, sublocation, description, organizer};
+				location, sublocation, description, organizer, tags: []}; //Temp
 			const toBackend = {
 				name: title,
 				organizer: eventForm.organizer,
@@ -89,7 +89,8 @@ function EventFormPage({onClose, refreshEvents, editEvent, event}) {
 				endTime: eventForm.endDate,
 				building: buildings.find(building => building.name === location),
 				room: sublocation,
-				description
+				description,
+				tags: [] //Temporary
 			};
 			if(isEdit) {
 				eventForm._id = event._id;
