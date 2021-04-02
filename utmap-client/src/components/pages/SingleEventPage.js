@@ -80,8 +80,9 @@ function SingleEventPage({event, closePopup, handleEdit, refreshEvents}) {
 	}
 	
 	const handleDelete = (id) => {
-		deleteEvent(id);
-		refreshEvents();
+		
+		console.log(deleteEvent('notreal'));
+		//refreshEvents();
 	}
 	
 	return (

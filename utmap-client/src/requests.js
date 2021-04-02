@@ -18,7 +18,7 @@ function getAllEvents() {
 
 function updateEvent(event, _id) {
   axios.put(`${url}/event/${_id}`, event)
-    .catch(err => console.log(err));
+    .catch(err => err);
 }
 
 function addEvent(event) {
@@ -28,7 +28,21 @@ function addEvent(event) {
 
 function deleteEvent(_id) {
   axios.delete(`${url}/event/${_id}`)
-    .catch(err => console.log(err));
+  .then(res => res.status, err =>
+    {if (err.response) {
+      // The request was made and the server responded with a status code
+      // that falls out of the range of 2xx
+      return err.response.status;
+    } else if (err.request) {
+      // The request was made but no response was received
+      // `error.request` is an instance of XMLHttpRequest in the browser and an instance of
+      // http.ClientRequest in node.js
+      console.log(err.request);
+    } else {
+      // Something happened in setting up the request that triggered an Error
+      console.log('Error', err.message);
+    }
+    })
 }
 
 export {getBuildings, getAllEvents, updateEvent, addEvent, deleteEvent}
