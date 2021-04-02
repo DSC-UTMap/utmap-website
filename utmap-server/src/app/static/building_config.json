@@ -1,0 +1,54 @@
+[
+    {
+        "name": "Instructional Building",
+        "code": "IB" 
+    },
+    {
+        "name": "Library",
+        "code": "HM" 
+    },
+    {
+        "name": "CCT building",
+        "code": "CC" 
+    },
+    {
+        "name": "Student Center",
+        "code": "XR" 
+    },
+    {
+        "name": "Academic Annex",
+        "code": "AX" 
+    },
+    {
+        "name": "Erindale Studio Theater",
+        "code": "DW" 
+    },
+    {
+        "name": "Deerfield Hall",
+        "code": "DH" 
+    },
+    {
+        "name": "UTM Alumni House",
+        "code": "WC" 
+    },
+    {
+        "name": "Kaneff Building",
+        "code": "KN" 
+    },
+    {
+        "name": "Davis building",
+        "code": "DV" 
+    },
+    {
+        "name": "Maanjiwe Nendamowinan",
+        "code": "MN" 
+    },
+    {
+        "name": "Green House",
+        "code": "BG" 
+    },
+    {
+        "name": "Recreation, Athletics and Wellness Center",
+        "code": "RA" 
+    }
+]
