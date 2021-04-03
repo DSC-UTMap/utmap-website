@@ -1,5 +1,5 @@
 import React, {useCallback, useState, useEffect} from "react";
-import {isSameDay, addMinutes} from 'date-fns';
+import {isSameDay, addMinutes, startOfToday} from 'date-fns';
 import AddIcon from '@material-ui/icons/Add';
 import { ViewState } from '@devexpress/dx-react-scheduler';
 import {
@@ -79,7 +79,8 @@ const convertEvent = event => { //Server => Calendar
 		endDate: event.endTime,
 		location: event.building.name,
 		sublocation: event.room,
-		description: event.description
+		description: event.description,
+		tags: event.tags,
 	};
 };
 
@@ -120,6 +121,13 @@ const groupEvents = (eventsList) => {
 	}, []);	
 }
 
+function filterPastEvents(events, date=startOfToday()) {
+	//Filters out events that end before {date}
+	return events.filter(event => {
+		return Date.parse(event.endDate) >= Date.parse(date);
+	});
+}
+
 //Scheduler is the calendar, today, and taskbar components
 function CalendarPage() { 
 	const [openEventForm, setOpenEventForm] = useState(false);
@@ -128,13 +136,14 @@ function CalendarPage() {
 	const [editingEvent, setEditingEvent] = useState({});
 	const [eventsList, setEventsList] = useState([]);
 	const [calendarEvents, setCalendarEvents] = useState([]);
+	const [sidebarEvents, setSidebarEvents] = useState([]);
 	const [groupedEvent, setGroupedEvent] = useState([]);
 	const [openGroupedList, setOpenGroupedList] = useState(false);
 
 	//Get the list of events
 	useEffect(() => {
 		getAllEvents().then(events => {
-			const tempEvents = events.map(convertEvent); //temp fix
+			const tempEvents = events.map(convertEvent);
 			setEventsList(sortEvents(tempEvents));
 			//Note: calendarEvents has its own useEffect to update
 		});
@@ -180,8 +189,9 @@ function CalendarPage() {
 	}
 
 	useEffect(() => {
-		//Update calendarEvents whenever eventsList is updated
+		//Update separate events lists whenever eventsList is updated
 		setCalendarEvents(groupEvents(eventsList));
+		setSidebarEvents(filterPastEvents(eventsList));
 	}, [eventsList]);
 
 	const editEvent = useCallback(editedEvent => {
@@ -225,7 +235,7 @@ function CalendarPage() {
 
 			<Box p={2} bgcolor="background"/>
 
-			<SideBar open={openDrawer} onClose={handleDrawerClose} events={eventsList}/>
+			<SideBar open={openDrawer} onClose={handleDrawerClose} events={sidebarEvents}/>
 
 			{/* Calendar */}
 			<Paper className={classes.paper} elevation={3}>
