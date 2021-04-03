@@ -3,9 +3,9 @@ import os
 basedir = os.path.abspath(os.path.dirname(__file__))
 
 class Config:
-    MONGODB_USERNAME = os.getenv('MONGODB_USERNAME', 'z')
-    MONGODB_PASSWORD = os.getenv('MONGODB_PASSWORD', 'z')
-    MONGODB_HOST = os.getenv('MONGODB_HOST', 'localhost')
+    MONGODB_USERNAME = os.getenv('MONGODB_USERNAME', '')
+    MONGODB_PASSWORD = os.getenv('MONGODB_PASSWORD', '')
+    MONGODB_HOST = os.getenv('MONGODB_HOST', 'mongodb://mongo')
     MONGODB_PORT = int(os.getenv('MONGODB_PORT', 27017))
     SKIP_DB_INIT = os.getenv('SKIP_DB_INIT', 'False') == 'True'
     SERVER_HOST = os.getenv('SERVER_HOST', '127.0.0.0')

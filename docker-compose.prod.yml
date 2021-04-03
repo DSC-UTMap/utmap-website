@@ -7,7 +7,7 @@ services:
       - ./utmap-server:/usr/src/app
     environment:
       - UTMAP_ENV=prod
-      - MONGODB_HOST=mongo
+      - MONGODB_HOST=mongodb://mongo
       - MONGODB_PORT=27017
       - SKIP_DB_INIT=False
       - SERVER_HOST=0.0.0.0
