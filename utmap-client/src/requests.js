@@ -8,40 +8,56 @@ const url = `http://${host}:${port}`;
 
 function getBuildings() {
   return axios.get(`${url}/building`)
-    .then(res => res.data.body, err => console.log(err));
+    .then(res => res.data.body, err => {
+      if (err.response) {
+        return Promise.reject(err.response.status);
+      } else {
+        return Promise.reject(500)
+      }
+    })
 }
 
 function getAllEvents() {
   return axios.get(`${url}/event`)
-    .then(res => res.data.body, err => console.log(err));
+    .then(res => res.data.body, err => {
+      if (err.response) {
+        return Promise.reject(err.response.status);
+      } else {
+        return Promise.reject(500)
+      }
+    })
 }
 
-function updateEvent(event, _id) {
-  axios.put(`${url}/event/${_id}`, event)
-    .catch(err => err);
+async function updateEvent(event, _id) {
+  await axios.put(`${url}/event/${_id}`, event)
+    .then(res => Promise.resolve(res.status), err => {
+      if (err.response) {
+        return Promise.reject(err.response.status);
+      } else {
+        return Promise.reject(500)
+      }
+    })
 }
 
-function addEvent(event) {
-  axios.post(`${url}/event`, event)
-    .catch(err => console.log(err));
+async function addEvent(event) {
+  await axios.post(`${url}/event`, event)
+    .then(res => Promise.resolve(res.status), err => {
+      if (err.response) {
+        return Promise.reject(err.response.status);
+      } else {
+        return Promise.reject(500)
+      }
+    })
 }
 
-function deleteEvent(_id) {
-  axios.delete(`${url}/event/${_id}`)
-  .then(res => res.status, err =>
-    {if (err.response) {
-      // The request was made and the server responded with a status code
-      // that falls out of the range of 2xx
-      return err.response.status;
-    } else if (err.request) {
-      // The request was made but no response was received
-      // `error.request` is an instance of XMLHttpRequest in the browser and an instance of
-      // http.ClientRequest in node.js
-      console.log(err.request);
-    } else {
-      // Something happened in setting up the request that triggered an Error
-      console.log('Error', err.message);
-    }
+async function deleteEvent(_id) {
+  await axios.delete(`${url}/event/${_id}`)
+    .then(res => Promise.resolve(res.status), err => {
+      if (err.response) {
+        return Promise.reject(err.response.status);
+      } else {
+        return Promise.reject(500)
+      }
     })
 }
 

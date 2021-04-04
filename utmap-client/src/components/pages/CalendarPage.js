@@ -22,7 +22,9 @@ import {
 	IconButton,
 	AppBar,
 	Typography,
+	Snackbar,
 } from '@material-ui/core';
+import { Alert } from '@material-ui/lab';
 
 import SingleEventPage from './SingleEventPage';
 import EventFormPage from './EventFormPage';
@@ -34,6 +36,7 @@ import MenuIcon from '@material-ui/icons/Menu';
 import EventIcon from '@material-ui/icons/Event';
 import clsx from 'clsx';
 import {getAllEvents} from '../../requests';
+import { deleteEvent } from '../../requests'
 
 const useStyles = makeStyles(theme => ({
 	spacing: 8,
@@ -130,6 +133,8 @@ function CalendarPage() {
 	const [calendarEvents, setCalendarEvents] = useState([]);
 	const [groupedEvent, setGroupedEvent] = useState([]);
 	const [openGroupedList, setOpenGroupedList] = useState(false);
+	const [openSnackBar500, setOpenSnackBar500] = useState(false);
+	const [openSnackBar400, setOpenSnackBar400] = useState(false);
 
 	//Get the list of events
 	useEffect(() => {
@@ -137,7 +142,7 @@ function CalendarPage() {
 			const tempEvents = events.map(convertEvent); //temp fix
 			setEventsList(sortEvents(tempEvents));
 			//Note: calendarEvents has its own useEffect to update
-		});
+		}, err => handleOpenSnackBar500());
 	}, []);
 
 	const handleOpenEventInfo = (data) => {
@@ -200,6 +205,47 @@ function CalendarPage() {
 	const handleDrawerClose = () => {
 		setOpenDrawer(false);
 	};
+
+	function handleOpenSnackBar400() {
+		setOpenSnackBar400(true);
+	};
+	
+	function handleCloseSnackBar400(reason) {
+		if (reason === 'clickaway') {
+			return;
+		}
+		setOpenSnackBar400(false);
+	};
+	
+	const handleOpenSnackBar500 = () => {
+		setOpenSnackBar500(true);
+	};
+	
+	const handleCloseSnackBar500 = (reason) => {
+		if (reason === 'clickaway') {
+			return;
+		}
+		setOpenSnackBar500(false);
+	};
+
+	async function handleDelete(id) {
+		try {
+			deleteEvent(id).then(
+				res => { refreshEvents(); }, 
+				err => {
+					if (err >= 500) { handleOpenSnackBar500(); }
+					else if (err >= 400 && err < 500) { handleOpenSnackBar400(); }
+				});
+			} 
+		catch(e) {
+			console.log(e);
+		}
+	}
+
+	const errorCallback = useCallback((err) => {
+		if (err >= 500) { handleOpenSnackBar500(); }
+		else if (err >= 400 && err < 500) { handleOpenSnackBar400(); }
+	},[]);
 
 	return (
 		<>
@@ -275,6 +321,7 @@ function CalendarPage() {
 					refreshEvents={refreshEvents}
 					editEvent={editEvent}
 					event={editingEvent}
+					errorCallback={errorCallback}
 				/>
 			</Dialog>
 
@@ -284,7 +331,7 @@ function CalendarPage() {
 					event={eventInfo}
 					closePopup={handleCloseEventInfo}
 					handleEdit={handleEditEventForm}
-					refreshEvents={refreshEvents}
+					handleDelete={handleDelete}
 				/>
 			</Dialog>
 
@@ -292,6 +339,19 @@ function CalendarPage() {
 			<Dialog open={openGroupedList} onClose={handleCloseGroupedList}>
 				<EventList eventList={groupedEvent}/>
 			</Dialog>
+
+			{/* Error Handling snackbars */}
+			<Snackbar open={openSnackBar500} autoHideDuration={4000} onClose={handleCloseSnackBar500}>
+        		<Alert elevation={6} variant="filled"  onClose={handleCloseSnackBar500} severity="error">
+					500 ERROR: Try again later!
+				</Alert>
+      		</Snackbar>
+
+			<Snackbar open={openSnackBar400} autoHideDuration={4000} onClose={handleCloseSnackBar400}>
+        		<Alert elevation={6} variant="filled"  onClose={handleCloseSnackBar400} severity="error">
+          			400 ERROR: Missing values! Change Form.
+				</Alert>
+      		</Snackbar>
 		</>
 	);    
 }
