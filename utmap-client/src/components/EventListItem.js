@@ -8,6 +8,7 @@ import { makeStyles } from '@material-ui/core/styles';
 import Divider from '@material-ui/core/Divider';
 import Fade from '@material-ui/core/Fade';
 import PropTypes from 'prop-types';
+import TagsBar from './TagsBar';
 
 
 const useStyles = makeStyles(theme => ({
@@ -87,6 +88,8 @@ function EventListItem(props) {
                     </Typography>
                 </div>
             </AccordionSummary>
+            {/* Tags */}
+			<TagsBar tags={props.event.tags ? props.event.tags : []}/>
             <AccordionDetails>
                 <div className={classes.description}>
                     {/* Event Description */}

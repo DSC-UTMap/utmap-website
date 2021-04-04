@@ -15,6 +15,7 @@ import CreateIcon from '@material-ui/icons/Create';
 import CalendarTodayIcon from '@material-ui/icons/CalendarToday';
 import AddLocationIcon from '@material-ui/icons/AddLocation';
 import DescriptionIcon from '@material-ui/icons/Description';
+import LocalOfferIcon from '@material-ui/icons/LocalOffer';
 import DateFnsUtils from '@date-io/date-fns';
 import { DateTimePicker, MuiPickersUtilsProvider } from "@material-ui/pickers";
 import { makeStyles } from '@material-ui/core/styles';
@@ -60,6 +61,7 @@ function EventFormPage({onClose, refreshEvents, editEvent, event}) {
 	const [title, setTitle] = useState(isEdit ? event.title : '');
 	const [sublocation, setSublocation] = useState(isEdit ? event.sublocation : '');
 	const [description, setDescription] = useState(isEdit ? event.description : '');
+	const [tags, setTags] = useState(isEdit ? event.tags : []);
 	const [organizer] = useState(isEdit ? event.organizer : 'Unknown'); // currently no organizer input
 	const [buildings, setBuildings] = useState([]);
 
@@ -81,7 +83,7 @@ function EventFormPage({onClose, refreshEvents, editEvent, event}) {
 				title, 
 				startDate: startDate.toLocaleString('en-US', { timeZone: 'America/New_York' }), 
 				endDate: endDate.toLocaleString('en-US', { timeZone: 'America/New_York' }),
-				location, sublocation, description, organizer, tags: []}; //Temp
+				location, sublocation, description, organizer, tags: tags};
 			const toBackend = {
 				name: title,
 				organizer: eventForm.organizer,
@@ -90,7 +92,7 @@ function EventFormPage({onClose, refreshEvents, editEvent, event}) {
 				building: buildings.find(building => building.name === location),
 				room: sublocation,
 				description,
-				tags: [] //Temporary
+				tags: tags
 			};
 			if(isEdit) {
 				eventForm._id = event._id;
@@ -205,6 +207,24 @@ function EventFormPage({onClose, refreshEvents, editEvent, event}) {
 					/>
 				</Grid>
 
+				<Grid item className={formStyle.row}>
+					<LocalOfferIcon/>
+					<TextField
+						className={formStyle.longBox}
+						id="eventTags"
+						name='tags'
+						label='Tags'
+						multiline
+						rows={2}
+						variant='outlined'
+						value={tags}
+						inputProps={{
+							maxlength: 70
+						}}
+						onChange={event => setTags(event.target.value.split(","))}
+						helperText={`Seperate tags with a comma`}
+					/>
+				</Grid>
 
 				<Grid item className={formStyle.row} justify='flex-end'>
 					<Button 
