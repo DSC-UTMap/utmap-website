@@ -36,7 +36,6 @@ import MenuIcon from '@material-ui/icons/Menu';
 import EventIcon from '@material-ui/icons/Event';
 import clsx from 'clsx';
 import {getAllEvents} from '../../requests';
-import { deleteEvent } from '../../requests'
 
 const useStyles = makeStyles(theme => ({
 	spacing: 8,
@@ -238,20 +237,6 @@ function CalendarPage() {
 		setOpenSnackBar500(false);
 	};
 
-	async function handleDelete(id) {
-		try {
-			deleteEvent(id).then(
-				res => { refreshEvents(); }, 
-				err => {
-					if (err >= 500) { handleOpenSnackBar500(); }
-					else if (err >= 400 && err < 500) { handleOpenSnackBar400(); }
-				});
-			} 
-		catch(e) {
-			console.log(e);
-		}
-	}
-
 	const errorCallback = useCallback((err) => {
 		if (err >= 500) { handleOpenSnackBar500(); }
 		else if (err >= 400 && err < 500) { handleOpenSnackBar400(); }
@@ -341,7 +326,8 @@ function CalendarPage() {
 					event={eventInfo}
 					closePopup={handleCloseEventInfo}
 					handleEdit={handleEditEventForm}
-					handleDelete={handleDelete}
+					refreshEvents={refreshEvents}
+					errorCallback={errorCallback}
 				/>
 			</Dialog>
 

@@ -23,6 +23,7 @@ import EditIcon from '@material-ui/icons/Edit';
 import PropTypes from 'prop-types';
 import DeleteIcon from '@material-ui/icons/Delete'
 import TagsBar from '../TagsBar';
+import { deleteEvent } from '../../requests'
 
 const useStyles = makeStyles(theme => ({ //CSS styles on components
 	box: {
@@ -59,7 +60,7 @@ const useStyles = makeStyles(theme => ({ //CSS styles on components
 
 }));
 
-function SingleEventPage({event, closePopup, handleEdit, handleDelete}) {
+function SingleEventPage({event, closePopup, handleEdit, refreshEvents, errorCallback}) {
 	const {startDate, endDate, title, description, 
 		location, sublocation, organizer} = event;
 	const classes = useStyles();
@@ -79,7 +80,16 @@ function SingleEventPage({event, closePopup, handleEdit, handleDelete}) {
 		setOpenDeletionConfirm(true);
 	}
 
-
+	async function handleDelete(id) {
+		try {
+			deleteEvent(id).then(
+				res => { refreshEvents(); }, 
+				err => { errorCallback(err) });
+			} 
+		catch(e) {
+			console.log(e);
+		}
+	}
 	return (
 		<div className={classes.box}>
 			{/* Popup box for deletion confirmation*/}
