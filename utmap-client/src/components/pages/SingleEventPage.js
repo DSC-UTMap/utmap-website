@@ -22,7 +22,7 @@ import CloseIcon from '@material-ui/icons/Close';
 import EditIcon from '@material-ui/icons/Edit';
 import PropTypes from 'prop-types';
 import DeleteIcon from '@material-ui/icons/Delete'
-
+import TagsBar from '../TagsBar';
 
 const useStyles = makeStyles(theme => ({ //CSS styles on components
 	box: {
@@ -158,6 +158,9 @@ function SingleEventPage({event, closePopup, handleEdit, handleDelete}) {
 							</Typography>
 						</Grid>
 					</Grid>
+
+					{/* Tags */}
+					<TagsBar tags={event.tags ? event.tags : []}/>
 
 					{/* Description */}
 					<div align="center">
