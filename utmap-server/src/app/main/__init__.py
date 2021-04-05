@@ -1,8 +1,11 @@
 from flask import Flask
 from pymongo import MongoClient
-from .config import configByName, dbHost, dbPort, dbName, serverHost, serverPort, debugSetting, skipDBInit
+from .config import configByName, dbHost, dbPort, dbUser, dbPassword, dbName, serverHost, serverPort, debugSetting, skipDBInit
 
-db = MongoClient(dbHost, dbPort).get_database(dbName)
+client = MongoClient(dbHost+'/'+dbName,
+                 username=dbUser,
+                 password=dbPassword)
+db = client.get_database(dbName)
 
 def createApp(configName):
     app = Flask(__name__)

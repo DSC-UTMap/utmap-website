@@ -4,6 +4,7 @@
 
 The following packages must be installed for UTMap Server to function properly.
 
+dnspython-1.16.0,
 Flask-1.1.2,  
 flask-cors-3.0.10,
 Flask-Script-2.0.6,  
