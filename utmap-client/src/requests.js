@@ -3,7 +3,7 @@ import axios from 'axios';
 const port = process.env.REACT_APP_SERVER_PORT ?
   process.env.REACT_APP_SERVER_PORT : 8080;
 const host = process.env.REACT_APP_SERVER_HOST ?
-  process.env.REACT_APP_SERVER_HOST : 'localhost';
+  process.env.REACT_APP_SERVER_HOST : 'http://localhost';
 const url = `${host}:${port}`;
 
 function getBuildings() {
