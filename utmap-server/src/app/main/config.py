@@ -45,4 +45,4 @@ serverHost = Config.SERVER_HOST
 serverPort = Config.SERVER_PORT
 debugSetting = Config.DEBUG
 
-dbName = 'UTMap'
+dbName = 'UTMap-staging'
