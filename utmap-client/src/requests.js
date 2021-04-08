@@ -4,7 +4,7 @@ const port = process.env.REACT_APP_SERVER_PORT ?
   process.env.REACT_APP_SERVER_PORT : 8080;
 const host = process.env.REACT_APP_SERVER_HOST ?
   process.env.REACT_APP_SERVER_HOST : 'localhost';
-const url = `https://${host}:${port}`;
+const url = `${host}:${port}`;
 
 function getBuildings() {
   return axios.get(`${url}/building`)
