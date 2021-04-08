@@ -43,9 +43,9 @@ function LandingPage() {
                 <Grid item xs={6} align="center">
                     <Paper className={classes.paper}>
                         <Typography className={classes.description}>
-                            Confused about when events are taking place? Want to invite people to your own event?
+                            Confused about when events are being held? Want to invite people to your own event?
                             Come and check out the events calendar to see when events are taking place and our custom
-                            map for where the events are taking place!
+                            map for where they are!
                         </Typography>
                         <Button variant="contained"
                             size="medium"
