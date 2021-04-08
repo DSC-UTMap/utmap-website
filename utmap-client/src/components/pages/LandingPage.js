@@ -21,7 +21,7 @@ const useStyles = makeStyles(theme => ({
         marginLeft: theme.spacing(6),
         marginRight: theme.spacing(6),
         fontSize: '1.5rem',
-    }, 
+    },
     button: {
         marginTop: theme.spacing(4)
     },
@@ -43,22 +43,22 @@ function LandingPage() {
                 <Grid item xs={6} align="center">
                     <Paper className={classes.paper}>
                         <Typography className={classes.description}>
-                            Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod 
-                            tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco 
-                            laboris nisi ut aliquip ex ea commodo consequat
+                            Confused about when events are taking place? Want to invite people to your own event?
+                            Come and check out the events calendar to see when events are taking place and our custom
+                            map for where the events are taking place!
                         </Typography>
-                        <Button variant="contained" 
-                                size="medium" 
-                                color="primary" 
-                                className={classes.button}
-                                component={Link} 
-                                to='/map'>
+                        <Button variant="contained"
+                            size="medium"
+                            color="primary"
+                            className={classes.button}
+                            component={Link}
+                            to='/map'>
                             Try it out!
                         </Button>
                     </Paper>
                 </Grid>
                 <Grid item xs={5}>
-                    <img src={preview_image} className={classes.media} alt={"map"}/>
+                    <img src={preview_image} className={classes.media} alt={"map"} />
                 </Grid>
             </Grid>
             <Footer />
