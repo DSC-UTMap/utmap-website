@@ -14,12 +14,12 @@ jobs:
       - run: cd ./utmap-client && npm ci && npm run build
         env:
           REACT_APP_SERVER_PORT: 443
-          REACT_APP_SERVER_HOST: https://utmap-server-ktnkblydda-uc.a.run.app
+          REACT_APP_SERVER_HOST: https://utmap-staging-server-ktnkblydda-uc.a.run.app
       - uses: FirebaseExtended/action-hosting-deploy@v0
         with:
           repoToken: '${{ secrets.GITHUB_TOKEN }}'
           firebaseServiceAccount: '${{ secrets.FIREBASE_SERVICE_ACCOUNT_UTMAP_C252D }}'
-          channelIf: staging
+          channelId: staging
           projectId: utmap-c252d
         env:
           FIREBASE_CLI_PREVIEWS: hostingchannels
