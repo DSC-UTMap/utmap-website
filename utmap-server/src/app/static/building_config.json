@@ -1,6 +1,6 @@
 [
     {
-        "name": "Instructional Building",
+        "name": "Instructional Centre",
         "code": "IB" 
     },
     {
@@ -8,11 +8,11 @@
         "code": "HM" 
     },
     {
-        "name": "CCT building",
+        "name": "Communication, Culture, and Technology Building",
         "code": "CC" 
     },
     {
-        "name": "Student Center",
+        "name": "Student Centre",
         "code": "XR" 
     },
     {
@@ -32,11 +32,11 @@
         "code": "WC" 
     },
     {
-        "name": "Kaneff Building",
+        "name": "Kaneff Centre",
         "code": "KN" 
     },
     {
-        "name": "Davis building",
+        "name": "Davis Building",
         "code": "DV" 
     },
     {
