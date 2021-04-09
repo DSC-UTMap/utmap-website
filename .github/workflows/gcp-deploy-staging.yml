@@ -1,0 +1,41 @@
+name: Deploy Staging Server to Google Cloud Platform
+on:
+  push:
+    branches: [staging]
+    paths:
+      - utmap-server/**
+      - .github/workflows/gcp-deploy-staging.yml
+
+jobs:
+  deploy:
+    name: Deploy Server to Gcloud Run
+    runs-on: ubuntu-latest
+    env:
+      IMAGE_NAME: "gcr.io/${{secrets.GCP_PROJECT_ID}}/${{secrets.GCP_STAGING_APP_NAME}}"
+      SKIP_DB_INIT: "True"
+    steps:
+    - name: Login
+      uses: GoogleCloudPlatform/github-actions/setup-gcloud@master
+      with:
+        GCP_PROJECT_ID: ${{secrets.GCP_PROJECT_ID}}
+        service_account_email: ${{secrets.GCP_EMAIL}}
+        service_account_key: ${{secrets.GCP_CREDENTIALS}}
+        
+    - name: Set project
+      run: gcloud config set project ${{ secrets.GCP_PROJECT_ID }} 
+    
+    - name: Configure Docker
+      run: gcloud auth configure-docker --quiet
+
+    - name: Checkout utmap-website
+      uses: actions/checkout@v2
+
+    - name: Build Docker utmap-server
+      run: docker build ./utmap-server -t $IMAGE_NAME
+
+    - name: Push Docker utmap-server
+      run: docker push $IMAGE_NAME
+
+    - name: Deploy Docker utmap-server
+      run: |
+        gcloud run deploy utmap-staging-server --image $IMAGE_NAME --region us-central1 --platform managed --allow-unauthenticated --set-env-vars="SERVER_HOST=0.0.0.0" --set-env-vars="SERVER_PORT=8080" --set-env-vars="SKIP_DB_INIT=$SKIP_DB_INIT" --set-env-vars="MONGODB_HOST=${{secrets.MONGODB_HOST}}" --set-env-vars="MONGODB_USERNAME=${{secrets.MONGODB_USERNAME}}" --set-env-vars="MONGODB_PASSWORD=${{secrets.MONGODB_PASSWORD}}"
