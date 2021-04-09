@@ -6,6 +6,7 @@ class Config:
     MONGODB_USERNAME = os.getenv('MONGODB_USERNAME', '')
     MONGODB_PASSWORD = os.getenv('MONGODB_PASSWORD', '')
     MONGODB_HOST = os.getenv('MONGODB_HOST', 'mongodb://mongo')
+    DB_NAME = os.getenv('DB_NAME', 'UTMap-staging')
     MONGODB_PORT = int(os.getenv('MONGODB_PORT', 27017))
     SKIP_DB_INIT = os.getenv('SKIP_DB_INIT', 'False') == 'True'
     SERVER_HOST = os.getenv('SERVER_HOST', '127.0.0.0')
@@ -44,5 +45,4 @@ skipDBInit = Config.SKIP_DB_INIT
 serverHost = Config.SERVER_HOST
 serverPort = Config.SERVER_PORT
 debugSetting = Config.DEBUG
-
-dbName = 'UTMap'
+dbName = Config.DB_NAME
