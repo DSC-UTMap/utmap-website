@@ -8,7 +8,7 @@ import avatars from '../data/Contributors'
 
 const useStyles = makeStyles(theme => ({
     divider: {
-        marginTop: theme.spacing(2), 
+        marginTop: theme.spacing(2),
     },
     title: {
         marginTop: theme.spacing(3),
@@ -38,14 +38,14 @@ function Footer() {
     const classes = useStyles();
     return (
         <>
-            <Divider className={classes.divider}/>
+            <Divider className={classes.divider} />
             <Typography variant='h5' className={classes.title}>
                 About Us
             </Typography>
             <Grid container spacing={0}>
                 {avatars.map((avatar) => (
                     <Grid item xs>
-                        <Avatar alt={avatar.name} className={classes.icon} src={avatar.url}/>
+                        <Avatar alt={avatar.name} className={classes.icon} src={avatar.url} />
                         <Typography className={classes.name}>
                             {avatar.name}
                         </Typography>
@@ -56,9 +56,9 @@ function Footer() {
                 ))}
                 <Grid item xs={5}>
                     <Typography className={classes.description}>
-                        We are a team of students at UTM. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod 
-                        tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco 
-                        laboris nisi ut aliquip ex ea commodo consequat
+                        We are a team of students at UTM. Led by our great overlord Andi and our
+                        king Shahmeer, we have created this website to help other students find
+                        events at UTM.
                     </Typography>
                 </Grid>
             </Grid>
