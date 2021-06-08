@@ -52,7 +52,7 @@ const useStyles = makeStyles(theme => ({ //CSS styles on components
 }));
 
 
-function EventFormPage({onClose, refreshEvents, editEvent, event}) {
+function EventFormPage({onClose, refreshEvents, editEvent, event, errorCallback}) {
 	const isEdit = Object.keys(event).length !== 0;
 	const formStyle = useStyles(); 
 	const [startDate, setStartDate] = useState(isEdit ? new Date(event.startDate) : new Date());
@@ -67,8 +67,8 @@ function EventFormPage({onClose, refreshEvents, editEvent, event}) {
 
 	//Get list of buildings
 	useEffect(() => {
-		getBuildings().then(data => setBuildings(data))
-	}, []);
+		getBuildings().then(data => setBuildings(data), err => { errorCallback(err); })
+	}, [errorCallback]);
 
 	//This is where the form will send to server
 	const handleSubmit = e => {
@@ -97,10 +97,13 @@ function EventFormPage({onClose, refreshEvents, editEvent, event}) {
 			if(isEdit) {
 				eventForm._id = event._id;
 				editEvent(eventForm);
-				updateEvent(toBackend, event._id);
+				updateEvent(toBackend, event._id).then(
+					res => { refreshEvents(); }, 
+					err => { errorCallback(err); });
 			} else {
-				addEvent(toBackend);
-				refreshEvents();
+				addEvent(toBackend).then(
+					res => { refreshEvents(); }, 
+					err => { errorCallback(err); });
 			}
 			onClose();
 		}

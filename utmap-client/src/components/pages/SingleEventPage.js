@@ -13,7 +13,7 @@ import {
 	DialogTitle,
 	DialogContentText,
 	Dialog,
-	Button
+	Button,
 } from '@material-ui/core';
 import AssignmentIcon from '@material-ui/icons/Assignment';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
@@ -60,7 +60,7 @@ const useStyles = makeStyles(theme => ({ //CSS styles on components
 
 }));
 
-function SingleEventPage({event, closePopup, handleEdit, refreshEvents}) {
+function SingleEventPage({event, closePopup, handleEdit, refreshEvents, errorCallback}) {
 	const {startDate, endDate, title, description, 
 		location, sublocation, organizer} = event;
 	const classes = useStyles();
@@ -79,12 +79,17 @@ function SingleEventPage({event, closePopup, handleEdit, refreshEvents}) {
 	const handleOpenDeletionConfirm = () => {
 		setOpenDeletionConfirm(true);
 	}
-	
-	const handleDelete = (id) => {
-		deleteEvent(id);
-		refreshEvents();
+
+	async function handleDelete(id) {
+		try {
+			deleteEvent(id).then(
+				res => { refreshEvents(); }, 
+				err => { errorCallback(err) });
+			} 
+		catch(e) {
+			console.log(e);
+		}
 	}
-	
 	return (
 		<div className={classes.box}>
 			{/* Popup box for deletion confirmation*/}

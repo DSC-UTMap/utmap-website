@@ -7,6 +7,8 @@ import clsx from 'clsx';
 import Map from '../Map.js'
 import {getAllEvents} from '../../requests';
 import CircularProgress from '@material-ui/core/CircularProgress';
+import { Snackbar } from '@material-ui/core';
+import { Alert } from '@material-ui/lab';
 
 const useStyles = makeStyles(theme => ({
     hide: {
@@ -47,6 +49,7 @@ function MapPage() {
   const [openDrawer, setOpenDrawer] = useState(false);
   const [eventsList, setEventsList] = useState([]);
   const [gotEvents, setGotEvents] = useState(false);
+  const [openSnackBar500, setOpenSnackBar500] = React.useState(false);
 
   const handleDrawerOpen = () => {
     setOpenDrawer(true);
@@ -61,9 +64,20 @@ function MapPage() {
 			const tempEvents = events.map(convertEvent); //temp fix
 			setEventsList(sortEvents(tempEvents));
       setGotEvents(true);
-		});
+		}, err => handleOpenSnackBar500());
 	}, []);
 
+  const handleOpenSnackBar500 = () => {
+		setOpenSnackBar500(true);
+	};
+	
+	const handleCloseSnackBar500 = (event, reason) => {
+		if (reason === 'clickaway') {
+			return;
+		}
+		setOpenSnackBar500(false);
+	};
+  
   return (
     <>
       {/* Siderbar */}
@@ -84,6 +98,11 @@ function MapPage() {
       {/* Map */}
       {(gotEvents && <Map events={eventsList}/>) || <div className={classes.centerBox}> <CircularProgress />  </div>}
       
+      <Snackbar open={openSnackBar500} autoHideDuration={3000} onClose={handleCloseSnackBar500}>
+        <Alert elevation={6} variant="filled"  onClose={handleCloseSnackBar500} severity="error">
+					500 ERROR: Try again later!
+				</Alert>
+      </Snackbar>
     </>
   )
 }
